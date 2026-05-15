@@ -56,6 +56,7 @@ function cleanLoadedState(loaded){
 }
 
 function LoginScreen(){
+  const [mode, setMode] = useState('signin');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [status, setStatus] = useState('');
@@ -63,7 +64,7 @@ function LoginScreen(){
 
   const supabaseClient = getSupabaseClient();
 
-  const signIn = async (e) => {
+  const handleAuth = async (e) => {
     e.preventDefault();
 
     if (!supabaseClient) {
@@ -76,22 +77,40 @@ function LoginScreen(){
       return;
     }
 
-    setLoading(true);
-    setStatus('');
-
-    const { error } = await supabaseClient.auth.signInWithPassword({
-      email: email.trim(),
-      password: password
-    });
-
-    setLoading(false);
-
-    if (error) {
-      setStatus(error.message || 'Login failed.');
+    if (password.length < 6) {
+      setStatus('Password must be at least 6 characters.');
       return;
     }
 
-    setStatus('Signed in.');
+    setLoading(true);
+    setStatus('');
+
+    let result;
+
+    if (mode === 'signup') {
+      result = await supabaseClient.auth.signUp({
+        email: email.trim(),
+        password: password
+      });
+    } else {
+      result = await supabaseClient.auth.signInWithPassword({
+        email: email.trim(),
+        password: password
+      });
+    }
+
+    setLoading(false);
+
+    if (result.error) {
+      setStatus(result.error.message || 'Something went wrong.');
+      return;
+    }
+
+    if (mode === 'signup') {
+      setStatus('Account created. Loading your fresh dashboard...');
+    } else {
+      setStatus('Signed in.');
+    }
   };
 
   return (
@@ -99,13 +118,41 @@ function LoginScreen(){
       <div className="w-full max-w-md bg-surface rounded-3xl card-ring p-6 md:p-8">
         <div className="mb-6">
           <div className="text-sm text-mute mb-2">WeightLens cloud sync</div>
-          <h1 className="text-3xl font-semibold tracking-tight">Sign in to save across devices</h1>
+          <h1 className="text-3xl font-semibold tracking-tight">
+            {mode === 'signup' ? 'Create your account' : 'Sign in to save across devices'}
+          </h1>
           <p className="text-mute mt-3 leading-relaxed">
-            Sign in with your email and password. Your data will save online so it can sync across devices.
+            {mode === 'signup'
+              ? 'Create an account and start with your own private dashboard.'
+              : 'Sign in with your email and password. Your data will sync across devices.'}
           </p>
         </div>
 
-        <form onSubmit={signIn} className="space-y-4">
+        <div className="grid grid-cols-2 gap-2 mb-5 rounded-2xl bg-surface3 p-1">
+          <button
+            type="button"
+            className={`btn rounded-xl px-3 py-2 text-sm font-medium ${mode === 'signin' ? 'bg-surface card-ring' : 'text-mute'}`}
+            onClick={() => {
+              setMode('signin');
+              setStatus('');
+            }}
+          >
+            Sign in
+          </button>
+
+          <button
+            type="button"
+            className={`btn rounded-xl px-3 py-2 text-sm font-medium ${mode === 'signup' ? 'bg-surface card-ring' : 'text-mute'}`}
+            onClick={() => {
+              setMode('signup');
+              setStatus('');
+            }}
+          >
+            Create account
+          </button>
+        </div>
+
+        <form onSubmit={handleAuth} className="space-y-4">
           <input
             className="w-full rounded-2xl border hairline bg-surface3 px-4 py-3 text-base focus-ring"
             type="email"
@@ -126,7 +173,9 @@ function LoginScreen(){
             className="btn w-full rounded-2xl bg-fg text-bg px-4 py-3 font-medium disabled:opacity-50"
             disabled={loading}
           >
-            {loading ? 'Signing in...' : 'Sign in'}
+            {loading
+              ? (mode === 'signup' ? 'Creating account...' : 'Signing in...')
+              : (mode === 'signup' ? 'Create account' : 'Sign in')}
           </button>
         </form>
 
