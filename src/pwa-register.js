@@ -1,4 +1,4 @@
-// pwa-register.js — registers the service worker for installable app behavior
+// pwa-register.js — service worker + mobile polish + public landing styling
 (function registerWeightLensPWA(){
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function(){
@@ -55,24 +55,6 @@
         right: 1rem !important;
         opacity: 0.65 !important;
       }
-
-      .fixed.inset-0.z-50 input[type="date"],
-      main input[type="date"] {
-        margin-left: 0 !important;
-        margin-right: 0 !important;
-      }
-
-      .fixed.inset-0.z-50 label + input[type="date"],
-      main label + input[type="date"] {
-        align-self: stretch !important;
-      }
-
-      .fixed.inset-0.z-50 .grid,
-      main .grid,
-      .fixed.inset-0.z-50 .grid > div,
-      main .grid > div {
-        min-width: 0 !important;
-      }
     }
 
     html:has(.weightlens-landing-shell),
@@ -84,21 +66,18 @@
     }
 
     .weightlens-landing-shell,
-    html[data-theme="dark"] .weightlens-landing-shell,
-    body .weightlens-landing-shell,
-    #root .weightlens-landing-shell {
+    html[data-theme="dark"] .weightlens-landing-shell {
       min-height: 100vh !important;
       width: 100% !important;
       display: flex !important;
       flex-direction: column !important;
       align-items: stretch !important;
       justify-content: flex-start !important;
-      gap: 0 !important;
       padding: 0 !important;
       background:
-        radial-gradient(circle at 88% 18%, rgba(17,20,27,0.045), transparent 18rem),
-        radial-gradient(circle at 12% 34%, rgba(17,20,27,0.035), transparent 14rem),
-        linear-gradient(180deg, #FAFAF7 0%, #F7F7F4 100%) !important;
+        radial-gradient(circle at 86% 16%, rgba(17,20,27,0.045), transparent 18rem),
+        radial-gradient(circle at 14% 35%, rgba(17,20,27,0.03), transparent 16rem),
+        #F7F7F4 !important;
       color: #11141B !important;
       overflow-x: hidden !important;
     }
@@ -107,21 +86,10 @@
       box-sizing: border-box !important;
     }
 
-    .weightlens-landing-shell .text-fg,
-    .weightlens-landing-shell .text-bg,
-    .weightlens-landing-shell h1,
-    .weightlens-landing-shell h2,
-    .weightlens-landing-shell h3,
-    .weightlens-landing-shell p,
-    .weightlens-landing-shell div,
-    .weightlens-landing-shell span {
-      color: inherit;
-    }
-
     .weightlens-topnav {
       width: min(100%, 92rem) !important;
       margin: 0 auto !important;
-      padding: calc(env(safe-area-inset-top) + 1.15rem) 1.35rem 0 !important;
+      padding: calc(env(safe-area-inset-top) + 1.1rem) 1.35rem 0 !important;
       display: flex !important;
       align-items: flex-start !important;
       justify-content: space-between !important;
@@ -139,11 +107,11 @@
       width: 2.25rem !important;
       border-radius: 999px !important;
       border: 1px solid #11141B !important;
+      background: transparent !important;
+      color: #11141B !important;
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
-      color: #11141B !important;
-      background: transparent !important;
       margin-top: 0.1rem !important;
     }
 
@@ -192,8 +160,8 @@
       margin: 0 auto !important;
       padding: clamp(7rem, 17vh, 13rem) 1.35rem 2.4rem !important;
       color: #11141B !important;
-      animation: weightlensFadeIn 340ms ease both;
       text-align: center !important;
+      animation: weightlensFadeIn 340ms ease both;
     }
 
     .weightlens-landing-brand,
@@ -247,12 +215,7 @@
       border-radius: 0 !important;
       padding: 0 !important;
       display: block !important;
-      width: auto !important;
       color: #11141B !important;
-    }
-
-    .weightlens-landing-feature::before {
-      content: none !important;
     }
 
     .weightlens-landing-feature-title {
@@ -262,7 +225,6 @@
       letter-spacing: -0.05em !important;
       font-weight: 790 !important;
       color: #11141B !important;
-      white-space: normal !important;
       margin: 0 !important;
     }
 
@@ -279,21 +241,21 @@
     html[data-theme="dark"] .weightlens-auth-card {
       width: min(calc(100% - 2.7rem), 27rem) !important;
       margin: 0 auto clamp(2rem, 7vh, 4rem) !important;
-      border-radius: 1.2rem !important;
-      padding: 1.1rem !important;
-      background: #FFFFFF !important;
-      border: 1px solid #E7E5E1 !important;
-      box-shadow: 0 24px 70px -58px rgba(17,20,27,0.45) !important;
+      border-radius: 1.5rem !important;
+      padding: 1.35rem !important;
+      background: rgba(255,255,255,0.78) !important;
+      border: 1px solid rgba(17,20,27,0.08) !important;
+      box-shadow: 0 18px 50px -30px rgba(17,20,27,0.18) !important;
       color: #11141B !important;
-      backdrop-filter: none !important;
-      -webkit-backdrop-filter: none !important;
+      backdrop-filter: blur(14px) saturate(120%) !important;
+      -webkit-backdrop-filter: blur(14px) saturate(120%) !important;
     }
 
     .weightlens-auth-card h1 {
       font-family: 'Satoshi', 'Inter', system-ui, sans-serif !important;
-      font-size: 1.15rem !important;
-      line-height: 1.18 !important;
-      letter-spacing: -0.035em !important;
+      font-size: 1.2rem !important;
+      line-height: 1.15 !important;
+      letter-spacing: -0.04em !important;
       color: #11141B !important;
       font-weight: 720 !important;
       margin: 0 !important;
@@ -302,75 +264,38 @@
     .weightlens-auth-card p,
     .weightlens-auth-card .text-mute,
     .weightlens-auth-card .text-sm {
-      color: #777B86 !important;
-      font-size: 0.85rem !important;
-      line-height: 1.48 !important;
+      color: #6E7480 !important;
+      font-size: 0.9rem !important;
+      line-height: 1.5 !important;
     }
 
     .weightlens-auth-card form {
       width: 100% !important;
       display: flex !important;
       flex-direction: column !important;
-      gap: 0.65rem !important;
-    }
-
-    .weightlens-auth-card input,
-    html[data-theme="dark"] .weightlens-auth-card input {
-      width: 100% !important;
-      max-width: 100% !important;
-      height: 2.9rem !important;
-      border-radius: 0.9rem !important;
-      background: #F7F7F4 !important;
-      border: 1px solid #E6E2DD !important;
-      color: #11141B !important;
-      padding: 0 0.95rem !important;
-      font-size: 0.96rem !important;
-      letter-spacing: 0 !important;
-    }
-
-    .weightlens-auth-card input::placeholder {
-      color: #A1A1A1 !important;
-      letter-spacing: 0 !important;
-    }
-
-    .weightlens-auth-card form button,
-    .weightlens-auth-card button.bg-fg,
-    html[data-theme="dark"] .weightlens-auth-card form button,
-    html[data-theme="dark"] .weightlens-auth-card button.bg-fg {
-      width: 100% !important;
-      height: 2.95rem !important;
-      border-radius: 0.9rem !important;
-      background: #11141B !important;
-      color: #FFFFFF !important;
-      font-weight: 680 !important;
-      font-size: 0.94rem !important;
-      letter-spacing: -0.01em !important;
-      border: 0 !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
+      gap: 0.72rem !important;
     }
 
     .weightlens-auth-card .grid.grid-cols-2 {
       width: 100% !important;
       display: grid !important;
       grid-template-columns: 1fr 1fr !important;
-      background: #F7F7F4 !important;
-      border: 1px solid #E8E5DF !important;
-      border-radius: 0.95rem !important;
-      padding: 0.25rem !important;
-      gap: 0.25rem !important;
-      margin: 0.9rem 0 0.95rem !important;
+      background: #F1F1ED !important;
+      border: 1px solid rgba(17,20,27,0.06) !important;
+      border-radius: 1rem !important;
+      padding: 0.3rem !important;
+      gap: 0.3rem !important;
+      margin: 1rem 0 1rem !important;
     }
 
     .weightlens-auth-card .grid.grid-cols-2 button {
       width: 100% !important;
       min-width: 0 !important;
-      height: 2.35rem !important;
-      border-radius: 0.75rem !important;
+      height: 2.45rem !important;
+      border-radius: 0.8rem !important;
       background: transparent !important;
-      color: #777B86 !important;
-      font-size: 0.86rem !important;
+      color: #6E7480 !important;
+      font-size: 0.88rem !important;
       font-weight: 620 !important;
       white-space: nowrap !important;
       padding: 0 0.5rem !important;
@@ -381,36 +306,65 @@
     .weightlens-auth-card .bg-surface {
       background: #FFFFFF !important;
       color: #11141B !important;
-      box-shadow: 0 8px 22px -18px rgba(17,20,27,0.5) !important;
+      box-shadow: 0 8px 18px -14px rgba(17,20,27,0.18) !important;
     }
 
-    .weightlens-auth-card .bg-surface3 {
-      background: #F7F7F4 !important;
+    .weightlens-auth-card input,
+    html[data-theme="dark"] .weightlens-auth-card input {
+      width: 100% !important;
+      max-width: 100% !important;
+      height: 3rem !important;
+      border-radius: 1rem !important;
+      background: #F5F5F2 !important;
+      border: 1px solid rgba(17,20,27,0.07) !important;
+      color: #11141B !important;
+      padding: 0 1rem !important;
+      font-size: 0.96rem !important;
+      letter-spacing: 0 !important;
+    }
+
+    .weightlens-auth-card input::placeholder {
+      color: #8F949D !important;
+      letter-spacing: 0 !important;
+    }
+
+    .weightlens-auth-card form button,
+    .weightlens-auth-card button.bg-fg,
+    html[data-theme="dark"] .weightlens-auth-card form button,
+    html[data-theme="dark"] .weightlens-auth-card button.bg-fg {
+      width: 100% !important;
+      height: 3rem !important;
+      border-radius: 1rem !important;
+      background: #11141B !important;
+      color: #FFFFFF !important;
+      font-weight: 680 !important;
+      font-size: 0.95rem !important;
+      letter-spacing: -0.01em !important;
+      border: 0 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      box-shadow: 0 10px 24px -16px rgba(17,20,27,0.35) !important;
     }
 
     .weightlens-auth-card > .mt-4 {
-      margin-top: 0.95rem !important;
+      margin-top: 1rem !important;
       text-align: center !important;
     }
 
     .weightlens-auth-card > .mt-4 button {
       background: transparent !important;
-      color: #777B86 !important;
+      color: #6E7480 !important;
       width: auto !important;
       height: auto !important;
       border: 0 !important;
       font-size: 0.9rem !important;
+      box-shadow: none !important;
     }
 
     @keyframes weightlensFadeIn {
       from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
-    }
-
-    @media (min-width: 900px) {
-      .weightlens-auth-card {
-        margin-top: 1rem !important;
-      }
     }
 
     @media (max-width: 640px) {
