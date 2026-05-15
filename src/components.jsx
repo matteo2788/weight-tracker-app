@@ -90,13 +90,13 @@ function IconButton({ className='', children, ...rest }){
   );
 }
 function Input({ className='', ...rest }){
-  return <input className={`bg-surface3 border border-line2 rounded-xl h-10 px-3 text-fg placeholder:text-mute2 focus-ring ${className}`} {...rest}/>;
+  return <input className={`min-w-0 bg-surface3 border border-line2 rounded-xl h-10 px-3 text-fg placeholder:text-mute2 focus-ring ${className}`} {...rest}/>;
 }
 function Select({ className='', children, ...rest }){
-  return <select className={`bg-surface3 border border-line2 rounded-xl h-10 px-3 pr-8 text-fg focus-ring appearance-none cursor-pointer ${className}`} {...rest}>{children}</select>;
+  return <select className={`min-w-0 bg-surface3 border border-line2 rounded-xl h-10 px-3 pr-8 text-fg focus-ring appearance-none cursor-pointer ${className}`} {...rest}>{children}</select>;
 }
 function Textarea({ className='', ...rest }){
-  return <textarea className={`bg-surface3 border border-line2 rounded-xl px-3 py-2 text-fg placeholder:text-mute2 focus-ring ${className}`} {...rest}/>;
+  return <textarea className={`min-w-0 bg-surface3 border border-line2 rounded-xl px-3 py-2 text-fg placeholder:text-mute2 focus-ring ${className}`} {...rest}/>;
 }
 function Toggle({ checked, onChange, label }){
   return (
@@ -151,14 +151,14 @@ function EmptyState({ title, body, action=null, icon=null }){
 function Modal({ open, onClose, title, children, maxWidth='max-w-lg' }){
   if (!open) return null;
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 fadein">
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose}/>
-      <div className={`relative ${maxWidth} w-full bg-surface2 border border-line rounded-2xl shadow-pop pop`}>
-        <div className="flex items-center justify-between p-5 border-b hairline">
-          <div className="font-medium">{title}</div>
-          <IconButton onClick={onClose}><I.X className="h-4 w-4"/></IconButton>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-5 fadein">
+      <div className="absolute inset-0 bg-black/55 backdrop-blur-[2px]" onClick={onClose}/>
+      <div className={`relative ${maxWidth} w-full max-h-[calc(100vh-1.5rem)] sm:max-h-[calc(100vh-2.5rem)] bg-surface2 border border-line rounded-2xl shadow-pop pop overflow-hidden flex flex-col`}>
+        <div className="shrink-0 flex items-center justify-between gap-3 p-4 sm:p-5 border-b hairline">
+          <div className="font-medium leading-snug pr-2">{title}</div>
+          <IconButton className="shrink-0" onClick={onClose}><I.X className="h-4 w-4"/></IconButton>
         </div>
-        <div className="p-5">{children}</div>
+        <div className="p-4 sm:p-5 overflow-y-auto overscroll-contain">{children}</div>
       </div>
     </div>
   );
@@ -200,8 +200,8 @@ const NAV = [
 
 function Sidebar({ route, setRoute, onClose }){
   const { state } = useApp();
-  const name = state.profile?.name || 'Matteo';
-  const initial = (name[0]||'M').toUpperCase();
+  const name = state.profile?.name || 'New User';
+  const initial = (name[0]||'N').toUpperCase();
   return (
     <aside className="h-full w-[240px] shrink-0 flex flex-col bg-surface border-r hairline">
       <div className="px-5 pt-5 pb-4 flex items-center justify-between">
@@ -238,7 +238,7 @@ function Sidebar({ route, setRoute, onClose }){
           <div className="h-9 w-9 rounded-full bg-gradient-to-br from-accent to-accent2 flex items-center justify-center text-white font-semibold text-sm">{initial}</div>
           <div className="min-w-0 flex-1">
             <div className="text-[13px] truncate">{name}</div>
-            <div className="text-[11px] text-mute truncate">Local data only</div>
+            <div className="text-[11px] text-mute truncate">Cloud sync enabled</div>
           </div>
           <IconButton onClick={()=>setRoute('settings')}><I.Settings className="h-4 w-4"/></IconButton>
         </div>
