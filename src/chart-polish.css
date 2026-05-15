@@ -19,6 +19,81 @@ html[data-theme="dark"] .recharts-tooltip-wrapper .text-accent {
 }
 
 @media (max-width: 640px) {
+  html,
+  body {
+    overflow-x: hidden !important;
+  }
+
+  body {
+    padding-bottom: env(safe-area-inset-bottom) !important;
+  }
+
+  main {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+    padding-top: 1.15rem !important;
+    padding-bottom: calc(2rem + env(safe-area-inset-bottom)) !important;
+  }
+
+  h1,
+  .text-\[28px\] {
+    line-height: 1.08 !important;
+    letter-spacing: -0.04em !important;
+  }
+
+  .rounded-2xl {
+    border-radius: 1.15rem !important;
+  }
+
+  .rounded-3xl {
+    border-radius: 1.45rem !important;
+  }
+
+  .shadow-card,
+  .card-ring {
+    box-shadow: 0 0 0 1px rgba(10,10,10,0.055), 0 14px 34px -28px rgba(10,10,10,0.45) !important;
+  }
+
+  html[data-theme="dark"] .shadow-card,
+  html[data-theme="dark"] .card-ring {
+    box-shadow: 0 0 0 1px rgba(243,238,231,0.075), 0 16px 36px -28px rgba(0,0,0,0.95) !important;
+  }
+
+  .grid.grid-cols-2.lg\:grid-cols-4.gap-3 {
+    gap: 0.75rem !important;
+  }
+
+  .grid.grid-cols-2.lg\:grid-cols-4.gap-3 > div {
+    padding: 1rem !important;
+    min-height: 8.35rem !important;
+  }
+
+  .grid.grid-cols-2.lg\:grid-cols-4.gap-3 .display.text-\[34px\] {
+    font-size: clamp(2rem, 10vw, 3rem) !important;
+    line-height: 0.98 !important;
+  }
+
+  .grid.grid-cols-2.lg\:grid-cols-4.gap-3 .text-\[11px\].uppercase {
+    letter-spacing: 0.16em !important;
+    line-height: 1.35 !important;
+  }
+
+  .flex.flex-col.md\:flex-row.md\:items-end.justify-between.gap-3 > .flex.gap-2 {
+    width: 100% !important;
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 0.75rem !important;
+  }
+
+  .flex.flex-col.md\:flex-row.md\:items-end.justify-between.gap-3 > .flex.gap-2 button {
+    width: 100% !important;
+    min-height: 3rem !important;
+    padding-left: 0.7rem !important;
+    padding-right: 0.7rem !important;
+    white-space: normal !important;
+    line-height: 1.15 !important;
+  }
+
   .recharts-tooltip-wrapper {
     max-width: calc(100vw - 2rem) !important;
   }
@@ -38,6 +113,16 @@ html[data-theme="dark"] .recharts-tooltip-wrapper .text-accent {
     width: 100% !important;
     overflow-x: auto !important;
     justify-content: flex-start !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+  }
+
+  div:has(.recharts-responsive-container) > div:first-child.flex.items-center.justify-between > div:last-child::-webkit-scrollbar {
+    display: none !important;
+  }
+
+  div:has(.recharts-responsive-container) > div:first-child.flex.items-center.justify-between > div:last-child button {
+    flex: 0 0 auto !important;
   }
 
   div:has(.recharts-responsive-container) > div:last-child.flex.items-center.gap-4 {
@@ -51,5 +136,44 @@ html[data-theme="dark"] .recharts-tooltip-wrapper .text-accent {
   div:has(.recharts-responsive-container) > div:last-child.flex.items-center.gap-4 > span.ml-auto {
     margin-left: 0 !important;
     width: 100% !important;
+  }
+
+  input,
+  select,
+  textarea,
+  button {
+    font-size: 16px !important;
+  }
+
+  input[type="date"],
+  input[type="time"],
+  select {
+    min-height: 2.75rem !important;
+  }
+
+  .fixed.bottom-4.right-4 {
+    left: 1rem !important;
+    right: 1rem !important;
+    bottom: calc(1rem + env(safe-area-inset-bottom)) !important;
+  }
+
+  .fixed.bottom-4.right-4 > div {
+    width: fit-content !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .fixed.inset-0.z-50 {
+    padding-left: 0.75rem !important;
+    padding-right: 0.75rem !important;
+  }
+
+  .fixed.inset-0.z-50 > .relative {
+    width: 100% !important;
+    max-width: calc(100vw - 1.5rem) !important;
+  }
+
+  .fixed.inset-0.z-50 > .relative > div:last-child {
+    padding: 1rem !important;
   }
 }
