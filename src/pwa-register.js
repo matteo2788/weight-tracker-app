@@ -75,7 +75,18 @@
       }
     }
 
-    .weightlens-landing-shell {
+    html:has(.weightlens-landing-shell),
+    html:has(.weightlens-landing-shell) body,
+    html:has(.weightlens-landing-shell) #root {
+      background: #F7F7F4 !important;
+      color: #11141B !important;
+      color-scheme: light !important;
+    }
+
+    .weightlens-landing-shell,
+    html[data-theme="dark"] .weightlens-landing-shell,
+    body .weightlens-landing-shell,
+    #root .weightlens-landing-shell {
       min-height: 100vh !important;
       width: 100% !important;
       display: flex !important;
@@ -84,7 +95,10 @@
       justify-content: flex-start !important;
       gap: 0 !important;
       padding: 0 !important;
-      background: #F7F7F4 !important;
+      background:
+        radial-gradient(circle at 88% 18%, rgba(17,20,27,0.045), transparent 18rem),
+        radial-gradient(circle at 12% 34%, rgba(17,20,27,0.035), transparent 14rem),
+        linear-gradient(180deg, #FAFAF7 0%, #F7F7F4 100%) !important;
       color: #11141B !important;
       overflow-x: hidden !important;
     }
@@ -93,72 +107,84 @@
       box-sizing: border-box !important;
     }
 
+    .weightlens-landing-shell .text-fg,
+    .weightlens-landing-shell .text-bg,
+    .weightlens-landing-shell h1,
+    .weightlens-landing-shell h2,
+    .weightlens-landing-shell h3,
+    .weightlens-landing-shell p,
+    .weightlens-landing-shell div,
+    .weightlens-landing-shell span {
+      color: inherit;
+    }
+
     .weightlens-topnav {
-      width: min(100%, 92rem);
-      margin: 0 auto;
-      padding: calc(env(safe-area-inset-top) + 1.15rem) 1.35rem 0;
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      color: #11141B;
+      width: min(100%, 92rem) !important;
+      margin: 0 auto !important;
+      padding: calc(env(safe-area-inset-top) + 1.15rem) 1.35rem 0 !important;
+      display: flex !important;
+      align-items: flex-start !important;
+      justify-content: space-between !important;
+      color: #11141B !important;
     }
 
     .weightlens-topnav-logo {
-      display: flex;
-      align-items: flex-start;
-      gap: 0.7rem;
+      display: flex !important;
+      align-items: flex-start !important;
+      gap: 0.7rem !important;
     }
 
     .weightlens-topnav-mark {
-      height: 2.25rem;
-      width: 2.25rem;
-      border-radius: 999px;
-      border: 1px solid #11141B;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #11141B;
-      margin-top: 0.1rem;
+      height: 2.25rem !important;
+      width: 2.25rem !important;
+      border-radius: 999px !important;
+      border: 1px solid #11141B !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      color: #11141B !important;
+      background: transparent !important;
+      margin-top: 0.1rem !important;
     }
 
     .weightlens-topnav-name {
-      font-family: 'Satoshi', 'Inter', system-ui, sans-serif;
-      font-size: 1.8rem;
-      line-height: 0.9;
-      letter-spacing: -0.075em;
-      font-weight: 760;
-      color: #11141B;
+      font-family: 'Satoshi', 'Inter', system-ui, sans-serif !important;
+      font-size: 1.8rem !important;
+      line-height: 0.9 !important;
+      letter-spacing: -0.075em !important;
+      font-weight: 760 !important;
+      color: #11141B !important;
     }
 
     .weightlens-topnav-sub {
-      margin-top: 0.25rem;
-      margin-left: 0.15rem;
-      color: #8C8790;
-      font-size: 0.63rem;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      font-weight: 700;
+      margin-top: 0.25rem !important;
+      margin-left: 0.15rem !important;
+      color: #8C8790 !important;
+      font-size: 0.63rem !important;
+      letter-spacing: 0.22em !important;
+      text-transform: uppercase !important;
+      font-weight: 700 !important;
     }
 
     .weightlens-topnav-menu {
-      width: 1.8rem;
-      height: 1.8rem;
-      border: 0;
-      background: transparent;
-      color: #11141B;
-      display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
-      align-items: center;
-      justify-content: center;
-      padding: 0;
+      width: 1.8rem !important;
+      height: 1.8rem !important;
+      border: 0 !important;
+      background: transparent !important;
+      color: #11141B !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 0.35rem !important;
+      align-items: center !important;
+      justify-content: center !important;
+      padding: 0 !important;
     }
 
     .weightlens-topnav-menu span {
-      display: block;
-      width: 1.35rem;
-      height: 1px;
-      background: #11141B;
+      display: block !important;
+      width: 1.35rem !important;
+      height: 1px !important;
+      background: #11141B !important;
     }
 
     .weightlens-landing-copy {
@@ -170,10 +196,7 @@
       text-align: center !important;
     }
 
-    .weightlens-landing-brand {
-      display: none !important;
-    }
-
+    .weightlens-landing-brand,
     .weightlens-landing-mark,
     .weightlens-landing-wordmark {
       display: none !important;
@@ -252,7 +275,8 @@
       line-height: 1.45 !important;
     }
 
-    .weightlens-auth-card {
+    .weightlens-auth-card,
+    html[data-theme="dark"] .weightlens-auth-card {
       width: min(calc(100% - 2.7rem), 27rem) !important;
       margin: 0 auto clamp(2rem, 7vh, 4rem) !important;
       border-radius: 1.2rem !important;
@@ -290,7 +314,8 @@
       gap: 0.65rem !important;
     }
 
-    .weightlens-auth-card input {
+    .weightlens-auth-card input,
+    html[data-theme="dark"] .weightlens-auth-card input {
       width: 100% !important;
       max-width: 100% !important;
       height: 2.9rem !important;
@@ -309,7 +334,9 @@
     }
 
     .weightlens-auth-card form button,
-    .weightlens-auth-card button.bg-fg {
+    .weightlens-auth-card button.bg-fg,
+    html[data-theme="dark"] .weightlens-auth-card form button,
+    html[data-theme="dark"] .weightlens-auth-card button.bg-fg {
       width: 100% !important;
       height: 2.95rem !important;
       border-radius: 0.9rem !important;
@@ -451,6 +478,10 @@
     if (!isAuthScreen) return;
 
     shell.classList.add('weightlens-landing-shell');
+    document.documentElement.classList.add('weightlens-auth-mode');
+    document.documentElement.style.background = '#F7F7F4';
+    document.body.style.background = '#F7F7F4';
+    document.body.style.color = '#11141B';
 
     const authCard = Array.from(shell.children).find(el => el.classList && el.classList.contains('max-w-md') && !el.classList.contains('weightlens-landing-copy'));
     if (authCard) authCard.classList.add('weightlens-auth-card');
