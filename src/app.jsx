@@ -87,13 +87,37 @@ function LoginScreen(){
       return;
     }
 
+    if (!email.trim()) {
+      setStatus('Enter your email.');
+      return;
+    }
+
+    if (mode === 'reset') {
+      setLoading(true);
+      setStatus('');
+
+      const result = await supabaseClient.auth.resetPasswordForEmail(email.trim(), {
+        redirectTo: getPasswordResetRedirectUrl()
+      });
+
+      setLoading(false);
+
+      if (result.error) {
+        setStatus(result.error.message || 'Could not send reset email.');
+        return;
+      }
+
+      setStatus('Password reset email sent. Check your inbox, then open the reset link.');
+      return;
+    }
+
     if (mode === 'signup' && !name.trim()) {
       setStatus('Enter your name.');
       return;
     }
 
-    if (!email.trim() || !password.trim()) {
-      setStatus('Enter your email and password.');
+    if (!password.trim()) {
+      setStatus('Enter your password.');
       return;
     }
 
@@ -143,39 +167,49 @@ function LoginScreen(){
       <div className="w-full max-w-md bg-surface rounded-3xl card-ring p-6 md:p-8">
         <div className="mb-6">
           <div className="text-sm text-mute mb-2">WeightLens cloud sync</div>
+
           <h1 className="text-3xl font-semibold tracking-tight">
-            {mode === 'signup' ? 'Create your account' : 'Sign in to save across devices'}
+            {mode === 'signup'
+              ? 'Create your account'
+              : mode === 'reset'
+                ? 'Reset your password'
+                : 'Sign in to save across devices'}
           </h1>
+
           <p className="text-mute mt-3 leading-relaxed">
             {mode === 'signup'
               ? 'Create an account and start with your own private dashboard.'
-              : 'Sign in with your email and password. Your data will sync across devices.'}
+              : mode === 'reset'
+                ? 'Enter your email and we will send you a secure password reset link.'
+                : 'Sign in with your email and password. Your data will sync across devices.'}
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-2 mb-5 rounded-2xl bg-surface3 p-1">
-          <button
-            type="button"
-            className={`btn rounded-xl px-3 py-2 text-sm font-medium ${mode === 'signin' ? 'bg-surface card-ring' : 'text-mute'}`}
-            onClick={() => {
-              setMode('signin');
-              setStatus('');
-            }}
-          >
-            Sign in
-          </button>
+        {mode !== 'reset' && (
+          <div className="grid grid-cols-2 gap-2 mb-5 rounded-2xl bg-surface3 p-1">
+            <button
+              type="button"
+              className={`btn rounded-xl px-3 py-2 text-sm font-medium ${mode === 'signin' ? 'bg-surface card-ring' : 'text-mute'}`}
+              onClick={() => {
+                setMode('signin');
+                setStatus('');
+              }}
+            >
+              Sign in
+            </button>
 
-          <button
-            type="button"
-            className={`btn rounded-xl px-3 py-2 text-sm font-medium ${mode === 'signup' ? 'bg-surface card-ring' : 'text-mute'}`}
-            onClick={() => {
-              setMode('signup');
-              setStatus('');
-            }}
-          >
-            Create account
-          </button>
-        </div>
+            <button
+              type="button"
+              className={`btn rounded-xl px-3 py-2 text-sm font-medium ${mode === 'signup' ? 'bg-surface card-ring' : 'text-mute'}`}
+              onClick={() => {
+                setMode('signup');
+                setStatus('');
+              }}
+            >
+              Create account
+            </button>
+          </div>
+        )}
 
         <form onSubmit={handleAuth} className="space-y-4">
           {mode === 'signup' && (
@@ -196,23 +230,54 @@ function LoginScreen(){
             onChange={e => setEmail(e.target.value)}
           />
 
-          <input
-            className="w-full rounded-2xl border hairline bg-surface3 px-4 py-3 text-base focus-ring"
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={e => setPassword(e.target.value)}
-          />
+          {mode !== 'reset' && (
+            <input
+              className="w-full rounded-2xl border hairline bg-surface3 px-4 py-3 text-base focus-ring"
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
+            />
+          )}
 
           <button
             className="btn w-full rounded-2xl bg-fg text-bg px-4 py-3 font-medium disabled:opacity-50"
             disabled={loading}
           >
             {loading
-              ? (mode === 'signup' ? 'Creating account...' : 'Signing in...')
-              : (mode === 'signup' ? 'Create account' : 'Sign in')}
+              ? (mode === 'signup' ? 'Creating account...' : mode === 'reset' ? 'Sending reset link...' : 'Signing in...')
+              : (mode === 'signup' ? 'Create account' : mode === 'reset' ? 'Send reset link' : 'Sign in')}
           </button>
         </form>
+
+        <div className="mt-4 flex items-center justify-center gap-3 text-sm">
+          {mode === 'signin' && (
+            <button
+              type="button"
+              className="btn text-mute hover:text-fg"
+              onClick={() => {
+                setMode('reset');
+                setPassword('');
+                setStatus('');
+              }}
+            >
+              Forgot password?
+            </button>
+          )}
+
+          {mode === 'reset' && (
+            <button
+              type="button"
+              className="btn text-mute hover:text-fg"
+              onClick={() => {
+                setMode('signin');
+                setStatus('');
+              }}
+            >
+              Back to sign in
+            </button>
+          )}
+        </div>
 
         {status && (
           <div className="mt-4 text-sm text-mute leading-relaxed">
