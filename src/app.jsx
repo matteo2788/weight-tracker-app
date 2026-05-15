@@ -288,7 +288,102 @@ function LoginScreen(){
     </div>
   );
 }
+function ResetPasswordScreen({ onDone }){
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [status, setStatus] = useState('');
+  const [loading, setLoading] = useState(false);
 
+  const supabaseClient = getSupabaseClient();
+
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+
+    if (!supabaseClient) {
+      setStatus('Supabase is not connected.');
+      return;
+    }
+
+    if (password.length < 6) {
+      setStatus('Password must be at least 6 characters.');
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      setStatus('Passwords do not match.');
+      return;
+    }
+
+    setLoading(true);
+    setStatus('');
+
+    const { error } = await supabaseClient.auth.updateUser({ password });
+
+    setLoading(false);
+
+    if (error) {
+      setStatus(error.message || 'Could not update password.');
+      return;
+    }
+
+    setStatus('Password updated. You can continue to your dashboard.');
+  };
+
+  return (
+    <div className="min-h-screen bg-bg text-fg flex items-center justify-center p-6">
+      <div className="w-full max-w-md bg-surface rounded-3xl card-ring p-6 md:p-8">
+        <div className="mb-6">
+          <div className="text-sm text-mute mb-2">Secure recovery</div>
+          <h1 className="text-3xl font-semibold tracking-tight">Set a new password</h1>
+          <p className="text-mute mt-3 leading-relaxed">
+            Choose a new password for your WeightLens account.
+          </p>
+        </div>
+
+        <form onSubmit={handleUpdate} className="space-y-4">
+          <input
+            className="w-full rounded-2xl border hairline bg-surface3 px-4 py-3 text-base focus-ring"
+            type="password"
+            placeholder="New password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          />
+
+          <input
+            className="w-full rounded-2xl border hairline bg-surface3 px-4 py-3 text-base focus-ring"
+            type="password"
+            placeholder="Confirm new password"
+            value={confirmPassword}
+            onChange={e => setConfirmPassword(e.target.value)}
+          />
+
+          <button
+            className="btn w-full rounded-2xl bg-fg text-bg px-4 py-3 font-medium disabled:opacity-50"
+            disabled={loading}
+          >
+            {loading ? 'Updating password...' : 'Update password'}
+          </button>
+        </form>
+
+        {status && (
+          <div className="mt-4 text-sm text-mute leading-relaxed">
+            {status}
+          </div>
+        )}
+
+        {status.startsWith('Password updated') && (
+          <button
+            type="button"
+            className="btn mt-4 w-full rounded-2xl bg-surface3 text-fg border border-line2 px-4 py-3 font-medium"
+            onClick={onDone}
+          >
+            Continue to dashboard
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
 function App(){
   const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
   const [state, setState] = useState(() => loadState());
