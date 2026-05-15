@@ -81,7 +81,7 @@ function freshState(){
     photos: [],
     goal: { ...DEFAULT_GOAL },
     settings: { ...DEFAULT_SETTINGS },
-    profile: { name: 'New User', ...(parsed.profile||{}) },
+    profile: { name: 'New User' },
   };
 }
 
@@ -99,7 +99,7 @@ function loadState(){
       ...parsed,
       settings: { ...DEFAULT_SETTINGS, ...(parsed.settings||{}) },
       goal: { ...DEFAULT_GOAL, ...(parsed.goal||{}) },
-      profile: { name: 'Matteo', ...(parsed.profile||{}) },
+      profile: { name: 'New User', ...(parsed.profile||{}) },
     };
   } catch(e){
     return freshState();
