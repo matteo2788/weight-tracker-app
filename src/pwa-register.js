@@ -8,7 +8,6 @@
     });
   }
 
-  // Mobile PWA safe-area + iOS form polish + public landing screen polish.
   const style = document.createElement('style');
   style.id = 'weightlens-pwa-safe-area-polish';
   style.textContent = `
@@ -84,73 +83,78 @@
       align-items: center !important;
       justify-content: flex-start !important;
       gap: 1.15rem !important;
-      padding: calc(env(safe-area-inset-top) + 1.25rem) 1rem calc(env(safe-area-inset-bottom) + 1.25rem) !important;
+      padding: calc(env(safe-area-inset-top) + 1.1rem) 1rem calc(env(safe-area-inset-bottom) + 1.25rem) !important;
       background:
-        radial-gradient(circle at 50% -10%, rgba(101,163,13,0.14), transparent 22rem),
-        linear-gradient(180deg, #10160d 0%, #0F0F10 42%, #0F0F10 100%) !important;
-      color: #F3EEE7 !important;
+        radial-gradient(circle at 78% 10%, rgba(255,255,255,0.06), transparent 16rem),
+        radial-gradient(circle at 8% 28%, rgba(255,255,255,0.045), transparent 14rem),
+        #050505 !important;
+      color: #F7F4EF !important;
       overflow-x: hidden !important;
+    }
+
+    .weightlens-landing-shell * {
+      box-sizing: border-box !important;
     }
 
     .weightlens-landing-copy {
       width: 100% !important;
-      max-width: 30rem !important;
-      color: #F3EEE7 !important;
-      animation: weightlensFadeIn 360ms ease both;
+      max-width: 29rem !important;
+      color: #F7F4EF !important;
+      animation: weightlensFadeIn 320ms ease both;
     }
 
     .weightlens-landing-brand {
       display: inline-flex !important;
       align-items: center !important;
-      gap: 0.72rem !important;
-      margin-bottom: 1.15rem !important;
+      gap: 0.75rem !important;
+      margin-bottom: 1.35rem !important;
     }
 
     .weightlens-landing-mark {
-      height: 2.4rem !important;
-      width: 2.4rem !important;
+      height: 2.45rem !important;
+      width: 2.45rem !important;
       border-radius: 0.9rem !important;
-      background: #F3EEE7 !important;
-      color: #0F0F10 !important;
+      background: #F7F4EF !important;
+      color: #050505 !important;
       display: inline-flex !important;
       align-items: center !important;
       justify-content: center !important;
-      box-shadow: 0 20px 65px -34px rgba(243,238,231,0.7) !important;
+      box-shadow: none !important;
     }
 
     .weightlens-landing-wordmark {
       font-family: 'Satoshi', 'Inter', system-ui, sans-serif !important;
-      font-weight: 800 !important;
-      font-size: 1rem !important;
+      font-weight: 760 !important;
+      font-size: 1.02rem !important;
       letter-spacing: -0.035em !important;
       line-height: 1 !important;
     }
 
     .weightlens-landing-kicker {
-      color: #C8B9A6 !important;
-      font-size: 0.66rem !important;
+      color: rgba(247,244,239,0.56) !important;
+      font-size: 0.62rem !important;
       text-transform: uppercase !important;
-      letter-spacing: 0.2em !important;
+      letter-spacing: 0.18em !important;
       font-weight: 700 !important;
       line-height: 1.35 !important;
     }
 
     .weightlens-landing-title {
       font-family: 'Satoshi', 'Inter', system-ui, sans-serif !important;
-      font-size: clamp(2.15rem, 9.3vw, 3.15rem) !important;
-      line-height: 0.98 !important;
+      font-size: clamp(2.05rem, 9.8vw, 2.85rem) !important;
+      line-height: 1.02 !important;
       letter-spacing: -0.055em !important;
-      font-weight: 800 !important;
-      margin: 0.55rem 0 0 !important;
-      max-width: 12ch !important;
+      font-weight: 790 !important;
+      margin: 0.6rem 0 0 !important;
+      max-width: 12.5ch !important;
     }
 
     .weightlens-landing-body {
-      color: rgba(243,238,231,0.68) !important;
-      font-size: 0.95rem !important;
-      line-height: 1.55 !important;
-      margin-top: 0.9rem !important;
-      max-width: 30rem !important;
+      color: rgba(247,244,239,0.62) !important;
+      font-size: 0.92rem !important;
+      line-height: 1.52 !important;
+      margin-top: 0.85rem !important;
+      max-width: 27rem !important;
     }
 
     .weightlens-landing-features {
@@ -161,33 +165,36 @@
     }
 
     .weightlens-landing-feature {
-      border: 1px solid rgba(243,238,231,0.095) !important;
-      background: rgba(243,238,231,0.045) !important;
+      border: 1px solid rgba(247,244,239,0.12) !important;
+      background: rgba(247,244,239,0.035) !important;
       border-radius: 999px !important;
-      padding: 0.48rem 0.68rem !important;
-      backdrop-filter: blur(12px) !important;
-      -webkit-backdrop-filter: blur(12px) !important;
+      padding: 0.46rem 0.68rem !important;
       display: inline-flex !important;
       align-items: center !important;
-      gap: 0.45rem !important;
+      gap: 0.42rem !important;
       width: auto !important;
+      min-width: 0 !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
     }
 
     .weightlens-landing-feature::before {
       content: '';
-      height: 0.35rem;
-      width: 0.35rem;
+      height: 0.32rem;
+      width: 0.32rem;
       border-radius: 999px;
-      background: rgb(var(--accent-rgb));
+      background: rgba(247,244,239,0.42);
       flex: 0 0 auto;
     }
 
     .weightlens-landing-feature-title {
-      font-weight: 650 !important;
-      font-size: 0.76rem !important;
+      font-weight: 620 !important;
+      font-size: 0.74rem !important;
       margin: 0 !important;
-      color: rgba(243,238,231,0.88) !important;
+      color: rgba(247,244,239,0.82) !important;
       line-height: 1 !important;
+      white-space: nowrap !important;
+      letter-spacing: -0.01em !important;
     }
 
     .weightlens-landing-feature-body {
@@ -196,15 +203,15 @@
 
     .weightlens-landing-shell > .w-full.max-w-md {
       width: 100% !important;
-      max-width: 30rem !important;
-      border-radius: 1.5rem !important;
-      padding: 1.25rem !important;
-      background: rgba(26,26,28,0.88) !important;
-      border: 1px solid rgba(243,238,231,0.10) !important;
-      box-shadow: 0 24px 80px -52px rgba(0,0,0,0.95), 0 0 0 1px rgba(255,255,255,0.035) inset !important;
-      color: #F3EEE7 !important;
-      backdrop-filter: blur(16px) saturate(1.08) !important;
-      -webkit-backdrop-filter: blur(16px) saturate(1.08) !important;
+      max-width: 29rem !important;
+      border-radius: 1.35rem !important;
+      padding: 1.15rem !important;
+      background: #111112 !important;
+      border: 1px solid rgba(247,244,239,0.10) !important;
+      box-shadow: 0 24px 70px -52px rgba(0,0,0,0.95) !important;
+      color: #F7F4EF !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
     }
 
     .weightlens-landing-shell > .w-full.max-w-md > div:first-child {
@@ -212,62 +219,112 @@
     }
 
     .weightlens-landing-shell > .w-full.max-w-md h1 {
-      font-size: 1.45rem !important;
+      font-size: 1.38rem !important;
       line-height: 1.12 !important;
       letter-spacing: -0.035em !important;
-      max-width: 18rem !important;
+      max-width: none !important;
+      color: #F7F4EF !important;
     }
 
-    .weightlens-landing-shell > .w-full.max-w-md p {
-      font-size: 0.9rem !important;
-      line-height: 1.5 !important;
-      margin-top: 0.75rem !important;
-      color: rgba(243,238,231,0.64) !important;
+    .weightlens-landing-shell > .w-full.max-w-md p,
+    .weightlens-landing-shell > .w-full.max-w-md .text-mute,
+    .weightlens-landing-shell > .w-full.max-w-md .text-sm {
+      font-size: 0.88rem !important;
+      line-height: 1.48 !important;
+      color: rgba(247,244,239,0.58) !important;
+    }
+
+    .weightlens-landing-shell > .w-full.max-w-md form {
+      width: 100% !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 0.75rem !important;
     }
 
     .weightlens-landing-shell > .w-full.max-w-md input {
       width: 100% !important;
-      background: #242427 !important;
-      border-color: rgba(243,238,231,0.10) !important;
-      color: #F3EEE7 !important;
-      height: 3rem !important;
+      max-width: 100% !important;
+      background: #1B1B1D !important;
+      border-color: rgba(247,244,239,0.10) !important;
+      color: #F7F4EF !important;
+      height: 3.2rem !important;
       border-radius: 1rem !important;
       font-size: 1rem !important;
+      padding-left: 1rem !important;
+      padding-right: 1rem !important;
+      letter-spacing: 0 !important;
     }
 
     .weightlens-landing-shell > .w-full.max-w-md input::placeholder {
-      color: rgba(243,238,231,0.42) !important;
+      color: rgba(247,244,239,0.38) !important;
+      letter-spacing: 0 !important;
     }
 
+    .weightlens-landing-shell > .w-full.max-w-md form button,
     .weightlens-landing-shell > .w-full.max-w-md button.bg-fg {
-      background: #F3EEE7 !important;
-      color: #0F0F10 !important;
-      height: 3rem !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      background: #F7F4EF !important;
+      color: #050505 !important;
+      height: 3.15rem !important;
       border-radius: 1rem !important;
+      font-size: 0.98rem !important;
+      font-weight: 720 !important;
+      letter-spacing: -0.015em !important;
+      padding: 0 1rem !important;
     }
 
     .weightlens-landing-shell > .w-full.max-w-md .grid.grid-cols-2 {
-      background: rgba(243,238,231,0.055) !important;
+      width: 100% !important;
+      display: grid !important;
+      grid-template-columns: 1fr 1fr !important;
+      background: #1B1B1D !important;
+      border: 1px solid rgba(247,244,239,0.07) !important;
       border-radius: 1rem !important;
       gap: 0.25rem !important;
       margin-bottom: 1rem !important;
+      padding: 0.25rem !important;
     }
 
     .weightlens-landing-shell > .w-full.max-w-md .grid.grid-cols-2 button {
+      width: 100% !important;
       min-width: 0 !important;
-      white-space: normal !important;
-      line-height: 1.1 !important;
-      border-radius: 0.85rem !important;
+      white-space: nowrap !important;
+      line-height: 1 !important;
+      border-radius: 0.8rem !important;
       font-size: 0.86rem !important;
+      height: 2.45rem !important;
+      padding: 0 0.5rem !important;
+      background: transparent !important;
+      color: rgba(247,244,239,0.55) !important;
+    }
+
+    .weightlens-landing-shell > .w-full.max-w-md .grid.grid-cols-2 button.bg-surface {
+      background: #F7F4EF !important;
+      color: #050505 !important;
     }
 
     .weightlens-landing-shell > .w-full.max-w-md .bg-surface3 {
-      background: rgba(243,238,231,0.06) !important;
+      background: #1B1B1D !important;
     }
 
     .weightlens-landing-shell > .w-full.max-w-md .bg-surface {
-      background: rgba(243,238,231,0.12) !important;
-      color: #F3EEE7 !important;
+      background: #F7F4EF !important;
+      color: #050505 !important;
+    }
+
+    .weightlens-landing-shell > .w-full.max-w-md > .mt-4 {
+      margin-top: 1rem !important;
+    }
+
+    .weightlens-landing-shell > .w-full.max-w-md > .mt-4 button {
+      color: rgba(247,244,239,0.58) !important;
+      background: transparent !important;
+      width: auto !important;
+      height: auto !important;
     }
 
     @keyframes weightlensFadeIn {
@@ -283,43 +340,35 @@
         gap: clamp(3rem, 7vw, 7rem) !important;
         padding: 4rem !important;
         background:
-          radial-gradient(circle at 18% 14%, rgba(101,163,13,0.13), transparent 35rem),
-          radial-gradient(circle at 88% 88%, rgba(200,185,166,0.07), transparent 28rem),
-          #0F0F10 !important;
+          radial-gradient(circle at 75% 20%, rgba(247,244,239,0.05), transparent 32rem),
+          #050505 !important;
       }
 
       .weightlens-landing-copy {
-        max-width: 34rem !important;
-      }
-
-      .weightlens-landing-brand {
-        margin-bottom: 2rem !important;
-      }
-
-      .weightlens-landing-title {
-        font-size: clamp(3.55rem, 4.6vw, 4.75rem) !important;
-        max-width: 11ch !important;
-      }
-
-      .weightlens-landing-body {
-        font-size: 1.05rem !important;
         max-width: 32rem !important;
       }
 
-      .weightlens-landing-features {
-        max-width: 30rem !important;
+      .weightlens-landing-title {
+        font-size: clamp(3.25rem, 4.25vw, 4.35rem) !important;
+        max-width: 11.5ch !important;
+      }
+
+      .weightlens-landing-body {
+        font-size: 1rem !important;
+        max-width: 31rem !important;
       }
 
       .weightlens-landing-shell > .w-full.max-w-md {
-        max-width: 27rem !important;
-        padding: 1.65rem !important;
+        max-width: 26rem !important;
+        padding: 1.45rem !important;
       }
     }
 
     @media (max-width: 520px) {
       .weightlens-landing-shell {
-        padding-left: 0.95rem !important;
-        padding-right: 0.95rem !important;
+        padding-left: 1rem !important;
+        padding-right: 1rem !important;
+        gap: 1rem !important;
       }
 
       .weightlens-landing-copy {
@@ -327,8 +376,8 @@
       }
 
       .weightlens-landing-title {
-        font-size: clamp(2rem, 10.5vw, 2.85rem) !important;
-        max-width: 12ch !important;
+        font-size: clamp(2.05rem, 10.2vw, 2.7rem) !important;
+        max-width: 12.5ch !important;
       }
 
       .weightlens-landing-body {
@@ -363,16 +412,16 @@
     panel.innerHTML = `
       <div class="weightlens-landing-brand">
         <div class="weightlens-landing-mark" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18 9 12l4 4 7-8"/></svg>
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.35" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18 9 12l4 4 7-8"/></svg>
         </div>
         <div>
           <div class="weightlens-landing-wordmark">WeightLens</div>
           <div class="weightlens-landing-kicker">Trend dashboard</div>
         </div>
       </div>
-      <p class="weightlens-landing-kicker">Scale data, without the panic</p>
+      <p class="weightlens-landing-kicker">Scale data without the panic</p>
       <h1 class="weightlens-landing-title">Understand your weight trend.</h1>
-      <p class="weightlens-landing-body">A calm dashboard for daily weigh-ins, 7-day averages, goal pace, and personalized insights.</p>
+      <p class="weightlens-landing-body">A minimal dashboard for daily weigh-ins, 7-day averages, goal pace, and personalized insights.</p>
       <div class="weightlens-landing-features">
         <div class="weightlens-landing-feature"><div class="weightlens-landing-feature-title">7-day trend</div><div class="weightlens-landing-feature-body">See the real direction.</div></div>
         <div class="weightlens-landing-feature"><div class="weightlens-landing-feature-title">Goal coach</div><div class="weightlens-landing-feature-body">Track pace and ETA.</div></div>
