@@ -33,24 +33,26 @@ input[type="number"] {
 }
 
 .display {
-  letter-spacing: -0.045em !important;
-  line-height: 0.98 !important;
+  letter-spacing: -0.035em !important;
+  line-height: 1.02 !important;
 }
 
 .grid.grid-cols-2.lg\:grid-cols-4.gap-3 .display,
 .grid.grid-cols-1.lg\:grid-cols-3.gap-4 .display {
-  font-weight: 750 !important;
+  font-weight: 700 !important;
 }
 
-.grid.grid-cols-2.lg\:grid-cols-4.gap-3 .display.text-\[34px\] {
-  font-size: clamp(2.35rem, 3.2vw, 3.15rem) !important;
-  line-height: 1 !important;
-  letter-spacing: -0.045em !important;
+.grid.grid-cols-2.lg\:grid-cols-4.gap-3 .display.text-\[34px\],
+.grid.grid-cols-2.lg\:grid-cols-4.gap-3 .display,
+.grid.grid-cols-2.lg\:grid-cols-4.gap-3 .text-\[34px\] {
+  font-size: 2.35rem !important;
+  line-height: 1.04 !important;
+  letter-spacing: -0.035em !important;
 }
 
 .grid.grid-cols-2.lg\:grid-cols-4.gap-3 .display.text-\[34px\] + span,
 .grid.grid-cols-2.lg\:grid-cols-4.gap-3 .text-mute.text-sm {
-  font-size: 0.95rem !important;
+  font-size: 0.9rem !important;
 }
 
 .grid.grid-cols-2.lg\:grid-cols-4.gap-3 .text-mute,
@@ -187,18 +189,21 @@ html[data-theme="dark"] .recharts-tooltip-wrapper .text-accent {
 
   .grid.grid-cols-2.lg\:grid-cols-4.gap-3 > div {
     padding: 1rem !important;
-    min-height: 8.15rem !important;
+    min-height: 7.6rem !important;
   }
 
-  .grid.grid-cols-2.lg\:grid-cols-4.gap-3 .display.text-\[34px\] {
-    font-size: clamp(2rem, 8.7vw, 2.65rem) !important;
-    line-height: 1 !important;
-    letter-spacing: -0.04em !important;
+  .grid.grid-cols-2.lg\:grid-cols-4.gap-3 .display.text-\[34px\],
+  .grid.grid-cols-2.lg\:grid-cols-4.gap-3 .display,
+  .grid.grid-cols-2.lg\:grid-cols-4.gap-3 .text-\[34px\] {
+    font-size: 1.9rem !important;
+    line-height: 1.04 !important;
+    letter-spacing: -0.032em !important;
+    font-weight: 700 !important;
   }
 
   .grid.grid-cols-2.lg\:grid-cols-4.gap-3 .display.text-\[34px\] + span,
   .grid.grid-cols-2.lg\:grid-cols-4.gap-3 .text-mute.text-sm {
-    font-size: 0.82rem !important;
+    font-size: 0.78rem !important;
   }
 
   .grid.grid-cols-2.lg\:grid-cols-4.gap-3 .text-\[11px\].uppercase {
