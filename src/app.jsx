@@ -398,39 +398,54 @@ function App(){
 
   const [authChecked, setAuthChecked] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
+  const [passwordResetMode, setPasswordResetMode] = useState(() => isPasswordRecoveryUrl());
   const [cloudReady, setCloudReady] = useState(false);
   const [cloudLoading, setCloudLoading] = useState(false);
   const [cloudMessage, setCloudMessage] = useState('');
   const [cloudToast, setCloudToast] = useState('');
 
   // Check Supabase login
-  useEffect(() => {
-    const supabaseClient = getSupabaseClient();
+ useEffect(() => {
+  const supabaseClient = getSupabaseClient();
 
-    if (!supabaseClient) {
-      setAuthChecked(true);
-      setCloudReady(false);
-      return;
+  if (!supabaseClient) {
+    setAuthChecked(true);
+    setCloudReady(false);
+    return;
+  }
+
+  supabaseClient.auth.getSession().then(({ data }) => {
+    const user = data && data.session ? data.session.user : null;
+    setCurrentUser(user);
+
+    if (user && isPasswordRecoveryUrl()) {
+      setPasswordResetMode(true);
     }
 
-    supabaseClient.auth.getSession().then(({ data }) => {
-      const user = data && data.session ? data.session.user : null;
-      setCurrentUser(user);
-      setAuthChecked(true);
-    });
+    setAuthChecked(true);
+  });
 
-    const { data } = supabaseClient.auth.onAuthStateChange((event, session) => {
-      const user = session ? session.user : null;
-      setCurrentUser(user);
-      if (!user) {
-        setCloudReady(false);
+  const { data } = supabaseClient.auth.onAuthStateChange((event, session) => {
+    const user = session ? session.user : null;
+    setCurrentUser(user);
+
+    if (event === 'PASSWORD_RECOVERY') {
+      setPasswordResetMode(true);
+    }
+
+    if (!user) {
+      setCloudReady(false);
+
+      if (event === 'SIGNED_OUT') {
+        setPasswordResetMode(false);
       }
-    });
+    }
+  });
 
-    return () => {
-      if (data && data.subscription) data.subscription.unsubscribe();
-    };
-  }, []);
+  return () => {
+    if (data && data.subscription) data.subscription.unsubscribe();
+  };
+}, []);
 
   // Show cloud save messages as temporary toasts only
   useEffect(() => {
@@ -446,7 +461,7 @@ function App(){
   useEffect(() => {
     const supabaseClient = getSupabaseClient();
 
-    if (!authChecked || !currentUser || !supabaseClient) return;
+   if (!authChecked || !currentUser || !supabaseClient || passwordResetMode) return;
 
     let cancelled = false;
 
@@ -505,7 +520,7 @@ function App(){
     return () => {
       cancelled = true;
     };
-  }, [authChecked, currentUser && currentUser.id]);
+  }, [authChecked, currentUser && currentUser.id, passwordResetMode]);
 
   // Always keep local backup
   useEffect(() => {
@@ -516,7 +531,7 @@ function App(){
   useEffect(() => {
     const supabaseClient = getSupabaseClient();
 
-    if (!supabaseClient || !currentUser || !cloudReady) return;
+    if (!supabaseClient || !currentUser || !cloudReady || passwordResetMode) return;
 
     const timer = setTimeout(() => {
       async function saveCloudState(){
@@ -540,11 +555,12 @@ function App(){
     }, 700);
 
     return () => clearTimeout(timer);
-  }, [state, currentUser && currentUser.id, cloudReady]);
+  }, [state, currentUser && currentUser.id, cloudReady, passwordResetMode]);
 
   useEffect(() => {
-    if (typeof location !== 'undefined') location.hash = route;
-  }, [route]);
+  if (passwordResetMode) return;
+  if (typeof location !== 'undefined') location.hash = route;
+}, [route, passwordResetMode]);
 
   // Live-apply accent color → CSS var
   useEffect(() => {
@@ -587,10 +603,17 @@ function App(){
     const supabaseClient = getSupabaseClient();
     if (supabaseClient) await supabaseClient.auth.signOut();
     setCurrentUser(null);
-    setCloudReady(false);
-    setCloudToast('');
+setPasswordResetMode(false);
+setCloudReady(false);
+setCloudToast('');
   }, []);
-
+  
+const finishPasswordReset = useCallback(() => {
+  clearPasswordRecoveryUrl();
+  setPasswordResetMode(false);
+  setCloudReady(false);
+}, []);
+  
   const ctx = useMemo(() => ({
     state, updateState, resetAll, route, setRoute,
     accent: t.accent,
@@ -605,11 +628,26 @@ function App(){
     );
   }
 
-  if (!currentUser) {
-    return <LoginScreen />;
-  }
+  if (passwordResetMode && currentUser) {
+  return <ResetPasswordScreen onDone={finishPasswordReset} />;
+}
 
-  if (cloudLoading) {
+if (passwordResetMode && !currentUser) {
+  return (
+    <div className="min-h-screen bg-bg text-fg flex items-center justify-center p-6">
+      <div className="w-full max-w-md bg-surface rounded-3xl card-ring p-6 md:p-8 text-center">
+        <div className="font-medium">Checking reset link...</div>
+        <div className="text-sm text-mute mt-2">If this does not continue, request a fresh reset link.</div>
+      </div>
+    </div>
+  );
+}
+
+if (!currentUser) {
+  return <LoginScreen />;
+}
+
+if (cloudLoading) {
     return (
       <div className="min-h-screen bg-bg text-fg flex items-center justify-center">
         <div className="bg-surface rounded-3xl card-ring p-6 text-center">
