@@ -23,11 +23,16 @@ html[data-theme="dark"] .recharts-tooltip-wrapper .text-accent {
 }
 
 .grid.grid-cols-12.gap-3.items-end > .sm\:col-span-3 {
-  grid-column: span 7 / span 7 !important;
+  grid-column: span 12 / span 12 !important;
 }
 
 .grid.grid-cols-12.gap-3.items-end > .sm\:col-span-2 {
-  grid-column: span 5 / span 5 !important;
+  grid-column: span 12 / span 12 !important;
+}
+
+.grid.grid-cols-12.gap-3.items-end input[type="date"] {
+  width: 100% !important;
+  min-width: 0 !important;
 }
 
 .grid.grid-cols-12.gap-3.items-end input[type="number"] {
@@ -36,6 +41,7 @@ html[data-theme="dark"] .recharts-tooltip-wrapper .text-accent {
 
 .grid.grid-cols-12.gap-3.items-end button {
   min-width: 0 !important;
+  width: 100% !important;
   white-space: nowrap !important;
 }
 
