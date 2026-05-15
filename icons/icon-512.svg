@@ -1,0 +1,9 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" rx="112" fill="#0F0F10"/>
+  <rect x="48" y="48" width="416" height="416" rx="86" fill="#1A1A1C" stroke="#C8B9A6" stroke-opacity="0.28" stroke-width="6"/>
+  <path d="M136 313C184 246 208 339 256 268C304 197 333 268 376 186" stroke="#C8B9A6" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="136" cy="313" r="16" fill="#F3EEE7"/>
+  <circle cx="256" cy="268" r="16" fill="#F3EEE7"/>
+  <circle cx="376" cy="186" r="16" fill="#F3EEE7"/>
+  <text x="256" y="394" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="68" font-weight="700" letter-spacing="6" fill="#F3EEE7">WL</text>
+</svg>
