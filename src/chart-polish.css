@@ -172,6 +172,24 @@ body,
     padding-top: 3.5rem !important;
   }
 
+  aside.fixed,
+  aside[class*="fixed"],
+  [class*="fixed"][class*="left-0"][class*="top-0"] {
+    padding-top: calc(env(safe-area-inset-top) + 1rem) !important;
+  }
+
+  aside.fixed > div:first-child,
+  aside[class*="fixed"] > div:first-child,
+  [class*="fixed"][class*="left-0"][class*="top-0"] > div:first-child {
+    margin-top: 0.75rem !important;
+  }
+
+  aside.fixed button.absolute.top-4,
+  aside[class*="fixed"] button.absolute.top-4,
+  [class*="fixed"][class*="left-0"][class*="top-0"] button.absolute.top-4 {
+    top: calc(env(safe-area-inset-top) + 1rem) !important;
+  }
+
   h1,
   .text-\[28px\] {
     line-height: 1.08 !important;
