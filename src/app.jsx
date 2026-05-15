@@ -227,6 +227,7 @@ function App(){
   const [cloudReady, setCloudReady] = useState(false);
   const [cloudLoading, setCloudLoading] = useState(false);
   const [cloudMessage, setCloudMessage] = useState('');
+  const [cloudToast, setCloudToast] = useState('');
 
   // Check Supabase login
   useEffect(() => {
@@ -256,6 +257,16 @@ function App(){
       if (data && data.subscription) data.subscription.unsubscribe();
     };
   }, []);
+
+  // Show cloud save messages as temporary toasts only
+  useEffect(() => {
+    if (!cloudMessage || cloudLoading) return;
+    if (cloudMessage.toLowerCase().includes('loading')) return;
+
+    setCloudToast(cloudMessage);
+    const timer = setTimeout(() => setCloudToast(''), 2200);
+    return () => clearTimeout(timer);
+  }, [cloudMessage, cloudLoading]);
 
   // Load cloud state after login
   useEffect(() => {
@@ -403,12 +414,14 @@ function App(){
     if (supabaseClient) await supabaseClient.auth.signOut();
     setCurrentUser(null);
     setCloudReady(false);
+    setCloudToast('');
   }, []);
 
   const ctx = useMemo(() => ({
     state, updateState, resetAll, route, setRoute,
     accent: t.accent,
-  }), [state, updateState, resetAll, route, t.accent]);
+    currentUser, cloudReady, signOut,
+  }), [state, updateState, resetAll, route, t.accent, currentUser, cloudReady, signOut]);
 
   if (!authChecked) {
     return (
@@ -482,19 +495,13 @@ function App(){
         </div>
       </div>
 
-      <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-2">
-        {cloudMessage && (
-          <div className="rounded-2xl bg-surface card-ring px-4 py-2 text-xs text-mute max-w-xs">
-            {cloudMessage}
+      {cloudToast && (
+        <div className="fixed bottom-4 right-4 z-40 pointer-events-none fadein">
+          <div className="rounded-2xl bg-surface/95 backdrop-blur card-ring px-4 py-2 text-xs text-mute max-w-xs shadow-pop">
+            {cloudToast}
           </div>
-        )}
-        <button
-          className="btn rounded-2xl bg-fg text-bg px-4 py-2 text-sm font-medium"
-          onClick={signOut}
-        >
-          Sign out
-        </button>
-      </div>
+        </div>
+      )}
 
       {/* Tweaks panel — toggle from the toolbar */}
       <TweaksPanel title="Tweaks">
