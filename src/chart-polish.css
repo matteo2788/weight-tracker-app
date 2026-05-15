@@ -80,8 +80,12 @@ html[data-theme="dark"] .recharts-tooltip-wrapper .text-accent {
   main {
     padding-left: 1rem !important;
     padding-right: 1rem !important;
-    padding-top: 1.15rem !important;
+    padding-top: 3.5rem !important;
     padding-bottom: calc(2rem + env(safe-area-inset-bottom)) !important;
+  }
+
+  .flex-1.min-w-0.flex > main {
+    padding-top: 3.5rem !important;
   }
 
   h1,
