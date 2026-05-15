@@ -9,14 +9,14 @@ const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
 }/*EDITMODE-END*/;
 
 const PALETTE_OPTIONS = [
-  { hex:'#65A30D', label:'Lime'    }, // lime-600 — fresh / vibrant
-  { hex:'#10B981', label:'Emerald' }, // emerald-500
-  { hex:'#6366F1', label:'Indigo'  }, // indigo-500
-  { hex:'#8B5CF6', label:'Violet'  }, // violet-500
-  { hex:'#F97316', label:'Orange'  }, // orange-500
-  { hex:'#EC4899', label:'Pink'    }, // pink-500
-  { hex:'#0EA5E9', label:'Sky'     }, // sky-500
-  { hex:'#0A0A0A', label:'Mono'    }, // near-black
+  { hex:'#65A30D', label:'Lime'    },
+  { hex:'#10B981', label:'Emerald' },
+  { hex:'#6366F1', label:'Indigo'  },
+  { hex:'#8B5CF6', label:'Violet'  },
+  { hex:'#F97316', label:'Orange'  },
+  { hex:'#EC4899', label:'Pink'    },
+  { hex:'#0EA5E9', label:'Sky'     },
+  { hex:'#0A0A0A', label:'Mono'    },
 ];
 
 function hexToRgbTriplet(hex){
@@ -25,6 +25,112 @@ function hexToRgbTriplet(hex){
     ? [h[0]+h[0], h[1]+h[1], h[2]+h[2]]
     : [h.slice(0,2), h.slice(2,4), h.slice(4,6)];
   return v.map(x => parseInt(x,16)).join(' ');
+}
+
+function getSupabaseClient(){
+  if (window.__weightLensSupabase) return window.__weightLensSupabase;
+
+  if (!window.supabase || !window.SUPABASE_URL || !window.SUPABASE_KEY) {
+    return null;
+  }
+
+  window.__weightLensSupabase = window.supabase.createClient(
+    window.SUPABASE_URL,
+    window.SUPABASE_KEY
+  );
+
+  return window.__weightLensSupabase;
+}
+
+function cleanLoadedState(loaded){
+  const base = freshState();
+  const s = loaded || {};
+
+  return {
+    ...base,
+    ...s,
+    settings: { ...DEFAULT_SETTINGS, ...(s.settings || {}) },
+    goal: { ...DEFAULT_GOAL, ...(s.goal || {}) },
+    profile: { name: 'Matteo', ...(s.profile || {}) },
+  };
+}
+
+function LoginScreen(){
+  const [email, setEmail] = useState('');
+  const [status, setStatus] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const supabaseClient = getSupabaseClient();
+
+  const sendLoginLink = async (e) => {
+    e.preventDefault();
+
+    if (!supabaseClient) {
+      setStatus('Supabase is not connected yet. Check your URL and publishable key in index.html.');
+      return;
+    }
+
+    if (!email.trim()) {
+      setStatus('Enter your email first.');
+      return;
+    }
+
+    setLoading(true);
+    setStatus('');
+
+    const { error } = await supabaseClient.auth.signInWithOtp({
+      email: email.trim(),
+      options: {
+        emailRedirectTo: window.location.origin
+      }
+    });
+
+    setLoading(false);
+
+    if (error) {
+      setStatus(error.message || 'Something went wrong sending the login link.');
+      return;
+    }
+
+    setStatus('Login link sent. Check your email, then open the link on this device.');
+  };
+
+  return (
+    <div className="min-h-screen bg-bg text-fg flex items-center justify-center p-6">
+      <div className="w-full max-w-md bg-surface rounded-3xl card-ring p-6 md:p-8">
+        <div className="mb-6">
+          <div className="text-sm text-mute mb-2">WeightLens cloud sync</div>
+          <h1 className="text-3xl font-semibold tracking-tight">Sign in to save across devices</h1>
+          <p className="text-mute mt-3 leading-relaxed">
+            Enter your email and Supabase will send you a secure login link. After that, your app data can save online instead of only on this browser.
+          </p>
+        </div>
+
+        <form onSubmit={sendLoginLink} className="space-y-4">
+          <input
+            className="w-full rounded-2xl border hairline bg-surface3 px-4 py-3 text-base focus-ring"
+            type="email"
+            placeholder="your@email.com"
+            value={email}
+            onChange={e => setEmail(e.target.value)}
+          />
+
+          <button
+            className="btn w-full rounded-2xl bg-fg text-bg px-4 py-3 font-medium disabled:opacity-50"
+            disabled={loading}
+          >
+            {loading ? 'Sending link...' : 'Send login link'}
+          </button>
+        </form>
+
+        {status && (
+          <div className="mt-4 text-sm text-mute leading-relaxed">
+            {status}
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }
 
 function App(){
@@ -39,11 +145,138 @@ function App(){
   });
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // Persist app state
-  useEffect(() => { saveState(state); }, [state]);
-  useEffect(() => { if (typeof location !== 'undefined') location.hash = route; }, [route]);
+  const [authChecked, setAuthChecked] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [cloudReady, setCloudReady] = useState(false);
+  const [cloudLoading, setCloudLoading] = useState(false);
+  const [cloudMessage, setCloudMessage] = useState('');
 
-  // Live-apply accent color → CSS var (Tailwind tokens read this for bg-accent / text-accent / etc.)
+  // Check Supabase login
+  useEffect(() => {
+    const supabaseClient = getSupabaseClient();
+
+    if (!supabaseClient) {
+      setAuthChecked(true);
+      setCloudReady(false);
+      return;
+    }
+
+    supabaseClient.auth.getSession().then(({ data }) => {
+      const user = data && data.session ? data.session.user : null;
+      setCurrentUser(user);
+      setAuthChecked(true);
+    });
+
+    const { data } = supabaseClient.auth.onAuthStateChange((event, session) => {
+      const user = session ? session.user : null;
+      setCurrentUser(user);
+      if (!user) {
+        setCloudReady(false);
+      }
+    });
+
+    return () => {
+      if (data && data.subscription) data.subscription.unsubscribe();
+    };
+  }, []);
+
+  // Load cloud state after login
+  useEffect(() => {
+    const supabaseClient = getSupabaseClient();
+
+    if (!authChecked || !currentUser || !supabaseClient) return;
+
+    let cancelled = false;
+
+    async function loadCloudState(){
+      setCloudLoading(true);
+      setCloudReady(false);
+      setCloudMessage('Loading cloud save...');
+
+      const { data, error } = await supabaseClient
+        .from('app_state')
+        .select('state')
+        .eq('user_id', currentUser.id)
+        .maybeSingle();
+
+      if (cancelled) return;
+
+      if (error) {
+        console.error(error);
+        setCloudMessage('Cloud load failed. Your local browser save is still safe.');
+        setCloudLoading(false);
+        return;
+      }
+
+      if (data && data.state) {
+        setState(cleanLoadedState(data.state));
+        setCloudMessage('Cloud save loaded.');
+      } else {
+        const localState = cleanLoadedState(loadState());
+
+        await supabaseClient
+          .from('app_state')
+          .upsert({
+            user_id: currentUser.id,
+            state: localState,
+            updated_at: new Date().toISOString()
+          });
+
+        setState(localState);
+        setCloudMessage('Cloud save created.');
+      }
+
+      setCloudReady(true);
+      setCloudLoading(false);
+    }
+
+    loadCloudState();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [authChecked, currentUser && currentUser.id]);
+
+  // Always keep local backup
+  useEffect(() => {
+    saveState(state);
+  }, [state]);
+
+  // Save app state to Supabase after changes
+  useEffect(() => {
+    const supabaseClient = getSupabaseClient();
+
+    if (!supabaseClient || !currentUser || !cloudReady) return;
+
+    const timer = setTimeout(() => {
+      async function saveCloudState(){
+        const { error } = await supabaseClient
+          .from('app_state')
+          .upsert({
+            user_id: currentUser.id,
+            state,
+            updated_at: new Date().toISOString()
+          });
+
+        if (error) {
+          console.error(error);
+          setCloudMessage('Cloud save failed. Local backup saved.');
+        } else {
+          setCloudMessage('Saved to cloud.');
+        }
+      }
+
+      saveCloudState();
+    }, 700);
+
+    return () => clearTimeout(timer);
+  }, [state, currentUser && currentUser.id, cloudReady]);
+
+  useEffect(() => {
+    if (typeof location !== 'undefined') location.hash = route;
+  }, [route]);
+
+  // Live-apply accent color → CSS var
   useEffect(() => {
     document.documentElement.style.setProperty('--accent-rgb', hexToRgbTriplet(t.accent));
   }, [t.accent]);
@@ -54,11 +287,13 @@ function App(){
       setState(prev => ({ ...prev, profile: { ...(prev.profile||{}), name: t.name } }));
     }
   }, [t.name]);
+
   useEffect(() => {
     if (t.unit && state.settings?.unit !== t.unit) {
       setState(prev => ({ ...prev, settings: { ...prev.settings, unit: t.unit } }));
     }
   }, [t.unit]);
+
   useEffect(() => {
     if (t.weekStartDay != null && state.settings?.weekStartDay !== +t.weekStartDay) {
       setState(prev => ({ ...prev, settings: { ...prev.settings, weekStartDay: +t.weekStartDay } }));
@@ -78,10 +313,40 @@ function App(){
     setTweak({ name: 'Matteo', accent: '#65A30D', unit: 'lbs', weekStartDay: 1 });
   }, [setTweak]);
 
+  const signOut = useCallback(async () => {
+    const supabaseClient = getSupabaseClient();
+    if (supabaseClient) await supabaseClient.auth.signOut();
+    setCurrentUser(null);
+    setCloudReady(false);
+  }, []);
+
   const ctx = useMemo(() => ({
     state, updateState, resetAll, route, setRoute,
     accent: t.accent,
   }), [state, updateState, resetAll, route, t.accent]);
+
+  if (!authChecked) {
+    return (
+      <div className="min-h-screen bg-bg text-fg flex items-center justify-center">
+        <div className="text-mute">Loading...</div>
+      </div>
+    );
+  }
+
+  if (!currentUser) {
+    return <LoginScreen />;
+  }
+
+  if (cloudLoading) {
+    return (
+      <div className="min-h-screen bg-bg text-fg flex items-center justify-center">
+        <div className="bg-surface rounded-3xl card-ring p-6 text-center">
+          <div className="font-medium">Loading your cloud save...</div>
+          <div className="text-sm text-mute mt-2">{cloudMessage}</div>
+        </div>
+      </div>
+    );
+  }
 
   let page;
   switch(route){
@@ -130,6 +395,20 @@ function App(){
             )}
           </div>
         </div>
+      </div>
+
+      <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-2">
+        {cloudMessage && (
+          <div className="rounded-2xl bg-surface card-ring px-4 py-2 text-xs text-mute max-w-xs">
+            {cloudMessage}
+          </div>
+        )}
+        <button
+          className="btn rounded-2xl bg-fg text-bg px-4 py-2 text-sm font-medium"
+          onClick={signOut}
+        >
+          Sign out
+        </button>
       </div>
 
       {/* Tweaks panel — toggle from the toolbar */}
