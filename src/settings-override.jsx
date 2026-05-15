@@ -87,6 +87,36 @@
     html[data-theme="dark"] .fixed.inset-0.z-50 > .relative > div:first-child {
       background: rgba(26,26,28,0.90) !important;
     }
+
+    html[data-theme="dark"] .lg\\:hidden.flex.items-center.justify-between.gap-3.px-4.h-14.border-b.hairline.sticky.top-0,
+    html[data-theme="dark"] div[class*="sticky top-0 bg-bg/95"] {
+      background-color: rgba(15,15,16,0.96) !important;
+      color: #F3EEE7 !important;
+      border-color: rgba(243,238,231,0.10) !important;
+      backdrop-filter: blur(18px) saturate(1.08) !important;
+      -webkit-backdrop-filter: blur(18px) saturate(1.08) !important;
+    }
+
+    html[data-theme="dark"] .lg\\:hidden button,
+    html[data-theme="dark"] .lg\\:hidden svg,
+    html[data-theme="dark"] .lg\\:hidden .font-medium {
+      color: #F3EEE7 !important;
+      opacity: 1 !important;
+    }
+
+    html[data-theme="dark"] .lg\\:hidden button:hover {
+      background-color: rgba(243,238,231,0.08) !important;
+    }
+
+    html[data-theme="dark"] .lg\\:hidden button.bg-accent\/15 {
+      background-color: rgba(var(--accent-rgb),0.18) !important;
+      color: #F3EEE7 !important;
+      border: 1px solid rgba(var(--accent-rgb),0.28) !important;
+    }
+
+    html[data-theme="dark"] .lg\\:hidden button.bg-accent\/15 svg {
+      color: #F3EEE7 !important;
+    }
   `;
 
   const style = document.createElement('style');
