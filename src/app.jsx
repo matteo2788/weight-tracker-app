@@ -711,7 +711,22 @@ if (cloudLoading) {
       </div>
     );
   }
+const needsOnboarding =
+  currentUser &&
+  cloudReady &&
+  !passwordResetMode &&
+  !state.meta?.onboardingComplete &&
+  (state.entries?.length || 0) === 0 &&
+  !state.goal?.startingWeight &&
+  !state.goal?.goalWeight;
 
+if (needsOnboarding && typeof OnboardingPage === 'function') {
+  return (
+    <AppContext.Provider value={ctx}>
+      <OnboardingPage />
+    </AppContext.Provider>
+  );
+}
   let page;
   switch(route){
     case 'dashboard':    page = <Dashboard setRoute={setRoute}/>; break;
