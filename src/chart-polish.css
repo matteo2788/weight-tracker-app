@@ -1,0 +1,55 @@
+html[data-theme="dark"] .recharts-tooltip-wrapper .bg-white {
+  background: rgba(26,26,28,0.96) !important;
+  color: #F3EEE7 !important;
+  border-color: rgba(243,238,231,0.12) !important;
+  box-shadow: 0 24px 70px -34px rgba(0,0,0,0.95) !important;
+}
+
+html[data-theme="dark"] .recharts-tooltip-wrapper .text-fg,
+html[data-theme="dark"] .recharts-tooltip-wrapper span {
+  color: #F3EEE7 !important;
+}
+
+html[data-theme="dark"] .recharts-tooltip-wrapper .text-mute {
+  color: #AFA79C !important;
+}
+
+html[data-theme="dark"] .recharts-tooltip-wrapper .text-accent {
+  color: rgb(var(--accent-rgb)) !important;
+}
+
+@media (max-width: 640px) {
+  .recharts-tooltip-wrapper {
+    max-width: calc(100vw - 2rem) !important;
+  }
+
+  .recharts-tooltip-wrapper .bg-white {
+    min-width: 12rem !important;
+    padding: 0.75rem 0.9rem !important;
+  }
+
+  div:has(.recharts-responsive-container) > div:first-child.flex.items-center.justify-between {
+    align-items: flex-start !important;
+    flex-direction: column !important;
+    gap: 0.9rem !important;
+  }
+
+  div:has(.recharts-responsive-container) > div:first-child.flex.items-center.justify-between > div:last-child {
+    width: 100% !important;
+    overflow-x: auto !important;
+    justify-content: flex-start !important;
+  }
+
+  div:has(.recharts-responsive-container) > div:last-child.flex.items-center.gap-4 {
+    align-items: flex-start !important;
+    flex-wrap: wrap !important;
+    gap: 0.75rem 1rem !important;
+    font-size: 0.86rem !important;
+    line-height: 1.45 !important;
+  }
+
+  div:has(.recharts-responsive-container) > div:last-child.flex.items-center.gap-4 > span.ml-auto {
+    margin-left: 0 !important;
+    width: 100% !important;
+  }
+}
