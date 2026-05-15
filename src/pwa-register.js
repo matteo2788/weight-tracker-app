@@ -16,21 +16,6 @@
         padding-top: calc(env(safe-area-inset-top) + 2.25rem) !important;
       }
 
-      .lg\\:hidden.fixed.inset-0.z-40.flex > .relative.bg-surface.h-full > aside > div:first-child {
-        padding-top: 0 !important;
-        margin-top: 0 !important;
-        align-items: flex-start !important;
-      }
-
-      .lg\\:hidden.fixed.inset-0.z-40.flex > .relative.bg-surface.h-full > aside > div:first-child button {
-        margin-top: 0.1rem !important;
-      }
-
-      .lg\\:hidden.fixed.inset-0.z-40.flex > .relative.bg-surface.h-full {
-        padding-top: 0 !important;
-        background: #151516 !important;
-      }
-
       input[type="date"] {
         display: block !important;
         width: 100% !important;
@@ -49,17 +34,8 @@
         width: 100% !important;
         display: block !important;
       }
-
-      input[type="date"]::-webkit-calendar-picker-indicator {
-        position: absolute !important;
-        right: 1rem !important;
-        opacity: 0.65 !important;
-      }
     }
 
-    html:has(.weightlens-landing-shell),
-    html:has(.weightlens-landing-shell) body,
-    html:has(.weightlens-landing-shell) #root,
     html.weightlens-auth-mode,
     html.weightlens-auth-mode body,
     html.weightlens-auth-mode #root {
@@ -68,9 +44,9 @@
       color-scheme: light !important;
     }
 
-    .weightlens-landing-shell,
+    html.weightlens-auth-mode .weightlens-landing-shell,
     html[data-theme="dark"] .weightlens-landing-shell,
-    html.weightlens-auth-mode .weightlens-landing-shell {
+    .weightlens-landing-shell {
       min-height: 100vh !important;
       width: 100% !important;
       display: flex !important;
@@ -78,12 +54,22 @@
       align-items: stretch !important;
       justify-content: flex-start !important;
       padding: 0 !important;
-      background:
-        radial-gradient(circle at 86% 16%, rgba(17,20,27,0.045), transparent 18rem),
-        radial-gradient(circle at 14% 35%, rgba(17,20,27,0.03), transparent 16rem),
-        #F7F7F4 !important;
+      background: #F7F7F4 !important;
       color: #11141B !important;
       overflow-x: hidden !important;
+      position: relative !important;
+      isolation: isolate !important;
+    }
+
+    .weightlens-landing-shell::before {
+      content: '' !important;
+      position: absolute !important;
+      inset: 0 !important;
+      z-index: -1 !important;
+      pointer-events: none !important;
+      background:
+        radial-gradient(circle at 84% 12%, rgba(17,20,27,0.045), transparent 20rem),
+        radial-gradient(circle at 14% 36%, rgba(17,20,27,0.032), transparent 18rem) !important;
     }
 
     .weightlens-landing-shell * {
@@ -116,7 +102,6 @@
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
-      margin-top: 0.1rem !important;
     }
 
     .weightlens-topnav-name {
@@ -130,7 +115,6 @@
 
     .weightlens-topnav-sub {
       margin-top: 0.25rem !important;
-      margin-left: 0.15rem !important;
       color: #8C8790 !important;
       font-size: 0.63rem !important;
       letter-spacing: 0.22em !important;
@@ -165,13 +149,6 @@
       padding: clamp(7rem, 17vh, 13rem) 1.35rem 2.4rem !important;
       color: #11141B !important;
       text-align: center !important;
-      animation: weightlensFadeIn 340ms ease both;
-    }
-
-    .weightlens-landing-brand,
-    .weightlens-landing-mark,
-    .weightlens-landing-wordmark {
-      display: none !important;
     }
 
     .weightlens-landing-kicker {
@@ -216,9 +193,7 @@
     .weightlens-landing-feature {
       border: 0 !important;
       background: transparent !important;
-      border-radius: 0 !important;
       padding: 0 !important;
-      display: block !important;
       color: #11141B !important;
     }
 
@@ -243,8 +218,7 @@
 
     .weightlens-auth-card,
     html[data-theme="dark"] .weightlens-auth-card,
-    html.weightlens-auth-mode .weightlens-auth-card,
-    .weightlens-landing-shell .weightlens-auth-card {
+    html.weightlens-auth-mode .weightlens-auth-card {
       width: min(calc(100% - 2.7rem), 28rem) !important;
       margin: 0 auto clamp(2rem, 7vh, 4rem) !important;
       border-radius: 0 !important;
@@ -253,13 +227,6 @@
       border: 0 !important;
       box-shadow: none !important;
       color: #11141B !important;
-      backdrop-filter: none !important;
-      -webkit-backdrop-filter: none !important;
-    }
-
-    .weightlens-auth-card > div:first-child {
-      margin-bottom: 1.1rem !important;
-      text-align: left !important;
     }
 
     .weightlens-auth-card h1,
@@ -307,7 +274,6 @@
     .weightlens-auth-card .grid.grid-cols-2 button,
     html[data-theme="dark"] .weightlens-auth-card .grid.grid-cols-2 button {
       width: 100% !important;
-      min-width: 0 !important;
       height: 2.55rem !important;
       border-radius: 999px !important;
       background: transparent !important;
@@ -315,8 +281,6 @@
       font-size: 0.9rem !important;
       font-weight: 640 !important;
       white-space: nowrap !important;
-      padding: 0 0.5rem !important;
-      line-height: 1 !important;
       box-shadow: none !important;
     }
 
@@ -332,7 +296,6 @@
     .weightlens-auth-card input,
     html[data-theme="dark"] .weightlens-auth-card input {
       width: 100% !important;
-      max-width: 100% !important;
       height: 3.2rem !important;
       border-radius: 999px !important;
       background: #FFFFFF !important;
@@ -340,13 +303,11 @@
       color: #11141B !important;
       padding: 0 1.15rem !important;
       font-size: 0.98rem !important;
-      letter-spacing: 0 !important;
       box-shadow: 0 12px 32px -30px rgba(17,20,27,0.25) !important;
     }
 
     .weightlens-auth-card input::placeholder {
       color: #8F949D !important;
-      letter-spacing: 0 !important;
     }
 
     .weightlens-auth-card form button,
@@ -360,7 +321,6 @@
       color: #FFFFFF !important;
       font-weight: 700 !important;
       font-size: 0.96rem !important;
-      letter-spacing: -0.01em !important;
       border: 0 !important;
       display: flex !important;
       align-items: center !important;
@@ -384,11 +344,6 @@
       box-shadow: none !important;
     }
 
-    @keyframes weightlensFadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
     @media (max-width: 640px) {
       .weightlens-topnav {
         padding-left: 1.05rem !important;
@@ -410,7 +365,6 @@
 
       .weightlens-landing-title {
         font-size: clamp(2.45rem, 12vw, 3.35rem) !important;
-        line-height: 1.02 !important;
         max-width: 11.5ch !important;
       }
 
@@ -425,21 +379,24 @@
         margin-top: 3rem !important;
       }
 
-      .weightlens-landing-feature-title {
-        font-size: clamp(1.35rem, 7vw, 2rem) !important;
-      }
-
-      .weightlens-landing-feature-body {
-        font-size: 0.76rem !important;
-        max-width: 9.5rem !important;
-      }
-
       .weightlens-auth-card {
         width: calc(100% - 2.1rem) !important;
       }
     }
   `;
   document.head.appendChild(style);
+
+  function forceLight(el){
+    if (!el) return;
+    el.style.setProperty('background', '#F7F7F4', 'important');
+    el.style.setProperty('background-color', '#F7F7F4', 'important');
+    el.style.setProperty('color', '#11141B', 'important');
+  }
+
+  function setTextColor(el, color){
+    if (!el) return;
+    el.style.setProperty('color', color, 'important');
+  }
 
   function enhanceLandingScreen(){
     const root = document.getElementById('root');
@@ -453,14 +410,25 @@
     const isAuthScreen = text.includes('Sign in') || text.includes('Create your account') || text.includes('Reset your password');
     if (!isAuthScreen) return;
 
-    shell.classList.add('weightlens-landing-shell');
     document.documentElement.classList.add('weightlens-auth-mode');
-    document.documentElement.style.background = '#F7F7F4';
-    document.body.style.background = '#F7F7F4';
-    document.body.style.color = '#11141B';
+    document.documentElement.setAttribute('data-theme', 'light');
+    forceLight(document.documentElement);
+    forceLight(document.body);
+    forceLight(root);
+    forceLight(shell);
+    shell.classList.add('weightlens-landing-shell');
 
     const authCard = Array.from(shell.children).find(el => el.classList && el.classList.contains('max-w-md') && !el.classList.contains('weightlens-landing-copy'));
-    if (authCard) authCard.classList.add('weightlens-auth-card');
+    if (authCard) {
+      authCard.classList.add('weightlens-auth-card');
+      authCard.style.setProperty('background', 'transparent', 'important');
+      authCard.style.setProperty('background-color', 'transparent', 'important');
+      authCard.style.setProperty('box-shadow', 'none', 'important');
+      authCard.style.setProperty('border', '0', 'important');
+      authCard.style.setProperty('color', '#11141B', 'important');
+      authCard.querySelectorAll('h1,h2,h3,div,span,label').forEach(node => setTextColor(node, '#11141B'));
+      authCard.querySelectorAll('p,.text-mute,.text-sm').forEach(node => setTextColor(node, '#6E7480'));
+    }
 
     if (!shell.querySelector('.weightlens-topnav')) {
       const nav = document.createElement('div');
@@ -480,31 +448,32 @@
       shell.insertBefore(nav, shell.firstChild);
     }
 
-    if (shell.querySelector('.weightlens-landing-copy')) return;
+    if (!shell.querySelector('.weightlens-landing-copy')) {
+      const panel = document.createElement('section');
+      panel.className = 'weightlens-landing-copy';
+      panel.innerHTML = `
+        <p class="weightlens-landing-kicker">Weight tracking, finally calm</p>
+        <h1 class="weightlens-landing-title">Does your scale tell the real story?</h1>
+        <p class="weightlens-landing-body">WeightLens turns daily weigh-ins into a clean trend dashboard — so you can see direction, pace, and progress without overreacting to one morning.</p>
+        <div class="weightlens-landing-features">
+          <div class="weightlens-landing-feature"><div class="weightlens-landing-feature-title">7-day</div><div class="weightlens-landing-feature-body">average trend, not daily noise</div></div>
+          <div class="weightlens-landing-feature"><div class="weightlens-landing-feature-title">Goals</div><div class="weightlens-landing-feature-body">pace, ETA, and remaining progress</div></div>
+          <div class="weightlens-landing-feature"><div class="weightlens-landing-feature-title">Insights</div><div class="weightlens-landing-feature-body">plain-English fluctuation coaching</div></div>
+          <div class="weightlens-landing-feature"><div class="weightlens-landing-feature-title">Cloud</div><div class="weightlens-landing-feature-body">your dashboard across devices</div></div>
+        </div>
+      `;
+      if (authCard) shell.insertBefore(panel, authCard);
+      else shell.appendChild(panel);
+    }
 
-    const panel = document.createElement('section');
-    panel.className = 'weightlens-landing-copy';
-    panel.innerHTML = `
-      <p class="weightlens-landing-kicker">Weight tracking, finally calm</p>
-      <h1 class="weightlens-landing-title">Does your scale tell the real story?</h1>
-      <p class="weightlens-landing-body">WeightLens turns daily weigh-ins into a clean trend dashboard — so you can see direction, pace, and progress without overreacting to one morning.</p>
-      <div class="weightlens-landing-features">
-        <div class="weightlens-landing-feature"><div class="weightlens-landing-feature-title">7-day</div><div class="weightlens-landing-feature-body">average trend, not daily noise</div></div>
-        <div class="weightlens-landing-feature"><div class="weightlens-landing-feature-title">Goals</div><div class="weightlens-landing-feature-body">pace, ETA, and remaining progress</div></div>
-        <div class="weightlens-landing-feature"><div class="weightlens-landing-feature-title">Insights</div><div class="weightlens-landing-feature-body">plain-English fluctuation coaching</div></div>
-        <div class="weightlens-landing-feature"><div class="weightlens-landing-feature-title">Cloud</div><div class="weightlens-landing-feature-body">your dashboard across devices</div></div>
-      </div>
-    `;
-
-    const auth = shell.querySelector('.weightlens-auth-card');
-    if (auth) shell.insertBefore(panel, auth);
-    else shell.appendChild(panel);
+    shell.querySelectorAll('.weightlens-topnav, .weightlens-landing-copy, .weightlens-landing-title, .weightlens-landing-feature-title').forEach(node => setTextColor(node, '#11141B'));
+    shell.querySelectorAll('.weightlens-landing-body, .weightlens-landing-feature-body, .weightlens-landing-kicker, .weightlens-topnav-sub').forEach(node => setTextColor(node, '#7D828D'));
   }
 
   const observer = new MutationObserver(() => enhanceLandingScreen());
   window.addEventListener('load', () => {
     enhanceLandingScreen();
     const root = document.getElementById('root');
-    if (root) observer.observe(root, { childList: true, subtree: true });
+    if (root) observer.observe(root, { childList: true, subtree: true, attributes: true });
   });
 })();
