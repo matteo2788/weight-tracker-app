@@ -69,6 +69,21 @@
     .weightlens-auth-card > .mt-4 { margin-top:1rem!important; text-align:center!important; }
     .weightlens-auth-card > .mt-4 button, html[data-theme="dark"] .weightlens-auth-card > .mt-4 button { background:transparent!important; color:#6E7480!important; width:auto!important; height:auto!important; border:0!important; font-size:0.9rem!important; box-shadow:none!important; }
 
+    .weightlens-reveal { opacity:0!important; transform:translateY(24px)!important; filter:blur(8px)!important; transition:opacity 780ms cubic-bezier(.22,1,.36,1), transform 780ms cubic-bezier(.22,1,.36,1), filter 780ms cubic-bezier(.22,1,.36,1)!important; will-change:opacity, transform, filter!important; }
+    .weightlens-reveal.is-visible { opacity:1!important; transform:translateY(0)!important; filter:blur(0)!important; }
+    .weightlens-reveal-slow { transition-duration:980ms!important; }
+    .weightlens-reveal-delay-1 { transition-delay:90ms!important; }
+    .weightlens-reveal-delay-2 { transition-delay:180ms!important; }
+    .weightlens-reveal-delay-3 { transition-delay:270ms!important; }
+    .weightlens-reveal-delay-4 { transition-delay:360ms!important; }
+    .weightlens-landing-feature.weightlens-reveal { transform:translateY(18px)!important; filter:blur(5px)!important; }
+    .weightlens-auth-card.weightlens-reveal { transform:translateY(30px)!important; }
+
+    @media (prefers-reduced-motion: reduce) {
+      .weightlens-reveal,
+      .weightlens-reveal.is-visible { opacity:1!important; transform:none!important; filter:none!important; transition:none!important; }
+    }
+
     @media (max-width:720px) { .weightlens-auth-card form { display:flex!important; flex-direction:column!important; gap:1.1rem!important; } .weightlens-auth-card form button, .weightlens-auth-card button.bg-fg, html[data-theme="dark"] .weightlens-auth-card form button, html[data-theme="dark"] .weightlens-auth-card button.bg-fg { width:100%!important; } }
 
     @media (max-width:640px) {
@@ -106,6 +121,49 @@
   function setTextColor(el, color){
     if (!el) return;
     el.style.setProperty('color', color, 'important');
+  }
+
+  function setupLandingReveal(shell){
+    if (!shell || shell.dataset.revealReady === 'true') return;
+    shell.dataset.revealReady = 'true';
+
+    const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const targets = [
+      shell.querySelector('.weightlens-topnav'),
+      shell.querySelector('.weightlens-landing-kicker'),
+      shell.querySelector('.weightlens-landing-title'),
+      shell.querySelector('.weightlens-landing-body'),
+      ...shell.querySelectorAll('.weightlens-landing-feature'),
+      shell.querySelector('.weightlens-auth-card')
+    ].filter(Boolean);
+
+    targets.forEach((el, index) => {
+      el.classList.add('weightlens-reveal');
+      if (index === 2 || el.classList.contains('weightlens-auth-card')) el.classList.add('weightlens-reveal-slow');
+      if (el.classList.contains('weightlens-landing-feature')) {
+        const features = Array.from(shell.querySelectorAll('.weightlens-landing-feature'));
+        el.classList.add(`weightlens-reveal-delay-${Math.min(features.indexOf(el) + 1, 4)}`);
+      }
+    });
+
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+      targets.forEach(el => el.classList.add('is-visible'));
+      return;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
+
+    targets.forEach((el, index) => {
+      observer.observe(el);
+      if (index < 4) setTimeout(() => el.classList.add('is-visible'), 120 + index * 120);
+    });
   }
 
   function enhanceLandingScreen(){
@@ -178,6 +236,7 @@
 
     shell.querySelectorAll('.weightlens-topnav, .weightlens-landing-copy, .weightlens-landing-title, .weightlens-landing-feature-title').forEach(node => setTextColor(node, '#11141B'));
     shell.querySelectorAll('.weightlens-landing-body, .weightlens-landing-feature-body, .weightlens-landing-kicker, .weightlens-topnav-sub').forEach(node => setTextColor(node, '#7D828D'));
+    setupLandingReveal(shell);
   }
 
   const observer = new MutationObserver(() => enhanceLandingScreen());
