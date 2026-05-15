@@ -57,12 +57,13 @@ function cleanLoadedState(loaded){
 
 function LoginScreen(){
   const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [status, setStatus] = useState('');
   const [loading, setLoading] = useState(false);
 
   const supabaseClient = getSupabaseClient();
 
-  const sendLoginLink = async (e) => {
+  const signIn = async (e) => {
     e.preventDefault();
 
     if (!supabaseClient) {
@@ -70,29 +71,27 @@ function LoginScreen(){
       return;
     }
 
-    if (!email.trim()) {
-      setStatus('Enter your email first.');
+    if (!email.trim() || !password.trim()) {
+      setStatus('Enter your email and password.');
       return;
     }
 
     setLoading(true);
     setStatus('');
 
-    const { error } = await supabaseClient.auth.signInWithOtp({
+    const { error } = await supabaseClient.auth.signInWithPassword({
       email: email.trim(),
-      options: {
-        emailRedirectTo: window.location.origin
-      }
+      password: password
     });
 
     setLoading(false);
 
     if (error) {
-      setStatus(error.message || 'Something went wrong sending the login link.');
+      setStatus(error.message || 'Login failed.');
       return;
     }
 
-    setStatus('Login link sent. Check your email, then open the link on this device.');
+    setStatus('Signed in.');
   };
 
   return (
@@ -102,11 +101,11 @@ function LoginScreen(){
           <div className="text-sm text-mute mb-2">WeightLens cloud sync</div>
           <h1 className="text-3xl font-semibold tracking-tight">Sign in to save across devices</h1>
           <p className="text-mute mt-3 leading-relaxed">
-            Enter your email and Supabase will send you a secure login link. After that, your app data can save online instead of only on this browser.
+            Sign in with your email and password. Your data will save online so it can sync across devices.
           </p>
         </div>
 
-        <form onSubmit={sendLoginLink} className="space-y-4">
+        <form onSubmit={signIn} className="space-y-4">
           <input
             className="w-full rounded-2xl border hairline bg-surface3 px-4 py-3 text-base focus-ring"
             type="email"
@@ -115,11 +114,19 @@ function LoginScreen(){
             onChange={e => setEmail(e.target.value)}
           />
 
+          <input
+            className="w-full rounded-2xl border hairline bg-surface3 px-4 py-3 text-base focus-ring"
+            type="password"
+            placeholder="Password"
+            value={password}
+            onChange={e => setPassword(e.target.value)}
+          />
+
           <button
             className="btn w-full rounded-2xl bg-fg text-bg px-4 py-3 font-medium disabled:opacity-50"
             disabled={loading}
           >
-            {loading ? 'Sending link...' : 'Send login link'}
+            {loading ? 'Signing in...' : 'Sign in'}
           </button>
         </form>
 
