@@ -138,13 +138,26 @@ html[data-theme="dark"] .recharts-tooltip-wrapper .text-accent {
   white-space: nowrap !important;
 }
 
+html,
+body,
+#root {
+  background: #0F0F10 !important;
+}
+
 @media (max-width: 640px) {
+  html,
+  body,
+  #root {
+    background: #0F0F10 !important;
+  }
+
   html,
   body {
     overflow-x: hidden !important;
   }
 
   body {
+    padding-top: env(safe-area-inset-top) !important;
     padding-bottom: env(safe-area-inset-bottom) !important;
   }
 
