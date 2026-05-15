@@ -18,20 +18,45 @@ const PALETTE_OPTIONS = [
   { hex:'#0EA5E9', label:'Sky'     },
   { hex:'#0A0A0A', label:'Mono'    },
 ];
+function getRecoveryCodeFromUrl(){
+  if (typeof window === 'undefined') return null;
+
+  const searchParams = new URLSearchParams(window.location.search);
+  const codeFromSearch = searchParams.get('code');
+  if (codeFromSearch) return codeFromSearch;
+
+  const hash = window.location.hash || '';
+  const questionIndex = hash.indexOf('?');
+
+  if (questionIndex >= 0) {
+    const hashParams = new URLSearchParams(hash.slice(questionIndex + 1));
+    const codeFromHash = hashParams.get('code');
+    if (codeFromHash) return codeFromHash;
+  }
+
+  return null;
+}
+
 function isPasswordRecoveryUrl(){
   if (typeof window === 'undefined') return false;
   const href = window.location.href || '';
-  return href.includes('type=recovery') || href.includes('reset-password') || href.includes('PASSWORD_RECOVERY');
+
+  return (
+    href.includes('type=recovery') ||
+    href.includes('reset-password') ||
+    href.includes('PASSWORD_RECOVERY') ||
+    !!getRecoveryCodeFromUrl()
+  );
 }
 
 function getPasswordResetRedirectUrl(){
   if (typeof window === 'undefined') return undefined;
-  return `${window.location.origin}${window.location.pathname}#reset-password`;
+  return `${window.location.origin}${window.location.pathname}`;
 }
 
 function clearPasswordRecoveryUrl(){
   if (typeof window === 'undefined') return;
-  window.history.replaceState({}, document.title, window.location.pathname + window.location.search);
+  window.history.replaceState({}, document.title, window.location.pathname);
 }
 function hexToRgbTriplet(hex){
   const h = hex.replace('#','');
@@ -414,16 +439,7 @@ function App(){
     return;
   }
 
-  supabaseClient.auth.getSession().then(({ data }) => {
-    const user = data && data.session ? data.session.user : null;
-    setCurrentUser(user);
-
-    if (user && isPasswordRecoveryUrl()) {
-      setPasswordResetMode(true);
-    }
-
-    setAuthChecked(true);
-  });
+  let cancelled = false;
 
   const { data } = supabaseClient.auth.onAuthStateChange((event, session) => {
     const user = session ? session.user : null;
@@ -442,7 +458,45 @@ function App(){
     }
   });
 
+  async function checkSession(){
+    const recoveryCode = getRecoveryCodeFromUrl();
+
+    if (recoveryCode) {
+      const { data: recoveryData, error } = await supabaseClient.auth.exchangeCodeForSession(recoveryCode);
+
+      if (!cancelled) {
+        if (error) {
+          console.error(error);
+          setPasswordResetMode(false);
+        } else {
+          setCurrentUser(recoveryData?.session?.user || null);
+          setPasswordResetMode(true);
+        }
+
+        setAuthChecked(true);
+      }
+
+      return;
+    }
+
+    const { data: sessionData } = await supabaseClient.auth.getSession();
+
+    if (!cancelled) {
+      const user = sessionData && sessionData.session ? sessionData.session.user : null;
+      setCurrentUser(user);
+
+      if (user && isPasswordRecoveryUrl()) {
+        setPasswordResetMode(true);
+      }
+
+      setAuthChecked(true);
+    }
+  }
+
+  checkSession();
+
   return () => {
+    cancelled = true;
     if (data && data.subscription) data.subscription.unsubscribe();
   };
 }, []);
