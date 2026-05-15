@@ -57,6 +57,7 @@ function cleanLoadedState(loaded){
 
 function LoginScreen(){
   const [mode, setMode] = useState('signin');
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [status, setStatus] = useState('');
@@ -69,6 +70,11 @@ function LoginScreen(){
 
     if (!supabaseClient) {
       setStatus('Supabase is not connected yet. Check your URL and publishable key in index.html.');
+      return;
+    }
+
+    if (mode === 'signup' && !name.trim()) {
+      setStatus('Enter your name.');
       return;
     }
 
@@ -90,7 +96,12 @@ function LoginScreen(){
     if (mode === 'signup') {
       result = await supabaseClient.auth.signUp({
         email: email.trim(),
-        password: password
+        password: password,
+        options: {
+          data: {
+            name: name.trim()
+          }
+        }
       });
     } else {
       result = await supabaseClient.auth.signInWithPassword({
@@ -153,6 +164,16 @@ function LoginScreen(){
         </div>
 
         <form onSubmit={handleAuth} className="space-y-4">
+          {mode === 'signup' && (
+            <input
+              className="w-full rounded-2xl border hairline bg-surface3 px-4 py-3 text-base focus-ring"
+              type="text"
+              placeholder="Your name"
+              value={name}
+              onChange={e => setName(e.target.value)}
+            />
+          )}
+
           <input
             className="w-full rounded-2xl border hairline bg-surface3 px-4 py-3 text-base focus-ring"
             type="email"
@@ -265,10 +286,16 @@ function App(){
       }
 
       if (data && data.state) {
-        setState(cleanLoadedState(data.state));
+        const loadedState = cleanLoadedState(data.state);
+        setState(loadedState);
+        if (loadedState.profile?.name) setTweak('name', loadedState.profile.name);
         setCloudMessage('Cloud save loaded.');
       } else {
-        const freshCloudState = cleanLoadedState(freshState());
+        const userName = currentUser.user_metadata?.name || 'New User';
+        const freshCloudState = cleanLoadedState({
+          ...freshState(),
+          profile: { name: userName }
+        });
 
         await supabaseClient
           .from('app_state')
@@ -279,6 +306,7 @@ function App(){
           });
 
         setState(freshCloudState);
+        setTweak('name', userName);
         saveState(freshCloudState);
         setCloudMessage('Fresh cloud save created.');
       }
