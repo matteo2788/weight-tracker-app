@@ -18,7 +18,21 @@ const PALETTE_OPTIONS = [
   { hex:'#0EA5E9', label:'Sky'     },
   { hex:'#0A0A0A', label:'Mono'    },
 ];
+function isPasswordRecoveryUrl(){
+  if (typeof window === 'undefined') return false;
+  const href = window.location.href || '';
+  return href.includes('type=recovery') || href.includes('reset-password') || href.includes('PASSWORD_RECOVERY');
+}
 
+function getPasswordResetRedirectUrl(){
+  if (typeof window === 'undefined') return undefined;
+  return `${window.location.origin}${window.location.pathname}#reset-password`;
+}
+
+function clearPasswordRecoveryUrl(){
+  if (typeof window === 'undefined') return;
+  window.history.replaceState({}, document.title, window.location.pathname + window.location.search);
+}
 function hexToRgbTriplet(hex){
   const h = hex.replace('#','');
   const v = h.length === 3
