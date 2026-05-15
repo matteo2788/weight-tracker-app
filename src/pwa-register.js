@@ -80,15 +80,12 @@
       width: 100% !important;
       display: flex !important;
       flex-direction: column !important;
-      align-items: center !important;
+      align-items: stretch !important;
       justify-content: flex-start !important;
-      gap: 1.15rem !important;
-      padding: calc(env(safe-area-inset-top) + 1.1rem) 1rem calc(env(safe-area-inset-bottom) + 1.25rem) !important;
-      background:
-        radial-gradient(circle at 78% 10%, rgba(255,255,255,0.06), transparent 16rem),
-        radial-gradient(circle at 8% 28%, rgba(255,255,255,0.045), transparent 14rem),
-        #050505 !important;
-      color: #F7F4EF !important;
+      gap: 0 !important;
+      padding: 0 !important;
+      background: #F7F7F4 !important;
+      color: #11141B !important;
       overflow-x: hidden !important;
     }
 
@@ -96,296 +93,346 @@
       box-sizing: border-box !important;
     }
 
+    .weightlens-topnav {
+      width: min(100%, 92rem);
+      margin: 0 auto;
+      padding: calc(env(safe-area-inset-top) + 1.15rem) 1.35rem 0;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      color: #11141B;
+    }
+
+    .weightlens-topnav-logo {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.7rem;
+    }
+
+    .weightlens-topnav-mark {
+      height: 2.25rem;
+      width: 2.25rem;
+      border-radius: 999px;
+      border: 1px solid #11141B;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #11141B;
+      margin-top: 0.1rem;
+    }
+
+    .weightlens-topnav-name {
+      font-family: 'Satoshi', 'Inter', system-ui, sans-serif;
+      font-size: 1.8rem;
+      line-height: 0.9;
+      letter-spacing: -0.075em;
+      font-weight: 760;
+      color: #11141B;
+    }
+
+    .weightlens-topnav-sub {
+      margin-top: 0.25rem;
+      margin-left: 0.15rem;
+      color: #8C8790;
+      font-size: 0.63rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .weightlens-topnav-menu {
+      width: 1.8rem;
+      height: 1.8rem;
+      border: 0;
+      background: transparent;
+      color: #11141B;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+    }
+
+    .weightlens-topnav-menu span {
+      display: block;
+      width: 1.35rem;
+      height: 1px;
+      background: #11141B;
+    }
+
     .weightlens-landing-copy {
-      width: 100% !important;
-      max-width: 29rem !important;
-      color: #F7F4EF !important;
-      animation: weightlensFadeIn 320ms ease both;
+      width: min(100%, 74rem) !important;
+      margin: 0 auto !important;
+      padding: clamp(7rem, 17vh, 13rem) 1.35rem 2.4rem !important;
+      color: #11141B !important;
+      animation: weightlensFadeIn 340ms ease both;
+      text-align: center !important;
     }
 
     .weightlens-landing-brand {
-      display: inline-flex !important;
-      align-items: center !important;
-      gap: 0.75rem !important;
-      margin-bottom: 1.35rem !important;
+      display: none !important;
     }
 
-    .weightlens-landing-mark {
-      height: 2.45rem !important;
-      width: 2.45rem !important;
-      border-radius: 0.9rem !important;
-      background: #F7F4EF !important;
-      color: #050505 !important;
-      display: inline-flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-      box-shadow: none !important;
-    }
-
+    .weightlens-landing-mark,
     .weightlens-landing-wordmark {
-      font-family: 'Satoshi', 'Inter', system-ui, sans-serif !important;
-      font-weight: 760 !important;
-      font-size: 1.02rem !important;
-      letter-spacing: -0.035em !important;
-      line-height: 1 !important;
+      display: none !important;
     }
 
     .weightlens-landing-kicker {
-      color: rgba(247,244,239,0.56) !important;
-      font-size: 0.62rem !important;
+      color: #8C8790 !important;
+      font-size: 0.72rem !important;
       text-transform: uppercase !important;
-      letter-spacing: 0.18em !important;
+      letter-spacing: 0.32em !important;
       font-weight: 700 !important;
-      line-height: 1.35 !important;
+      line-height: 1.45 !important;
+      text-align: center !important;
     }
 
     .weightlens-landing-title {
       font-family: 'Satoshi', 'Inter', system-ui, sans-serif !important;
-      font-size: clamp(2.05rem, 9.8vw, 2.85rem) !important;
-      line-height: 1.02 !important;
-      letter-spacing: -0.055em !important;
-      font-weight: 790 !important;
-      margin: 0.6rem 0 0 !important;
-      max-width: 12.5ch !important;
+      font-size: clamp(2.8rem, 6.6vw, 6.2rem) !important;
+      line-height: 1.05 !important;
+      letter-spacing: -0.065em !important;
+      font-weight: 760 !important;
+      margin: 1.35rem auto 0 !important;
+      max-width: 18ch !important;
+      color: #11141B !important;
     }
 
     .weightlens-landing-body {
-      color: rgba(247,244,239,0.62) !important;
-      font-size: 0.92rem !important;
-      line-height: 1.52 !important;
-      margin-top: 0.85rem !important;
-      max-width: 27rem !important;
+      color: #777B86 !important;
+      font-size: clamp(1rem, 1.5vw, 1.28rem) !important;
+      line-height: 1.55 !important;
+      margin: 1.35rem auto 0 !important;
+      max-width: 42rem !important;
+      text-align: center !important;
     }
 
     .weightlens-landing-features {
-      display: flex !important;
-      flex-wrap: wrap !important;
-      gap: 0.45rem !important;
-      margin-top: 1rem !important;
+      width: min(100%, 64rem) !important;
+      display: grid !important;
+      grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+      gap: 1.4rem !important;
+      margin: clamp(4.4rem, 9vh, 7.5rem) auto 0 !important;
+      text-align: center !important;
     }
 
     .weightlens-landing-feature {
-      border: 1px solid rgba(247,244,239,0.12) !important;
-      background: rgba(247,244,239,0.035) !important;
-      border-radius: 999px !important;
-      padding: 0.46rem 0.68rem !important;
-      display: inline-flex !important;
-      align-items: center !important;
-      gap: 0.42rem !important;
+      border: 0 !important;
+      background: transparent !important;
+      border-radius: 0 !important;
+      padding: 0 !important;
+      display: block !important;
       width: auto !important;
-      min-width: 0 !important;
-      backdrop-filter: none !important;
-      -webkit-backdrop-filter: none !important;
+      color: #11141B !important;
     }
 
     .weightlens-landing-feature::before {
-      content: '';
-      height: 0.32rem;
-      width: 0.32rem;
-      border-radius: 999px;
-      background: rgba(247,244,239,0.42);
-      flex: 0 0 auto;
+      content: none !important;
     }
 
     .weightlens-landing-feature-title {
-      font-weight: 620 !important;
-      font-size: 0.74rem !important;
-      margin: 0 !important;
-      color: rgba(247,244,239,0.82) !important;
+      font-family: 'Satoshi', 'Inter', system-ui, sans-serif !important;
+      font-size: clamp(1.35rem, 2.8vw, 2.7rem) !important;
       line-height: 1 !important;
-      white-space: nowrap !important;
-      letter-spacing: -0.01em !important;
+      letter-spacing: -0.05em !important;
+      font-weight: 790 !important;
+      color: #11141B !important;
+      white-space: normal !important;
+      margin: 0 !important;
     }
 
     .weightlens-landing-feature-body {
-      display: none !important;
+      display: block !important;
+      margin: 0.7rem auto 0 !important;
+      max-width: 16rem !important;
+      color: #7D828D !important;
+      font-size: 0.86rem !important;
+      line-height: 1.45 !important;
     }
 
-    .weightlens-landing-shell > .w-full.max-w-md {
-      width: 100% !important;
-      max-width: 29rem !important;
-      border-radius: 1.35rem !important;
-      padding: 1.15rem !important;
-      background: #111112 !important;
-      border: 1px solid rgba(247,244,239,0.10) !important;
-      box-shadow: 0 24px 70px -52px rgba(0,0,0,0.95) !important;
-      color: #F7F4EF !important;
+    .weightlens-auth-card {
+      width: min(calc(100% - 2.7rem), 27rem) !important;
+      margin: 0 auto clamp(2rem, 7vh, 4rem) !important;
+      border-radius: 1.2rem !important;
+      padding: 1.1rem !important;
+      background: #FFFFFF !important;
+      border: 1px solid #E7E5E1 !important;
+      box-shadow: 0 24px 70px -58px rgba(17,20,27,0.45) !important;
+      color: #11141B !important;
       backdrop-filter: none !important;
       -webkit-backdrop-filter: none !important;
     }
 
-    .weightlens-landing-shell > .w-full.max-w-md > div:first-child {
-      margin-bottom: 1rem !important;
-    }
-
-    .weightlens-landing-shell > .w-full.max-w-md h1 {
-      font-size: 1.38rem !important;
-      line-height: 1.12 !important;
+    .weightlens-auth-card h1 {
+      font-family: 'Satoshi', 'Inter', system-ui, sans-serif !important;
+      font-size: 1.15rem !important;
+      line-height: 1.18 !important;
       letter-spacing: -0.035em !important;
-      max-width: none !important;
-      color: #F7F4EF !important;
+      color: #11141B !important;
+      font-weight: 720 !important;
+      margin: 0 !important;
     }
 
-    .weightlens-landing-shell > .w-full.max-w-md p,
-    .weightlens-landing-shell > .w-full.max-w-md .text-mute,
-    .weightlens-landing-shell > .w-full.max-w-md .text-sm {
-      font-size: 0.88rem !important;
+    .weightlens-auth-card p,
+    .weightlens-auth-card .text-mute,
+    .weightlens-auth-card .text-sm {
+      color: #777B86 !important;
+      font-size: 0.85rem !important;
       line-height: 1.48 !important;
-      color: rgba(247,244,239,0.58) !important;
     }
 
-    .weightlens-landing-shell > .w-full.max-w-md form {
+    .weightlens-auth-card form {
       width: 100% !important;
       display: flex !important;
       flex-direction: column !important;
-      gap: 0.75rem !important;
+      gap: 0.65rem !important;
     }
 
-    .weightlens-landing-shell > .w-full.max-w-md input {
+    .weightlens-auth-card input {
       width: 100% !important;
       max-width: 100% !important;
-      background: #1B1B1D !important;
-      border-color: rgba(247,244,239,0.10) !important;
-      color: #F7F4EF !important;
-      height: 3.2rem !important;
-      border-radius: 1rem !important;
-      font-size: 1rem !important;
-      padding-left: 1rem !important;
-      padding-right: 1rem !important;
+      height: 2.9rem !important;
+      border-radius: 0.9rem !important;
+      background: #F7F7F4 !important;
+      border: 1px solid #E6E2DD !important;
+      color: #11141B !important;
+      padding: 0 0.95rem !important;
+      font-size: 0.96rem !important;
       letter-spacing: 0 !important;
     }
 
-    .weightlens-landing-shell > .w-full.max-w-md input::placeholder {
-      color: rgba(247,244,239,0.38) !important;
+    .weightlens-auth-card input::placeholder {
+      color: #A1A1A1 !important;
       letter-spacing: 0 !important;
     }
 
-    .weightlens-landing-shell > .w-full.max-w-md form button,
-    .weightlens-landing-shell > .w-full.max-w-md button.bg-fg {
+    .weightlens-auth-card form button,
+    .weightlens-auth-card button.bg-fg {
       width: 100% !important;
-      max-width: 100% !important;
+      height: 2.95rem !important;
+      border-radius: 0.9rem !important;
+      background: #11141B !important;
+      color: #FFFFFF !important;
+      font-weight: 680 !important;
+      font-size: 0.94rem !important;
+      letter-spacing: -0.01em !important;
+      border: 0 !important;
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
-      background: #F7F4EF !important;
-      color: #050505 !important;
-      height: 3.15rem !important;
-      border-radius: 1rem !important;
-      font-size: 0.98rem !important;
-      font-weight: 720 !important;
-      letter-spacing: -0.015em !important;
-      padding: 0 1rem !important;
     }
 
-    .weightlens-landing-shell > .w-full.max-w-md .grid.grid-cols-2 {
+    .weightlens-auth-card .grid.grid-cols-2 {
       width: 100% !important;
       display: grid !important;
       grid-template-columns: 1fr 1fr !important;
-      background: #1B1B1D !important;
-      border: 1px solid rgba(247,244,239,0.07) !important;
-      border-radius: 1rem !important;
-      gap: 0.25rem !important;
-      margin-bottom: 1rem !important;
+      background: #F7F7F4 !important;
+      border: 1px solid #E8E5DF !important;
+      border-radius: 0.95rem !important;
       padding: 0.25rem !important;
+      gap: 0.25rem !important;
+      margin: 0.9rem 0 0.95rem !important;
     }
 
-    .weightlens-landing-shell > .w-full.max-w-md .grid.grid-cols-2 button {
+    .weightlens-auth-card .grid.grid-cols-2 button {
       width: 100% !important;
       min-width: 0 !important;
-      white-space: nowrap !important;
-      line-height: 1 !important;
-      border-radius: 0.8rem !important;
+      height: 2.35rem !important;
+      border-radius: 0.75rem !important;
+      background: transparent !important;
+      color: #777B86 !important;
       font-size: 0.86rem !important;
-      height: 2.45rem !important;
+      font-weight: 620 !important;
+      white-space: nowrap !important;
       padding: 0 0.5rem !important;
+      line-height: 1 !important;
+    }
+
+    .weightlens-auth-card .grid.grid-cols-2 button.bg-surface,
+    .weightlens-auth-card .bg-surface {
+      background: #FFFFFF !important;
+      color: #11141B !important;
+      box-shadow: 0 8px 22px -18px rgba(17,20,27,0.5) !important;
+    }
+
+    .weightlens-auth-card .bg-surface3 {
+      background: #F7F7F4 !important;
+    }
+
+    .weightlens-auth-card > .mt-4 {
+      margin-top: 0.95rem !important;
+      text-align: center !important;
+    }
+
+    .weightlens-auth-card > .mt-4 button {
       background: transparent !important;
-      color: rgba(247,244,239,0.55) !important;
-    }
-
-    .weightlens-landing-shell > .w-full.max-w-md .grid.grid-cols-2 button.bg-surface {
-      background: #F7F4EF !important;
-      color: #050505 !important;
-    }
-
-    .weightlens-landing-shell > .w-full.max-w-md .bg-surface3 {
-      background: #1B1B1D !important;
-    }
-
-    .weightlens-landing-shell > .w-full.max-w-md .bg-surface {
-      background: #F7F4EF !important;
-      color: #050505 !important;
-    }
-
-    .weightlens-landing-shell > .w-full.max-w-md > .mt-4 {
-      margin-top: 1rem !important;
-    }
-
-    .weightlens-landing-shell > .w-full.max-w-md > .mt-4 button {
-      color: rgba(247,244,239,0.58) !important;
-      background: transparent !important;
+      color: #777B86 !important;
       width: auto !important;
       height: auto !important;
+      border: 0 !important;
+      font-size: 0.9rem !important;
     }
 
     @keyframes weightlensFadeIn {
-      from { opacity: 0; transform: translateY(8px); }
+      from { opacity: 0; transform: translateY(10px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    @media (min-width: 1100px) {
-      .weightlens-landing-shell {
-        flex-direction: row !important;
-        justify-content: center !important;
-        align-items: center !important;
-        gap: clamp(3rem, 7vw, 7rem) !important;
-        padding: 4rem !important;
-        background:
-          radial-gradient(circle at 75% 20%, rgba(247,244,239,0.05), transparent 32rem),
-          #050505 !important;
+    @media (min-width: 900px) {
+      .weightlens-auth-card {
+        margin-top: 1rem !important;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .weightlens-topnav {
+        padding-left: 1.05rem !important;
+        padding-right: 1.05rem !important;
+      }
+
+      .weightlens-topnav-mark {
+        height: 2rem !important;
+        width: 2rem !important;
+      }
+
+      .weightlens-topnav-name {
+        font-size: 1.45rem !important;
       }
 
       .weightlens-landing-copy {
-        max-width: 32rem !important;
+        padding: clamp(5.8rem, 14vh, 8rem) 1.05rem 1.9rem !important;
       }
 
       .weightlens-landing-title {
-        font-size: clamp(3.25rem, 4.25vw, 4.35rem) !important;
+        font-size: clamp(2.45rem, 12vw, 3.35rem) !important;
+        line-height: 1.02 !important;
         max-width: 11.5ch !important;
       }
 
       .weightlens-landing-body {
-        font-size: 1rem !important;
-        max-width: 31rem !important;
+        font-size: 0.96rem !important;
+        max-width: 21rem !important;
       }
 
-      .weightlens-landing-shell > .w-full.max-w-md {
-        max-width: 26rem !important;
-        padding: 1.45rem !important;
-      }
-    }
-
-    @media (max-width: 520px) {
-      .weightlens-landing-shell {
-        padding-left: 1rem !important;
-        padding-right: 1rem !important;
-        gap: 1rem !important;
+      .weightlens-landing-features {
+        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+        gap: 1.35rem 1rem !important;
+        margin-top: 3rem !important;
       }
 
-      .weightlens-landing-copy {
-        max-width: none !important;
+      .weightlens-landing-feature-title {
+        font-size: clamp(1.35rem, 7vw, 2rem) !important;
       }
 
-      .weightlens-landing-title {
-        font-size: clamp(2.05rem, 10.2vw, 2.7rem) !important;
-        max-width: 12.5ch !important;
+      .weightlens-landing-feature-body {
+        font-size: 0.76rem !important;
+        max-width: 9.5rem !important;
       }
 
-      .weightlens-landing-body {
-        font-size: 0.9rem !important;
-      }
-
-      .weightlens-landing-shell > .w-full.max-w-md {
-        max-width: none !important;
+      .weightlens-auth-card {
+        width: calc(100% - 2.1rem) !important;
       }
     }
   `;
@@ -405,32 +452,46 @@
 
     shell.classList.add('weightlens-landing-shell');
 
+    const authCard = Array.from(shell.children).find(el => el.classList && el.classList.contains('max-w-md') && !el.classList.contains('weightlens-landing-copy'));
+    if (authCard) authCard.classList.add('weightlens-auth-card');
+
+    if (!shell.querySelector('.weightlens-topnav')) {
+      const nav = document.createElement('div');
+      nav.className = 'weightlens-topnav';
+      nav.innerHTML = `
+        <div class="weightlens-topnav-logo">
+          <div class="weightlens-topnav-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.15" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18 9 12l4 4 7-8"/></svg>
+          </div>
+          <div>
+            <div class="weightlens-topnav-name">WeightLens</div>
+            <div class="weightlens-topnav-sub">Studio</div>
+          </div>
+        </div>
+        <button class="weightlens-topnav-menu" aria-label="Menu"><span></span><span></span></button>
+      `;
+      shell.insertBefore(nav, shell.firstChild);
+    }
+
     if (shell.querySelector('.weightlens-landing-copy')) return;
 
     const panel = document.createElement('section');
     panel.className = 'weightlens-landing-copy';
     panel.innerHTML = `
-      <div class="weightlens-landing-brand">
-        <div class="weightlens-landing-mark" aria-hidden="true">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.35" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18 9 12l4 4 7-8"/></svg>
-        </div>
-        <div>
-          <div class="weightlens-landing-wordmark">WeightLens</div>
-          <div class="weightlens-landing-kicker">Trend dashboard</div>
-        </div>
-      </div>
-      <p class="weightlens-landing-kicker">Scale data without the panic</p>
-      <h1 class="weightlens-landing-title">Understand your weight trend.</h1>
-      <p class="weightlens-landing-body">A minimal dashboard for daily weigh-ins, 7-day averages, goal pace, and personalized insights.</p>
+      <p class="weightlens-landing-kicker">Weight tracking, finally calm</p>
+      <h1 class="weightlens-landing-title">Does your scale tell the real story?</h1>
+      <p class="weightlens-landing-body">WeightLens turns daily weigh-ins into a clean trend dashboard — so you can see direction, pace, and progress without overreacting to one morning.</p>
       <div class="weightlens-landing-features">
-        <div class="weightlens-landing-feature"><div class="weightlens-landing-feature-title">7-day trend</div><div class="weightlens-landing-feature-body">See the real direction.</div></div>
-        <div class="weightlens-landing-feature"><div class="weightlens-landing-feature-title">Goal coach</div><div class="weightlens-landing-feature-body">Track pace and ETA.</div></div>
-        <div class="weightlens-landing-feature"><div class="weightlens-landing-feature-title">Personal insights</div><div class="weightlens-landing-feature-body">Explain fluctuations.</div></div>
-        <div class="weightlens-landing-feature"><div class="weightlens-landing-feature-title">Cloud sync</div><div class="weightlens-landing-feature-body">Use every device.</div></div>
+        <div class="weightlens-landing-feature"><div class="weightlens-landing-feature-title">7-day</div><div class="weightlens-landing-feature-body">average trend, not daily noise</div></div>
+        <div class="weightlens-landing-feature"><div class="weightlens-landing-feature-title">Goals</div><div class="weightlens-landing-feature-body">pace, ETA, and remaining progress</div></div>
+        <div class="weightlens-landing-feature"><div class="weightlens-landing-feature-title">Insights</div><div class="weightlens-landing-feature-body">plain-English fluctuation coaching</div></div>
+        <div class="weightlens-landing-feature"><div class="weightlens-landing-feature-title">Cloud</div><div class="weightlens-landing-feature-body">your dashboard across devices</div></div>
       </div>
     `;
 
-    shell.insertBefore(panel, shell.firstChild);
+    const auth = shell.querySelector('.weightlens-auth-card');
+    if (auth) shell.insertBefore(panel, auth);
+    else shell.appendChild(panel);
   }
 
   const observer = new MutationObserver(() => enhanceLandingScreen());
