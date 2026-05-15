@@ -69,19 +69,19 @@
     .weightlens-auth-card > .mt-4 { margin-top:1rem!important; text-align:center!important; }
     .weightlens-auth-card > .mt-4 button, html[data-theme="dark"] .weightlens-auth-card > .mt-4 button { background:transparent!important; color:#6E7480!important; width:auto!important; height:auto!important; border:0!important; font-size:0.9rem!important; box-shadow:none!important; }
 
-    .weightlens-reveal { opacity:0!important; transform:translateY(24px)!important; filter:blur(8px)!important; transition:opacity 780ms cubic-bezier(.22,1,.36,1), transform 780ms cubic-bezier(.22,1,.36,1), filter 780ms cubic-bezier(.22,1,.36,1)!important; will-change:opacity, transform, filter!important; }
-    .weightlens-reveal.is-visible { opacity:1!important; transform:translateY(0)!important; filter:blur(0)!important; }
-    .weightlens-reveal-slow { transition-duration:980ms!important; }
-    .weightlens-reveal-delay-1 { transition-delay:90ms!important; }
-    .weightlens-reveal-delay-2 { transition-delay:180ms!important; }
-    .weightlens-reveal-delay-3 { transition-delay:270ms!important; }
-    .weightlens-reveal-delay-4 { transition-delay:360ms!important; }
-    .weightlens-landing-feature.weightlens-reveal { transform:translateY(18px)!important; filter:blur(5px)!important; }
-    .weightlens-auth-card.weightlens-reveal { transform:translateY(30px)!important; }
+    .weightlens-reveal { opacity:0!important; transform:translateY(34px)!important; transition:opacity 720ms cubic-bezier(.22,1,.36,1), transform 720ms cubic-bezier(.22,1,.36,1)!important; will-change:opacity, transform!important; }
+    .weightlens-reveal.is-visible { opacity:1!important; transform:translateY(0)!important; }
+    .weightlens-reveal-slow { transition-duration:920ms!important; }
+    .weightlens-reveal-delay-1 { transition-delay:80ms!important; }
+    .weightlens-reveal-delay-2 { transition-delay:160ms!important; }
+    .weightlens-reveal-delay-3 { transition-delay:240ms!important; }
+    .weightlens-reveal-delay-4 { transition-delay:320ms!important; }
+    .weightlens-landing-feature.weightlens-reveal { transform:translateY(26px)!important; }
+    .weightlens-auth-card.weightlens-reveal { transform:translateY(42px)!important; }
 
     @media (prefers-reduced-motion: reduce) {
       .weightlens-reveal,
-      .weightlens-reveal.is-visible { opacity:1!important; transform:none!important; filter:none!important; transition:none!important; }
+      .weightlens-reveal.is-visible { opacity:1!important; transform:none!important; transition:none!important; }
     }
 
     @media (max-width:720px) { .weightlens-auth-card form { display:flex!important; flex-direction:column!important; gap:1.1rem!important; } .weightlens-auth-card form button, .weightlens-auth-card button.bg-fg, html[data-theme="dark"] .weightlens-auth-card form button, html[data-theme="dark"] .weightlens-auth-card button.bg-fg { width:100%!important; } }
@@ -123,9 +123,9 @@
     el.style.setProperty('color', color, 'important');
   }
 
+  let landingRevealObserver = null;
   function setupLandingReveal(shell){
-    if (!shell || shell.dataset.revealReady === 'true') return;
-    shell.dataset.revealReady = 'true';
+    if (!shell) return;
 
     const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const targets = [
@@ -137,9 +137,15 @@
       shell.querySelector('.weightlens-auth-card')
     ].filter(Boolean);
 
-    targets.forEach((el, index) => {
+    targets.forEach((el) => {
+      if (el.dataset.revealItem === 'true') return;
+      el.dataset.revealItem = 'true';
       el.classList.add('weightlens-reveal');
-      if (index === 2 || el.classList.contains('weightlens-auth-card')) el.classList.add('weightlens-reveal-slow');
+
+      if (el.classList.contains('weightlens-landing-title') || el.classList.contains('weightlens-auth-card')) {
+        el.classList.add('weightlens-reveal-slow');
+      }
+
       if (el.classList.contains('weightlens-landing-feature')) {
         const features = Array.from(shell.querySelectorAll('.weightlens-landing-feature'));
         el.classList.add(`weightlens-reveal-delay-${Math.min(features.indexOf(el) + 1, 4)}`);
@@ -151,18 +157,19 @@
       return;
     }
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('is-visible');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.18, rootMargin: '0px 0px -8% 0px' });
+    if (!landingRevealObserver) {
+      landingRevealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            landingRevealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -10% 0px' });
+    }
 
-    targets.forEach((el, index) => {
-      observer.observe(el);
-      if (index < 4) setTimeout(() => el.classList.add('is-visible'), 120 + index * 120);
+    targets.forEach((el) => {
+      if (!el.classList.contains('is-visible')) landingRevealObserver.observe(el);
     });
   }
 
