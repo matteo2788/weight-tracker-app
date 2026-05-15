@@ -268,20 +268,20 @@ function App(){
         setState(cleanLoadedState(data.state));
         setCloudMessage('Cloud save loaded.');
       } else {
-  const freshCloudState = cleanLoadedState(freshState());
+        const freshCloudState = cleanLoadedState(freshState());
 
-  await supabaseClient
-    .from('app_state')
-    .upsert({
-      user_id: currentUser.id,
-      state: freshCloudState,
-      updated_at: new Date().toISOString()
-    });
+        await supabaseClient
+          .from('app_state')
+          .upsert({
+            user_id: currentUser.id,
+            state: freshCloudState,
+            updated_at: new Date().toISOString()
+          });
 
-  setState(freshCloudState);
-  saveState(freshCloudState);
-  setCloudMessage('Fresh cloud save created.');
-}
+        setState(freshCloudState);
+        saveState(freshCloudState);
+        setCloudMessage('Fresh cloud save created.');
+      }
 
       setCloudReady(true);
       setCloudLoading(false);
@@ -367,7 +367,7 @@ function App(){
   const resetAll = useCallback(() => {
     const fresh = { ...freshState() };
     setState(fresh);
-    setTweak({ name: 'Matteo', accent: '#65A30D', unit: 'lbs', weekStartDay: 1 });
+    setTweak({ name: 'New User', accent: '#65A30D', unit: 'lbs', weekStartDay: 1 });
   }, [setTweak]);
 
   const signOut = useCallback(async () => {
