@@ -1,7 +1,7 @@
 // app.jsx — top-level app, router, state provider, tweaks panel, mount
 
 const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
-  "name": "Matteo",
+  "name": "New User",
   "accent": "#65A30D",
   "unit": "lbs",
   "weekStartDay": 1,
@@ -51,7 +51,7 @@ function cleanLoadedState(loaded){
     ...s,
     settings: { ...DEFAULT_SETTINGS, ...(s.settings || {}) },
     goal: { ...DEFAULT_GOAL, ...(s.goal || {}) },
-    profile: { name: 'Matteo', ...(s.profile || {}) },
+    profile: { name: 'New User', ...(s.profile || {}) },
   };
 }
 
