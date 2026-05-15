@@ -219,7 +219,7 @@
     .weightlens-auth-card,
     html[data-theme="dark"] .weightlens-auth-card,
     html.weightlens-auth-mode .weightlens-auth-card {
-      width: min(calc(100% - 2.7rem), 28rem) !important;
+      width: min(calc(100% - 2.7rem), 30rem) !important;
       margin: 0 auto clamp(2rem, 7vh, 4rem) !important;
       border-radius: 0 !important;
       padding: 0 !important;
@@ -227,16 +227,31 @@
       border: 0 !important;
       box-shadow: none !important;
       color: #11141B !important;
+      position: relative !important;
+    }
+
+    .weightlens-auth-card::before {
+      content: '' !important;
+      display: block !important;
+      width: min(100%, 10rem) !important;
+      height: 1px !important;
+      background: rgba(17,20,27,0.18) !important;
+      margin: 0 auto 1.65rem !important;
+    }
+
+    .weightlens-auth-card > div:first-child {
+      margin-bottom: 1rem !important;
+      text-align: center !important;
     }
 
     .weightlens-auth-card h1,
     html[data-theme="dark"] .weightlens-auth-card h1 {
       font-family: 'Satoshi', 'Inter', system-ui, sans-serif !important;
-      font-size: 1.45rem !important;
-      line-height: 1.12 !important;
+      font-size: 1.25rem !important;
+      line-height: 1.14 !important;
       letter-spacing: -0.045em !important;
       color: #11141B !important;
-      font-weight: 740 !important;
+      font-weight: 720 !important;
       margin: 0 !important;
     }
 
@@ -247,63 +262,88 @@
     html[data-theme="dark"] .weightlens-auth-card .text-mute,
     html[data-theme="dark"] .weightlens-auth-card .text-sm {
       color: #6E7480 !important;
-      font-size: 0.92rem !important;
+      font-size: 0.88rem !important;
       line-height: 1.5 !important;
+      text-align: center !important;
     }
 
     .weightlens-auth-card form {
       width: 100% !important;
-      display: flex !important;
-      flex-direction: column !important;
+      display: grid !important;
+      grid-template-columns: 1fr 1fr auto !important;
       gap: 0.7rem !important;
+      align-items: end !important;
     }
 
     .weightlens-auth-card .grid.grid-cols-2,
     html[data-theme="dark"] .weightlens-auth-card .grid.grid-cols-2 {
-      width: 100% !important;
+      width: fit-content !important;
+      min-width: 17rem !important;
       display: grid !important;
       grid-template-columns: 1fr 1fr !important;
-      background: #EBEBE7 !important;
-      border: 1px solid rgba(17,20,27,0.055) !important;
-      border-radius: 999px !important;
-      padding: 0.25rem !important;
-      gap: 0.25rem !important;
-      margin: 1rem 0 1rem !important;
+      background: transparent !important;
+      border: 0 !important;
+      border-bottom: 1px solid rgba(17,20,27,0.16) !important;
+      border-radius: 0 !important;
+      padding: 0 0 0.35rem !important;
+      gap: 1.2rem !important;
+      margin: 1.2rem auto 1.4rem !important;
     }
 
     .weightlens-auth-card .grid.grid-cols-2 button,
     html[data-theme="dark"] .weightlens-auth-card .grid.grid-cols-2 button {
-      width: 100% !important;
-      height: 2.55rem !important;
-      border-radius: 999px !important;
+      width: auto !important;
+      min-width: 0 !important;
+      height: auto !important;
+      border-radius: 0 !important;
       background: transparent !important;
-      color: #6E7480 !important;
+      color: #8A8F98 !important;
       font-size: 0.9rem !important;
-      font-weight: 640 !important;
+      font-weight: 650 !important;
       white-space: nowrap !important;
+      padding: 0 0 0.55rem !important;
+      line-height: 1 !important;
       box-shadow: none !important;
+      position: relative !important;
     }
 
     .weightlens-auth-card .grid.grid-cols-2 button.bg-surface,
-    .weightlens-auth-card .bg-surface,
-    html[data-theme="dark"] .weightlens-auth-card .grid.grid-cols-2 button.bg-surface,
-    html[data-theme="dark"] .weightlens-auth-card .bg-surface {
-      background: #FFFFFF !important;
+    html[data-theme="dark"] .weightlens-auth-card .grid.grid-cols-2 button.bg-surface {
+      background: transparent !important;
       color: #11141B !important;
-      box-shadow: 0 10px 22px -18px rgba(17,20,27,0.28) !important;
+      box-shadow: none !important;
+    }
+
+    .weightlens-auth-card .grid.grid-cols-2 button.bg-surface::after,
+    html[data-theme="dark"] .weightlens-auth-card .grid.grid-cols-2 button.bg-surface::after {
+      content: '' !important;
+      position: absolute !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: -0.41rem !important;
+      height: 2px !important;
+      border-radius: 999px !important;
+      background: #11141B !important;
     }
 
     .weightlens-auth-card input,
     html[data-theme="dark"] .weightlens-auth-card input {
       width: 100% !important;
-      height: 3.2rem !important;
-      border-radius: 999px !important;
-      background: #FFFFFF !important;
-      border: 1px solid rgba(17,20,27,0.08) !important;
+      height: 3.05rem !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      border: 0 !important;
+      border-bottom: 1px solid rgba(17,20,27,0.18) !important;
       color: #11141B !important;
-      padding: 0 1.15rem !important;
+      padding: 0 !important;
       font-size: 0.98rem !important;
-      box-shadow: 0 12px 32px -30px rgba(17,20,27,0.25) !important;
+      box-shadow: none !important;
+      outline: none !important;
+    }
+
+    .weightlens-auth-card input:focus,
+    html[data-theme="dark"] .weightlens-auth-card input:focus {
+      border-bottom-color: #11141B !important;
     }
 
     .weightlens-auth-card input::placeholder {
@@ -314,18 +354,20 @@
     .weightlens-auth-card button.bg-fg,
     html[data-theme="dark"] .weightlens-auth-card form button,
     html[data-theme="dark"] .weightlens-auth-card button.bg-fg {
-      width: 100% !important;
-      height: 3.2rem !important;
+      width: auto !important;
+      min-width: 8.2rem !important;
+      height: 3.05rem !important;
       border-radius: 999px !important;
       background: #11141B !important;
       color: #FFFFFF !important;
       font-weight: 700 !important;
-      font-size: 0.96rem !important;
+      font-size: 0.94rem !important;
       border: 0 !important;
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
       box-shadow: 0 14px 34px -22px rgba(17,20,27,0.42) !important;
+      padding: 0 1.35rem !important;
     }
 
     .weightlens-auth-card > .mt-4 {
@@ -342,6 +384,21 @@
       border: 0 !important;
       font-size: 0.9rem !important;
       box-shadow: none !important;
+    }
+
+    @media (max-width: 720px) {
+      .weightlens-auth-card form {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 0.85rem !important;
+      }
+
+      .weightlens-auth-card form button,
+      .weightlens-auth-card button.bg-fg,
+      html[data-theme="dark"] .weightlens-auth-card form button,
+      html[data-theme="dark"] .weightlens-auth-card button.bg-fg {
+        width: 100% !important;
+      }
     }
 
     @media (max-width: 640px) {
