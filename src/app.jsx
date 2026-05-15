@@ -268,19 +268,20 @@ function App(){
         setState(cleanLoadedState(data.state));
         setCloudMessage('Cloud save loaded.');
       } else {
-        const localState = cleanLoadedState(loadState());
+  const freshCloudState = cleanLoadedState(freshState());
 
-        await supabaseClient
-          .from('app_state')
-          .upsert({
-            user_id: currentUser.id,
-            state: localState,
-            updated_at: new Date().toISOString()
-          });
+  await supabaseClient
+    .from('app_state')
+    .upsert({
+      user_id: currentUser.id,
+      state: freshCloudState,
+      updated_at: new Date().toISOString()
+    });
 
-        setState(localState);
-        setCloudMessage('Cloud save created.');
-      }
+  setState(freshCloudState);
+  saveState(freshCloudState);
+  setCloudMessage('Fresh cloud save created.');
+}
 
       setCloudReady(true);
       setCloudLoading(false);
