@@ -7,9 +7,49 @@ function SettingsPage(){
   const setS = (patch) => updateState({ settings: { ...s, ...patch }});
   const [importOpen, setImportOpen] = useState(false);
   const [importText, setImportText] = useState('');
+  const [profileDraft, setProfileDraft] = useState(state.profile?.name || currentUser?.user_metadata?.name || 'New User');
+  const [profileStatus, setProfileStatus] = useState('');
+  const [profileSaving, setProfileSaving] = useState(false);
 
   const profileName = state.profile?.name || currentUser?.user_metadata?.name || 'New User';
   const email = currentUser?.email || 'No email found';
+
+  useEffect(() => {
+    setProfileDraft(profileName);
+  }, [profileName]);
+
+  const saveProfile = async () => {
+    const cleanName = profileDraft.trim();
+
+    if (!cleanName) {
+      setProfileStatus('Enter a name first.');
+      return;
+    }
+
+    setProfileSaving(true);
+    setProfileStatus('');
+
+    updateState({
+      profile: {
+        ...(state.profile || {}),
+        name: cleanName
+      }
+    });
+
+    try {
+      const supabaseClient = typeof getSupabaseClient === 'function' ? getSupabaseClient() : null;
+      if (supabaseClient) {
+        await supabaseClient.auth.updateUser({
+          data: { name: cleanName }
+        });
+      }
+      setProfileStatus('Profile saved.');
+    } catch(e) {
+      setProfileStatus('Name saved in WeightLens. Auth profile update failed.');
+    }
+
+    setProfileSaving(false);
+  };
 
   const onExport = () => {
     const data = JSON.stringify(state, null, 2);
@@ -73,6 +113,32 @@ function SettingsPage(){
             Sign out
           </Button>
         </div>
+      </Card>
+
+      <Card>
+        <SectionLabel>Profile</SectionLabel>
+        <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-3 items-end">
+          <div>
+            <label className="block text-[11.5px] text-mute mb-1.5">Display name</label>
+            <Input
+              className="w-full"
+              type="text"
+              value={profileDraft}
+              onChange={e => {
+                setProfileDraft(e.target.value);
+                setProfileStatus('');
+              }}
+              placeholder="Your name"
+            />
+          </div>
+          <Button onClick={saveProfile} disabled={profileSaving || profileDraft.trim() === profileName} className="w-full sm:w-auto disabled:opacity-50">
+            {profileSaving ? 'Saving...' : 'Save profile'}
+          </Button>
+        </div>
+        <div className="text-[12.5px] text-mute mt-3 leading-relaxed">
+          This name appears in your sidebar and saves with your account.
+        </div>
+        {profileStatus && <div className="text-[12.5px] text-mute mt-2">{profileStatus}</div>}
       </Card>
 
       <Card>
