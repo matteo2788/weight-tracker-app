@@ -81,7 +81,7 @@ function freshState(){
     photos: [],
     goal: { ...DEFAULT_GOAL },
     settings: { ...DEFAULT_SETTINGS },
-    profile: { name: 'Matteo' },
+    profile: { name: 'New User', ...(parsed.profile||{}) },
   };
 }
 
