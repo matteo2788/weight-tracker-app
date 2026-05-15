@@ -33,13 +33,24 @@ input[type="number"] {
 }
 
 .display {
-  letter-spacing: -0.055em !important;
-  line-height: 0.95 !important;
+  letter-spacing: -0.045em !important;
+  line-height: 0.98 !important;
 }
 
 .grid.grid-cols-2.lg\:grid-cols-4.gap-3 .display,
 .grid.grid-cols-1.lg\:grid-cols-3.gap-4 .display {
-  font-weight: 800 !important;
+  font-weight: 750 !important;
+}
+
+.grid.grid-cols-2.lg\:grid-cols-4.gap-3 .display.text-\[34px\] {
+  font-size: clamp(2.35rem, 3.2vw, 3.15rem) !important;
+  line-height: 1 !important;
+  letter-spacing: -0.045em !important;
+}
+
+.grid.grid-cols-2.lg\:grid-cols-4.gap-3 .display.text-\[34px\] + span,
+.grid.grid-cols-2.lg\:grid-cols-4.gap-3 .text-mute.text-sm {
+  font-size: 0.95rem !important;
 }
 
 .grid.grid-cols-2.lg\:grid-cols-4.gap-3 .text-mute,
@@ -176,16 +187,22 @@ html[data-theme="dark"] .recharts-tooltip-wrapper .text-accent {
 
   .grid.grid-cols-2.lg\:grid-cols-4.gap-3 > div {
     padding: 1rem !important;
-    min-height: 8.35rem !important;
+    min-height: 8.15rem !important;
   }
 
   .grid.grid-cols-2.lg\:grid-cols-4.gap-3 .display.text-\[34px\] {
-    font-size: clamp(2rem, 10vw, 3rem) !important;
-    line-height: 0.98 !important;
+    font-size: clamp(2rem, 8.7vw, 2.65rem) !important;
+    line-height: 1 !important;
+    letter-spacing: -0.04em !important;
+  }
+
+  .grid.grid-cols-2.lg\:grid-cols-4.gap-3 .display.text-\[34px\] + span,
+  .grid.grid-cols-2.lg\:grid-cols-4.gap-3 .text-mute.text-sm {
+    font-size: 0.82rem !important;
   }
 
   .grid.grid-cols-2.lg\:grid-cols-4.gap-3 .text-\[11px\].uppercase {
-    letter-spacing: 0.16em !important;
+    letter-spacing: 0.14em !important;
     line-height: 1.35 !important;
   }
 
