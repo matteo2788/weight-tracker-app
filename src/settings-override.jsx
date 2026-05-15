@@ -1,10 +1,143 @@
 // settings-override.jsx — cleaner cloud-aware Settings page
 // Loaded after pages-misc.jsx so it replaces the original SettingsPage.
 
+(function installWeightLensAppearance(){
+  if (window.__weightLensAppearanceInstalled) return;
+  window.__weightLensAppearanceInstalled = true;
+
+  const css = `
+    html[data-theme="dark"],
+    html[data-theme="dark"] body {
+      background: #0F0F10 !important;
+      color: #F3EEE7 !important;
+      color-scheme: dark;
+    }
+
+    html[data-theme="dark"] .bg-bg { background-color: #0F0F10 !important; }
+    html[data-theme="dark"] .bg-surface { background-color: #151516 !important; }
+    html[data-theme="dark"] .bg-surface2 { background-color: #1A1A1C !important; }
+    html[data-theme="dark"] .bg-surface3 { background-color: #242427 !important; }
+    html[data-theme="dark"] [class~="bg-surface/95"] { background-color: rgba(26,26,28,0.95) !important; }
+    html[data-theme="dark"] [class~="bg-surface3/40"] { background-color: rgba(36,36,39,0.40) !important; }
+    html[data-theme="dark"] [class~="bg-surface3/60"] { background-color: rgba(36,36,39,0.60) !important; }
+
+    html[data-theme="dark"] .text-fg { color: #F3EEE7 !important; }
+    html[data-theme="dark"] .text-bg { color: #0F0F10 !important; }
+    html[data-theme="dark"] .text-mute { color: #AFA79C !important; }
+    html[data-theme="dark"] .text-mute2 { color: #8A7D70 !important; }
+    html[data-theme="dark"] [class~="text-fg/80"] { color: rgba(243,238,231,0.80) !important; }
+    html[data-theme="dark"] [class~="text-fg/90"] { color: rgba(243,238,231,0.90) !important; }
+
+    html[data-theme="dark"] .border-line,
+    html[data-theme="dark"] .border-line2,
+    html[data-theme="dark"] .hairline {
+      border-color: rgba(243,238,231,0.09) !important;
+    }
+
+    html[data-theme="dark"] .shadow-card,
+    html[data-theme="dark"] .card-ring {
+      box-shadow: 0 0 0 1px rgba(243,238,231,0.07), 0 16px 40px -28px rgba(0,0,0,0.9) !important;
+    }
+
+    html[data-theme="dark"] .shadow-pop {
+      box-shadow: 0 30px 90px -44px rgba(0,0,0,0.95), 0 0 0 1px rgba(243,238,231,0.08) !important;
+    }
+
+    html[data-theme="dark"] input,
+    html[data-theme="dark"] select,
+    html[data-theme="dark"] textarea {
+      background-color: #242427 !important;
+      color: #F3EEE7 !important;
+      border-color: rgba(243,238,231,0.11) !important;
+    }
+
+    html[data-theme="dark"] input::placeholder,
+    html[data-theme="dark"] textarea::placeholder {
+      color: #8A7D70 !important;
+    }
+
+    html[data-theme="dark"] option {
+      background-color: #1A1A1C !important;
+      color: #F3EEE7 !important;
+    }
+
+    html[data-theme="dark"] .bg-fg { background-color: #F3EEE7 !important; }
+    html[data-theme="dark"] .bg-black\/60 { background-color: rgba(0,0,0,0.72) !important; }
+
+    html[data-theme="dark"] .recharts-cartesian-axis-tick text { fill: #AFA79C !important; }
+    html[data-theme="dark"] .recharts-cartesian-grid line { stroke: rgba(243,238,231,0.08) !important; }
+
+    html[data-theme="dark"] ::-webkit-scrollbar-thumb {
+      background: #3A3632 !important;
+      border-color: #0F0F10 !important;
+    }
+
+    html[data-theme="dark"] .fixed.inset-0.z-50 > .absolute.inset-0 {
+      background: rgba(15,15,16,0.76) !important;
+      backdrop-filter: blur(14px) saturate(1.08) !important;
+      -webkit-backdrop-filter: blur(14px) saturate(1.08) !important;
+    }
+
+    html[data-theme="dark"] .fixed.inset-0.z-50 > .relative {
+      background-color: #1A1A1C !important;
+      border-color: rgba(243,238,231,0.10) !important;
+      box-shadow: 0 30px 90px -44px rgba(0,0,0,0.95), 0 0 0 1px rgba(243,238,231,0.07) inset !important;
+    }
+
+    html[data-theme="dark"] .fixed.inset-0.z-50 > .relative > div:first-child {
+      background: rgba(26,26,28,0.90) !important;
+    }
+  `;
+
+  const style = document.createElement('style');
+  style.id = 'weightlens-appearance-styles';
+  style.textContent = css;
+  document.head.appendChild(style);
+
+  function getStoredAppearance(){
+    try {
+      const key = window.STORAGE_KEY || 'weightlens.v2';
+      const raw = localStorage.getItem(key);
+      if (!raw) return 'light';
+      const parsed = JSON.parse(raw);
+      return parsed?.settings?.appearance || 'light';
+    } catch(e) {
+      return 'light';
+    }
+  }
+
+  function resolveAppearance(value){
+    if (value === 'dark') return 'dark';
+    if (value === 'system') {
+      return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+    return 'light';
+  }
+
+  function applyAppearance(){
+    const resolved = resolveAppearance(getStoredAppearance());
+    document.documentElement.setAttribute('data-theme', resolved);
+    document.documentElement.style.colorScheme = resolved;
+  }
+
+  window.WeightLensApplyAppearance = applyAppearance;
+  setTimeout(applyAppearance, 0);
+  window.addEventListener('storage', applyAppearance);
+  if (window.matchMedia) {
+    const mq = window.matchMedia('(prefers-color-scheme: dark)');
+    if (mq.addEventListener) mq.addEventListener('change', applyAppearance);
+    else if (mq.addListener) mq.addListener(applyAppearance);
+  }
+  setInterval(applyAppearance, 800);
+})();
+
 function SettingsPage(){
   const { state, updateState, resetAll, currentUser, cloudReady, signOut } = useApp();
   const s = state.settings;
-  const setS = (patch) => updateState({ settings: { ...s, ...patch }});
+  const setS = (patch) => {
+    updateState({ settings: { ...s, ...patch }});
+    setTimeout(() => window.WeightLensApplyAppearance && window.WeightLensApplyAppearance(), 0);
+  };
   const [importOpen, setImportOpen] = useState(false);
   const [importText, setImportText] = useState('');
   const [profileDraft, setProfileDraft] = useState(state.profile?.name || currentUser?.user_metadata?.name || 'New User');
@@ -13,6 +146,7 @@ function SettingsPage(){
 
   const profileName = state.profile?.name || currentUser?.user_metadata?.name || 'New User';
   const email = currentUser?.email || 'No email found';
+  const appearance = s.appearance || 'light';
 
   useEffect(() => {
     setProfileDraft(profileName);
@@ -88,6 +222,12 @@ function SettingsPage(){
     URL.revokeObjectURL(url);
   };
 
+  const appearanceOptions = [
+    { value: 'light', label: 'Light', body: 'Clean bright mode' },
+    { value: 'dark', label: 'Dark', body: 'Calm low-light mode' },
+    { value: 'system', label: 'System', body: 'Match your device' },
+  ];
+
   return (
     <div className="space-y-6 fadein max-w-3xl pb-8">
       <div>
@@ -112,6 +252,29 @@ function SettingsPage(){
           <Button variant="secondary" onClick={signOut} className="sm:w-auto w-full">
             Sign out
           </Button>
+        </div>
+      </Card>
+
+      <Card>
+        <SectionLabel>Appearance</SectionLabel>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          {appearanceOptions.map(opt => {
+            const active = appearance === opt.value;
+            return (
+              <button
+                key={opt.value}
+                type="button"
+                onClick={() => setS({ appearance: opt.value })}
+                className={`btn text-left rounded-2xl border p-4 transition-colors ${active ? 'bg-fg text-bg border-fg' : 'bg-surface3 text-fg border-line2 hover:border-line2'}`}
+              >
+                <div className="font-medium">{opt.label}</div>
+                <div className={`text-[12.5px] mt-1 ${active ? 'text-bg/75' : 'text-mute'}`}>{opt.body}</div>
+              </button>
+            );
+          })}
+        </div>
+        <div className="text-[12.5px] text-mute mt-3 leading-relaxed">
+          Dark mode is easier on the eyes for early morning weigh-ins. System follows your phone or computer setting.
         </div>
       </Card>
 
