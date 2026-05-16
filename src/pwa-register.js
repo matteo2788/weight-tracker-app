@@ -5,7 +5,6 @@
   const style = document.createElement('style');
   style.id = 'wl-final-hero-polish';
   style.textContent = `
-    /* Final hero stage polish — loaded last so it wins */
     .wl-hero-line { display: block !important; white-space: nowrap !important; }
 
     @media (min-width: 1280px) {
@@ -31,33 +30,10 @@
       .wl-metrics { margin-top: 5.4rem !important; }
 
       .wl-menu { overflow-y: auto !important; }
-      .wl-menu-list {
-        top: auto !important;
-        transform: none !important;
-        margin-top: 0 !important;
-        left: 1.35rem !important;
-        right: 1.35rem !important;
-        width: auto !important;
-        max-width: none !important;
-        padding-top: calc(env(safe-area-inset-top, 0px) + 178px) !important;
-        padding-bottom: 2.5rem !important;
-      }
-      .wl-menu-item {
-        margin: 0 !important;
-        padding: 0.33rem 0 !important;
-        grid-template-columns: 40px minmax(0, 1fr) !important;
-        gap: 0.95rem !important;
-        align-items: baseline !important;
-      }
-      .wl-menu-name {
-        font-size: clamp(2.18rem, 8.1vw, 3.05rem) !important;
-        line-height: 1.08 !important;
-        letter-spacing: -0.055em !important;
-      }
-      .wl-menu-num {
-        font-size: 0.8rem !important;
-        padding-top: 0.5rem !important;
-      }
+      .wl-menu-list { top: auto !important; transform: none !important; margin-top: 0 !important; left: 1.35rem !important; right: 1.35rem !important; width: auto !important; max-width: none !important; padding-top: calc(env(safe-area-inset-top, 0px) + 178px) !important; padding-bottom: 2.5rem !important; }
+      .wl-menu-item { margin: 0 !important; padding: 0.33rem 0 !important; grid-template-columns: 40px minmax(0, 1fr) !important; gap: 0.95rem !important; align-items: baseline !important; }
+      .wl-menu-name { font-size: clamp(2.18rem, 8.1vw, 3.05rem) !important; line-height: 1.08 !important; letter-spacing: -0.055em !important; }
+      .wl-menu-num { font-size: 0.8rem !important; padding-top: 0.5rem !important; }
 
       .wl-section { overflow: visible !important; }
       .wl-section .wl-section-head { display: block !important; margin-bottom: 1.25rem !important; }
@@ -135,7 +111,7 @@ function loadWeightLensAddon(src, id){
 }
 
 (function loadFunctionalAddons(){
-  const version = 'features-5';
+  const version = 'features-6';
   window.addEventListener('load', () => {
     loadWeightLensAddon(`src/functional-goals.js?v=${version}`, 'wl-functional-goals');
     loadWeightLensAddon(`src/functional-measurements.js?v=${version}`, 'wl-functional-measurements');
@@ -143,6 +119,7 @@ function loadWeightLensAddon(src, id){
     loadWeightLensAddon(`src/functional-settings.js?v=${version}`, 'wl-functional-settings');
     loadWeightLensAddon(`src/functional-photos.js?v=${version}`, 'wl-functional-photos');
     loadWeightLensAddon(`src/functional-insights.js?v=${version}`, 'wl-functional-insights');
+    loadWeightLensAddon(`src/functional-log-polish.js?v=${version}`, 'wl-functional-log-polish');
   });
   setTimeout(() => {
     loadWeightLensAddon(`src/functional-goals.js?v=${version}`, 'wl-functional-goals');
@@ -151,10 +128,10 @@ function loadWeightLensAddon(src, id){
     loadWeightLensAddon(`src/functional-settings.js?v=${version}`, 'wl-functional-settings');
     loadWeightLensAddon(`src/functional-photos.js?v=${version}`, 'wl-functional-photos');
     loadWeightLensAddon(`src/functional-insights.js?v=${version}`, 'wl-functional-insights');
+    loadWeightLensAddon(`src/functional-log-polish.js?v=${version}`, 'wl-functional-log-polish');
   }, 500);
 })();
 
-// Lightweight service worker registration.
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker.register('/sw.js').catch(() => null);
