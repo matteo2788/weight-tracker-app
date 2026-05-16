@@ -32,7 +32,8 @@ body,
 #root {
   background: var(--wl-bg) !important;
   color: var(--wl-ink) !important;
-  overflow-x: hidden !important;
+  overflow-x: clip !important;
+  max-width: 100vw !important;
 }
 
 body {
@@ -71,8 +72,15 @@ h3,
   border-color: var(--wl-soft) !important;
 }
 
-/* Desktop layout: proper sidebar + main + right rail, with no horizontal cutoff */
+/* Desktop layout: keep everything inside the viewport */
 @media (min-width: 1024px) {
+  #root > div,
+  body > div,
+  .min-h-screen {
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+  }
+
   .hidden.lg\:block.sticky.top-0.h-screen {
     width: 240px !important;
     flex: 0 0 240px !important;
@@ -83,7 +91,7 @@ h3,
     min-width: 0 !important;
     width: calc(100vw - 240px) !important;
     max-width: calc(100vw - 240px) !important;
-    overflow: hidden !important;
+    overflow-x: hidden !important;
   }
 
   .hidden.lg\:block.sticky.top-0.h-screen + .flex-1 > .flex,
@@ -91,14 +99,16 @@ h3,
     min-width: 0 !important;
     width: 100% !important;
     max-width: 100% !important;
+    overflow-x: hidden !important;
   }
 
   main {
     max-width: none !important;
-    width: 100% !important;
+    width: auto !important;
     min-width: 0 !important;
-    flex: 1 1 auto !important;
-    padding: 2.35rem 2rem 3.5rem !important;
+    flex: 1 1 0 !important;
+    padding: 2.35rem 1.55rem 3.5rem !important;
+    overflow-x: hidden !important;
   }
 
   main > div,
@@ -107,6 +117,7 @@ h3,
     width: 100% !important;
     max-width: none !important;
     min-width: 0 !important;
+    overflow-x: hidden !important;
   }
 
   .flex-1,
@@ -116,13 +127,14 @@ h3,
 
   .hidden.xl\:block.w-\[360px\],
   [class*="w-[360px]"] {
-    width: 330px !important;
-    min-width: 330px !important;
-    max-width: 330px !important;
-    flex: 0 0 330px !important;
+    width: 280px !important;
+    min-width: 280px !important;
+    max-width: 280px !important;
+    flex: 0 0 280px !important;
     overflow: hidden !important;
     background: var(--wl-bg) !important;
     opacity: .94 !important;
+    box-sizing: border-box !important;
   }
 
   .hidden.xl\:block.w-\[360px\] > div,
@@ -130,6 +142,7 @@ h3,
     width: 100% !important;
     max-width: 100% !important;
     box-sizing: border-box !important;
+    overflow-x: hidden !important;
   }
 
   .hidden.xl\:block.w-\[360px\] .rounded-2xl,
@@ -142,15 +155,14 @@ h3,
   }
 }
 
-/* Ultra-wide desktop: stretch main panels but preserve right rail visibility */
 @media (min-width: 1500px) {
   main {
-    padding-right: 1.6rem !important;
+    padding-right: 1.25rem !important;
   }
 
   main .grid.grid-cols-1.xl\:grid-cols-\[1fr_360px\],
   main .grid.grid-cols-1.xl\:grid-cols-\[1fr_340px\] {
-    grid-template-columns: minmax(0, 1.65fr) minmax(300px, .72fr) !important;
+    grid-template-columns: minmax(0, 1.55fr) minmax(280px, .68fr) !important;
   }
 }
 
