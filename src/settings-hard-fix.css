@@ -1,0 +1,153 @@
+/* settings-hard-fix.css — hard visual repair for Settings page */
+
+html[data-theme="dark"] main input,
+html[data-theme="dark"] main select,
+html[data-theme="dark"] main textarea,
+html.dark main input,
+html.dark main select,
+html.dark main textarea {
+  background: #242427 !important;
+  background-color: #242427 !important;
+  color: #F3EEE7 !important;
+  -webkit-text-fill-color: #F3EEE7 !important;
+  border: 1px solid rgba(243,238,231,0.16) !important;
+  border-radius: 14px !important;
+  box-shadow: none !important;
+  min-height: 42px !important;
+}
+
+html[data-theme="dark"] main input[type="text"],
+html.dark main input[type="text"] {
+  max-width: 560px !important;
+}
+
+html[data-theme="dark"] main option,
+html.dark main option {
+  background: #1A1A1C !important;
+  color: #F3EEE7 !important;
+}
+
+html[data-theme="dark"] main button,
+html.dark main button {
+  color: #F3EEE7 !important;
+  -webkit-text-fill-color: #F3EEE7 !important;
+  border-color: rgba(243,238,231,0.14) !important;
+  box-shadow: none !important;
+}
+
+/* Appearance cards: make active light card readable and inactive cards visible */
+html[data-theme="dark"] main button[class*="bg-fg"],
+html[data-theme="dark"] main button[class*="bg-accent"],
+html.dark main button[class*="bg-fg"],
+html.dark main button[class*="bg-accent"] {
+  background: #F3EEE7 !important;
+  background-color: #F3EEE7 !important;
+  color: #0F0F10 !important;
+  -webkit-text-fill-color: #0F0F10 !important;
+  border-color: #F3EEE7 !important;
+}
+
+html[data-theme="dark"] main button[class*="bg-fg"] *,
+html[data-theme="dark"] main button[class*="bg-accent"] *,
+html.dark main button[class*="bg-fg"] *,
+html.dark main button[class*="bg-accent"] * {
+  color: #0F0F10 !important;
+  -webkit-text-fill-color: #0F0F10 !important;
+}
+
+html[data-theme="dark"] main button[class*="bg-surface3"],
+html[data-theme="dark"] main button[class*="bg-surface2"],
+html.dark main button[class*="bg-surface3"],
+html.dark main button[class*="bg-surface2"] {
+  background: #242427 !important;
+  background-color: #242427 !important;
+  color: #F3EEE7 !important;
+  -webkit-text-fill-color: #F3EEE7 !important;
+  border-color: rgba(243,238,231,0.14) !important;
+}
+
+html[data-theme="dark"] main button[class*="bg-surface3"] *,
+html[data-theme="dark"] main button[class*="bg-surface2"] *,
+html.dark main button[class*="bg-surface3"] *,
+html.dark main button[class*="bg-surface2"] * {
+  color: #B7AEA4 !important;
+  -webkit-text-fill-color: #B7AEA4 !important;
+}
+
+html[data-theme="dark"] main button[class*="bg-surface3"] .font-medium,
+html[data-theme="dark"] main button[class*="bg-surface2"] .font-medium,
+html.dark main button[class*="bg-surface3"] .font-medium,
+html.dark main button[class*="bg-surface2"] .font-medium {
+  color: #F3EEE7 !important;
+  -webkit-text-fill-color: #F3EEE7 !important;
+}
+
+/* Save profile button should not become a huge gray strip */
+html[data-theme="dark"] main button:has(+ *),
+html.dark main button:has(+ *) {
+  box-shadow: none !important;
+}
+
+html[data-theme="dark"] main input + button,
+html.dark main input + button,
+html[data-theme="dark"] main button:disabled,
+html.dark main button:disabled {
+  background: #2B2B2E !important;
+  background-color: #2B2B2E !important;
+  color: #F3EEE7 !important;
+  -webkit-text-fill-color: #F3EEE7 !important;
+  opacity: .78 !important;
+}
+
+html[data-theme="dark"] main .text-mute,
+html[data-theme="dark"] main .text-mute2,
+html[data-theme="dark"] main [class*="text-mute"],
+html.dark main .text-mute,
+html.dark main .text-mute2,
+html.dark main [class*="text-mute"] {
+  color: #B7AEA4 !important;
+  -webkit-text-fill-color: #B7AEA4 !important;
+}
+
+html[data-theme="dark"] main p,
+html[data-theme="dark"] main label,
+html[data-theme="dark"] main .text-xs,
+html[data-theme="dark"] main .text-sm,
+html.dark main p,
+html.dark main label,
+html.dark main .text-xs,
+html.dark main .text-sm {
+  color: #B7AEA4 !important;
+  -webkit-text-fill-color: #B7AEA4 !important;
+}
+
+html[data-theme="dark"] main h1,
+html[data-theme="dark"] main h2,
+html[data-theme="dark"] main h3,
+html[data-theme="dark"] main .font-medium,
+html[data-theme="dark"] main .font-semibold,
+html.dark main h1,
+html.dark main h2,
+html.dark main h3,
+html.dark main .font-medium,
+html.dark main .font-semibold {
+  color: #F3EEE7 !important;
+  -webkit-text-fill-color: #F3EEE7 !important;
+}
+
+/* light mode input polish too */
+html:not([data-theme="dark"]) main input,
+html:not([data-theme="dark"]) main select,
+html:not([data-theme="dark"]) main textarea {
+  background: #F0F0ED !important;
+  background-color: #F0F0ED !important;
+  color: #11141B !important;
+  -webkit-text-fill-color: #11141B !important;
+  border: 1px solid rgba(17,20,27,0.12) !important;
+  border-radius: 14px !important;
+  box-shadow: none !important;
+}
+
+html:not([data-theme="dark"]) main input[type="text"] {
+  max-width: 560px !important;
+}
