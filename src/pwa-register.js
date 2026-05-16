@@ -33,15 +33,15 @@
       isolation: isolate !important;
     }
 
-    .weightlens-auth-mode,
-    .weightlens-auth-mode body,
-    .weightlens-auth-mode #root {
+    html.weightlens-auth-mode,
+    html.weightlens-auth-mode body,
+    html.weightlens-auth-mode #root {
       background: #F7F7F4 !important;
       color: #11141B !important;
       color-scheme: light !important;
     }
 
-    .weightlens-auth-mode .weightlens-landing-shell {
+    html.weightlens-auth-mode .weightlens-landing-shell {
       min-height: 100vh !important;
       width: 100% !important;
       display: flex !important;
@@ -56,7 +56,7 @@
       isolation: isolate !important;
     }
 
-    .weightlens-auth-mode .weightlens-landing-shell::before {
+    html.weightlens-auth-mode .weightlens-landing-shell::before {
       content: '' !important;
       position: absolute !important;
       inset: 0 !important;
@@ -67,11 +67,11 @@
         radial-gradient(circle at 14% 36%, rgba(17,20,27,0.025), transparent 18rem) !important;
     }
 
-    .weightlens-auth-mode .weightlens-landing-shell * {
+    html.weightlens-auth-mode .weightlens-landing-shell * {
       box-sizing: border-box !important;
     }
 
-    .weightlens-auth-mode .weightlens-topnav {
+    html.weightlens-auth-mode .weightlens-topnav {
       width: min(100%, 92rem) !important;
       margin: 0 auto !important;
       padding: calc(env(safe-area-inset-top) + 1.1rem) 1.35rem 0 !important;
@@ -81,13 +81,13 @@
       color: #11141B !important;
     }
 
-    .weightlens-auth-mode .weightlens-topnav-logo {
+    html.weightlens-auth-mode .weightlens-topnav-logo {
       display: flex !important;
       align-items: flex-start !important;
       gap: 0.7rem !important;
     }
 
-    .weightlens-auth-mode .weightlens-topnav-mark {
+    html.weightlens-auth-mode .weightlens-topnav-mark {
       height: 2.25rem !important;
       width: 2.25rem !important;
       border-radius: 999px !important;
@@ -99,7 +99,7 @@
       justify-content: center !important;
     }
 
-    .weightlens-auth-mode .weightlens-topnav-name {
+    html.weightlens-auth-mode .weightlens-topnav-name {
       font-family: 'Satoshi', 'Inter', system-ui, sans-serif !important;
       font-size: 1.8rem !important;
       line-height: 0.9 !important;
@@ -108,7 +108,7 @@
       color: #11141B !important;
     }
 
-    .weightlens-auth-mode .weightlens-topnav-sub {
+    html.weightlens-auth-mode .weightlens-topnav-sub {
       margin-top: 0.25rem !important;
       color: #8C8790 !important;
       font-size: 0.63rem !important;
@@ -117,7 +117,7 @@
       font-weight: 700 !important;
     }
 
-    .weightlens-auth-mode .weightlens-topnav-menu {
+    html.weightlens-auth-mode .weightlens-topnav-menu {
       width: 1.8rem !important;
       height: 1.8rem !important;
       border: 0 !important;
@@ -131,14 +131,14 @@
       padding: 0 !important;
     }
 
-    .weightlens-auth-mode .weightlens-topnav-menu span {
+    html.weightlens-auth-mode .weightlens-topnav-menu span {
       display: block !important;
       width: 1.35rem !important;
       height: 1px !important;
       background: #11141B !important;
     }
 
-    .weightlens-auth-mode .weightlens-landing-copy {
+    html.weightlens-auth-mode .weightlens-landing-copy {
       width: min(100%, 74rem) !important;
       margin: 0 auto !important;
       padding: clamp(7rem, 17vh, 13rem) 1.35rem 2.6rem !important;
@@ -146,7 +146,7 @@
       text-align: center !important;
     }
 
-    .weightlens-auth-mode .weightlens-landing-kicker {
+    html.weightlens-auth-mode .weightlens-landing-kicker {
       color: #8C8790 !important;
       font-size: 0.72rem !important;
       text-transform: uppercase !important;
@@ -156,7 +156,7 @@
       text-align: center !important;
     }
 
-    .weightlens-auth-mode .weightlens-landing-title {
+    html.weightlens-auth-mode .weightlens-landing-title {
       font-family: 'Satoshi', 'Inter', system-ui, sans-serif !important;
       font-size: clamp(2.8rem, 6.6vw, 6.2rem) !important;
       line-height: 1.05 !important;
@@ -167,7 +167,7 @@
       color: #11141B !important;
     }
 
-    .weightlens-auth-mode .weightlens-landing-body {
+    html.weightlens-auth-mode .weightlens-landing-body {
       color: #777B86 !important;
       font-size: clamp(1rem, 1.5vw, 1.28rem) !important;
       line-height: 1.55 !important;
@@ -176,7 +176,7 @@
       text-align: center !important;
     }
 
-    .weightlens-auth-mode .weightlens-landing-features {
+    html.weightlens-auth-mode .weightlens-landing-features {
       width: min(100%, 64rem) !important;
       display: grid !important;
       grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
@@ -185,14 +185,14 @@
       text-align: center !important;
     }
 
-    .weightlens-auth-mode .weightlens-landing-feature {
+    html.weightlens-auth-mode .weightlens-landing-feature {
       border: 0 !important;
       background: transparent !important;
       padding: 0 !important;
       color: #11141B !important;
     }
 
-    .weightlens-auth-mode .weightlens-landing-feature-title {
+    html.weightlens-auth-mode .weightlens-landing-feature-title {
       font-family: 'Satoshi', 'Inter', system-ui, sans-serif !important;
       font-size: clamp(1.35rem, 2.8vw, 2.7rem) !important;
       line-height: 1 !important;
@@ -202,7 +202,7 @@
       margin: 0 !important;
     }
 
-    .weightlens-auth-mode .weightlens-landing-feature-body {
+    html.weightlens-auth-mode .weightlens-landing-feature-body {
       display: block !important;
       margin: 0.7rem auto 0 !important;
       max-width: 16rem !important;
@@ -211,7 +211,7 @@
       line-height: 1.45 !important;
     }
 
-    .weightlens-auth-mode .weightlens-auth-card {
+    html.weightlens-auth-mode .weightlens-auth-card {
       width: min(calc(100% - 2.7rem), 34rem) !important;
       margin: 0 auto clamp(2rem, 7vh, 4rem) !important;
       border-radius: 0 !important;
@@ -223,7 +223,7 @@
       position: relative !important;
     }
 
-    .weightlens-auth-mode .weightlens-auth-card::before {
+    html.weightlens-auth-mode .weightlens-auth-card::before {
       content: '' !important;
       display: block !important;
       width: min(100%, 10rem) !important;
@@ -232,12 +232,12 @@
       margin: 0 auto 1.55rem !important;
     }
 
-    .weightlens-auth-mode .weightlens-auth-card > div:first-child {
+    html.weightlens-auth-mode .weightlens-auth-card > div:first-child {
       margin-bottom: 1rem !important;
       text-align: center !important;
     }
 
-    .weightlens-auth-mode .weightlens-auth-card h1 {
+    html.weightlens-auth-mode .weightlens-auth-card h1 {
       font-family: 'Satoshi', 'Inter', system-ui, sans-serif !important;
       font-size: 1.25rem !important;
       line-height: 1.14 !important;
@@ -247,16 +247,16 @@
       margin: 0 !important;
     }
 
-    .weightlens-auth-mode .weightlens-auth-card p,
-    .weightlens-auth-mode .weightlens-auth-card .text-mute,
-    .weightlens-auth-mode .weightlens-auth-card .text-sm {
+    html.weightlens-auth-mode .weightlens-auth-card p,
+    html.weightlens-auth-mode .weightlens-auth-card .text-mute,
+    html.weightlens-auth-mode .weightlens-auth-card .text-sm {
       color: #6E7480 !important;
       font-size: 0.88rem !important;
       line-height: 1.5 !important;
       text-align: center !important;
     }
 
-    .weightlens-auth-mode .weightlens-auth-card .grid.grid-cols-2 {
+    html.weightlens-auth-mode .weightlens-auth-card .grid.grid-cols-2 {
       width: fit-content !important;
       min-width: 17rem !important;
       display: grid !important;
@@ -270,7 +270,7 @@
       margin: 1.15rem auto 1.45rem !important;
     }
 
-    .weightlens-auth-mode .weightlens-auth-card .grid.grid-cols-2 button {
+    html.weightlens-auth-mode .weightlens-auth-card .grid.grid-cols-2 button {
       width: auto !important;
       min-width: 0 !important;
       height: auto !important;
@@ -286,13 +286,13 @@
       position: relative !important;
     }
 
-    .weightlens-auth-mode .weightlens-auth-card .grid.grid-cols-2 button.bg-surface {
+    html.weightlens-auth-mode .weightlens-auth-card .grid.grid-cols-2 button.bg-surface {
       background: transparent !important;
       color: #11141B !important;
       box-shadow: none !important;
     }
 
-    .weightlens-auth-mode .weightlens-auth-card .grid.grid-cols-2 button.bg-surface::after {
+    html.weightlens-auth-mode .weightlens-auth-card .grid.grid-cols-2 button.bg-surface::after {
       content: '' !important;
       position: absolute !important;
       left: 0 !important;
@@ -303,7 +303,7 @@
       background: #11141B !important;
     }
 
-    .weightlens-auth-mode .weightlens-auth-card form {
+    html.weightlens-auth-mode .weightlens-auth-card form {
       width: 100% !important;
       display: grid !important;
       grid-template-columns: minmax(0,1fr) minmax(0,1fr) !important;
@@ -312,7 +312,7 @@
       margin-top: 0 !important;
     }
 
-    .weightlens-auth-mode .weightlens-auth-card form input {
+    html.weightlens-auth-mode .weightlens-auth-card form input {
       width: 100% !important;
       min-width: 0 !important;
       height: 3.05rem !important;
@@ -327,16 +327,16 @@
       outline: none !important;
     }
 
-    .weightlens-auth-mode .weightlens-auth-card form input:focus {
+    html.weightlens-auth-mode .weightlens-auth-card form input:focus {
       border-bottom-color: #11141B !important;
     }
 
-    .weightlens-auth-mode .weightlens-auth-card input::placeholder {
+    html.weightlens-auth-mode .weightlens-auth-card input::placeholder {
       color: #8F949D !important;
     }
 
-    .weightlens-auth-mode .weightlens-auth-card form button,
-    .weightlens-auth-mode .weightlens-auth-card button.bg-fg {
+    html.weightlens-auth-mode .weightlens-auth-card form button,
+    html.weightlens-auth-mode .weightlens-auth-card button.bg-fg {
       grid-column: 1 / -1 !important;
       justify-self: center !important;
       width: min(100%, 16rem) !important;
@@ -356,12 +356,12 @@
       margin-top: 0.5rem !important;
     }
 
-    .weightlens-auth-mode .weightlens-auth-card > .mt-4 {
+    html.weightlens-auth-mode .weightlens-auth-card > .mt-4 {
       margin-top: 1rem !important;
       text-align: center !important;
     }
 
-    .weightlens-auth-mode .weightlens-auth-card > .mt-4 button {
+    html.weightlens-auth-mode .weightlens-auth-card > .mt-4 button {
       background: transparent !important;
       color: #6E7480 !important;
       width: auto !important;
@@ -371,30 +371,27 @@
       box-shadow: none !important;
     }
 
-    .weightlens-auth-mode .weightlens-reveal {
+    html.weightlens-auth-mode .weightlens-reveal {
       opacity: 0 !important;
       transform: translateY(28px) !important;
       transition: opacity 720ms cubic-bezier(.22,1,.36,1), transform 720ms cubic-bezier(.22,1,.36,1) !important;
       will-change: opacity, transform !important;
     }
 
-    .weightlens-auth-mode .weightlens-reveal.is-visible {
+    html.weightlens-auth-mode .weightlens-reveal.is-visible {
       opacity: 1 !important;
       transform: translateY(0) !important;
     }
 
-    .weightlens-auth-mode .weightlens-reveal-slow {
-      transition-duration: 920ms !important;
-    }
-
-    .weightlens-auth-mode .weightlens-reveal-delay-1 { transition-delay: 80ms !important; }
-    .weightlens-auth-mode .weightlens-reveal-delay-2 { transition-delay: 160ms !important; }
-    .weightlens-auth-mode .weightlens-reveal-delay-3 { transition-delay: 240ms !important; }
-    .weightlens-auth-mode .weightlens-reveal-delay-4 { transition-delay: 320ms !important; }
+    html.weightlens-auth-mode .weightlens-reveal-slow { transition-duration: 920ms !important; }
+    html.weightlens-auth-mode .weightlens-reveal-delay-1 { transition-delay: 80ms !important; }
+    html.weightlens-auth-mode .weightlens-reveal-delay-2 { transition-delay: 160ms !important; }
+    html.weightlens-auth-mode .weightlens-reveal-delay-3 { transition-delay: 240ms !important; }
+    html.weightlens-auth-mode .weightlens-reveal-delay-4 { transition-delay: 320ms !important; }
 
     @media (prefers-reduced-motion: reduce) {
-      .weightlens-auth-mode .weightlens-reveal,
-      .weightlens-auth-mode .weightlens-reveal.is-visible {
+      html.weightlens-auth-mode .weightlens-reveal,
+      html.weightlens-auth-mode .weightlens-reveal.is-visible {
         opacity: 1 !important;
         transform: none !important;
         transition: none !important;
@@ -402,14 +399,14 @@
     }
 
     @media (max-width: 720px) {
-      .weightlens-auth-mode .weightlens-auth-card form {
+      html.weightlens-auth-mode .weightlens-auth-card form {
         display: flex !important;
         flex-direction: column !important;
         gap: 1.1rem !important;
       }
 
-      .weightlens-auth-mode .weightlens-auth-card form button,
-      .weightlens-auth-mode .weightlens-auth-card button.bg-fg {
+      html.weightlens-auth-mode .weightlens-auth-card form button,
+      html.weightlens-auth-mode .weightlens-auth-card button.bg-fg {
         width: 100% !important;
       }
     }
@@ -422,9 +419,9 @@
         overflow-x: hidden !important;
       }
 
-      .weightlens-auth-mode,
-      .weightlens-auth-mode body,
-      .weightlens-auth-mode #root {
+      html.weightlens-auth-mode,
+      html.weightlens-auth-mode body,
+      html.weightlens-auth-mode #root {
         background: #F7F7F4 !important;
       }
 
@@ -477,31 +474,31 @@
         opacity: 0.65 !important;
       }
 
-      .weightlens-auth-mode .weightlens-topnav {
+      html.weightlens-auth-mode .weightlens-topnav {
         padding-left: 1.1rem !important;
         padding-right: 1.1rem !important;
       }
 
-      .weightlens-auth-mode .weightlens-topnav-mark {
+      html.weightlens-auth-mode .weightlens-topnav-mark {
         height: 2rem !important;
         width: 2rem !important;
       }
 
-      .weightlens-auth-mode .weightlens-topnav-name {
+      html.weightlens-auth-mode .weightlens-topnav-name {
         font-size: 1.45rem !important;
       }
 
-      .weightlens-auth-mode .weightlens-landing-copy {
+      html.weightlens-auth-mode .weightlens-landing-copy {
         padding: clamp(6.5rem, 15vh, 8.5rem) 1.25rem 2.75rem !important;
       }
 
-      .weightlens-auth-mode .weightlens-landing-kicker {
+      html.weightlens-auth-mode .weightlens-landing-kicker {
         font-size: 0.68rem !important;
         letter-spacing: 0.26em !important;
         margin-bottom: 0.35rem !important;
       }
 
-      .weightlens-auth-mode .weightlens-landing-title {
+      html.weightlens-auth-mode .weightlens-landing-title {
         font-size: clamp(2.15rem, 10vw, 3.1rem) !important;
         line-height: 1.02 !important;
         letter-spacing: -0.06em !important;
@@ -509,40 +506,40 @@
         margin-top: 1rem !important;
       }
 
-      .weightlens-auth-mode .weightlens-landing-body {
+      html.weightlens-auth-mode .weightlens-landing-body {
         font-size: 1rem !important;
         line-height: 1.65 !important;
         max-width: 21.5rem !important;
         margin-top: 1.5rem !important;
       }
 
-      .weightlens-auth-mode .weightlens-landing-features {
+      html.weightlens-auth-mode .weightlens-landing-features {
         grid-template-columns: repeat(2,minmax(0,1fr)) !important;
         gap: 2rem 1.25rem !important;
         margin-top: 4rem !important;
         width: min(100%,24rem) !important;
       }
 
-      .weightlens-auth-mode .weightlens-landing-feature-title {
+      html.weightlens-auth-mode .weightlens-landing-feature-title {
         font-size: 1.15rem !important;
         line-height: 1.05 !important;
       }
 
-      .weightlens-auth-mode .weightlens-landing-feature-body {
+      html.weightlens-auth-mode .weightlens-landing-feature-body {
         font-size: 0.92rem !important;
         line-height: 1.5 !important;
         margin-top: 0.6rem !important;
         max-width: 10rem !important;
       }
 
-      .weightlens-auth-mode .weightlens-auth-card {
+      html.weightlens-auth-mode .weightlens-auth-card {
         width: calc(100% - 2.5rem) !important;
         max-width: 26rem !important;
         margin-top: 1.2rem !important;
         margin-bottom: 3.25rem !important;
       }
 
-      .weightlens-auth-mode .weightlens-auth-card::before {
+      html.weightlens-auth-mode .weightlens-auth-card::before {
         margin: 0 auto 2rem !important;
         width: min(100%,8rem) !important;
       }
@@ -551,21 +548,30 @@
 
   document.head.appendChild(style);
 
+  function getAuthCard(shell){
+    if (!shell) return null;
+    return Array.from(shell.children).find(el =>
+      el.classList &&
+      el.classList.contains('max-w-md') &&
+      !el.classList.contains('weightlens-landing-copy') &&
+      !el.classList.contains('weightlens-topnav')
+    ) || null;
+  }
+
   function isAuthScreen(shell){
-    if (!shell) return false;
-    const h1 = shell.querySelector('h1');
-    const text = h1 ? h1.textContent || '' : '';
-    return text.includes('Sign in') || text.includes('Create your account') || text.includes('Reset your password');
+    const authCard = getAuthCard(shell);
+    if (!authCard) return false;
+    const text = authCard.textContent || '';
+    return text.includes('WeightLens cloud sync') || text.includes('Sign in to save across devices') || text.includes('Create your account') || text.includes('Reset your password');
   }
 
   function cleanupLandingMode(){
     document.documentElement.classList.remove('weightlens-auth-mode');
-    document.documentElement.style.removeProperty('background');
-    document.documentElement.style.removeProperty('background-color');
-    document.documentElement.style.removeProperty('color');
-    document.body.style.removeProperty('background');
-    document.body.style.removeProperty('background-color');
-    document.body.style.removeProperty('color');
+    document.querySelectorAll('.weightlens-topnav,.weightlens-landing-copy').forEach(el => el.remove());
+    document.querySelectorAll('.weightlens-landing-shell,.weightlens-auth-card,.weightlens-reveal,.is-visible').forEach(el => {
+      el.classList.remove('weightlens-landing-shell','weightlens-auth-card','weightlens-reveal','is-visible','weightlens-reveal-slow','weightlens-reveal-delay-1','weightlens-reveal-delay-2','weightlens-reveal-delay-3','weightlens-reveal-delay-4');
+      delete el.dataset.revealItem;
+    });
   }
 
   let landingRevealObserver = null;
@@ -609,9 +615,7 @@
 
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
-        topItems.forEach((el, index) => {
-          setTimeout(() => el.classList.add('is-visible'), 120 + index * 130);
-        });
+        topItems.forEach((el, index) => setTimeout(() => el.classList.add('is-visible'), 120 + index * 130));
 
         if (!landingRevealObserver) {
           landingRevealObserver = new IntersectionObserver((entries) => {
@@ -645,7 +649,7 @@
     document.documentElement.classList.add('weightlens-auth-mode');
     shell.classList.add('weightlens-landing-shell');
 
-    const authCard = Array.from(shell.children).find(el => el.classList && el.classList.contains('max-w-md') && !el.classList.contains('weightlens-landing-copy'));
+    const authCard = getAuthCard(shell);
     if (authCard) authCard.classList.add('weightlens-auth-card');
 
     if (!shell.querySelector('.weightlens-topnav')) {
