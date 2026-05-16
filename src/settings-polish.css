@@ -1,0 +1,179 @@
+/* settings-polish.css — focused fixes for Settings text contrast and ugly field strips */
+
+:root {
+  --set-bg: #F8F8F5;
+  --set-ink: #11141B;
+  --set-muted: #66707A;
+  --set-muted-strong: #404852;
+  --set-card: rgba(255,255,255,0.76);
+  --set-field: rgba(17,20,27,0.045);
+  --set-border: rgba(17,20,27,0.115);
+  --set-border-strong: rgba(17,20,27,0.22);
+}
+
+.dark,
+html.dark,
+body.dark,
+[data-theme="dark"] {
+  --set-bg: #0F0F10;
+  --set-ink: #F3EEE7;
+  --set-muted: #B9B2A8;
+  --set-muted-strong: #E0DAD1;
+  --set-card: rgba(26,26,28,0.88);
+  --set-field: rgba(243,238,231,0.085);
+  --set-border: rgba(243,238,231,0.16);
+  --set-border-strong: rgba(243,238,231,0.28);
+}
+
+/* Settings page cards */
+main div[class*="rounded-2xl"],
+main div[class*="rounded-3xl"] {
+  border-color: var(--set-border) !important;
+}
+
+/* Restore readable text contrast in Settings */
+main label,
+main p,
+main span,
+main small,
+main div {
+  text-decoration-color: currentColor;
+}
+
+main .text-mute,
+main .text-mute2,
+main [class*="text-mute"] {
+  color: var(--set-muted) !important;
+}
+
+.dark main .text-mute,
+.dark main .text-mute2,
+.dark main [class*="text-mute"],
+html.dark main .text-mute,
+html.dark main .text-mute2,
+html.dark main [class*="text-mute"] {
+  color: var(--set-muted) !important;
+}
+
+/* Uppercase section labels should be visible but calm */
+main [class*="uppercase"],
+main [class*="tracking"] {
+  color: color-mix(in srgb, var(--set-ink) 58%, transparent) !important;
+}
+
+/* Inputs/selects/textareas: no raw white strips, no weird full-line look */
+main input,
+main select,
+main textarea {
+  background: var(--set-field) !important;
+  color: var(--set-ink) !important;
+  border: 1px solid var(--set-border) !important;
+  border-radius: 14px !important;
+  box-shadow: none !important;
+  min-height: 42px !important;
+  padding: 0 14px !important;
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+}
+
+main textarea {
+  padding-top: 12px !important;
+  padding-bottom: 12px !important;
+}
+
+main input:focus,
+main select:focus,
+main textarea:focus {
+  border-color: var(--set-border-strong) !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--set-ink) 7%, transparent) !important;
+  outline: none !important;
+}
+
+main input::placeholder,
+main textarea::placeholder {
+  color: color-mix(in srgb, var(--set-ink) 44%, transparent) !important;
+}
+
+/* Profile display name input specifically: stop the giant strip */
+main input[type="text"] {
+  max-width: 620px !important;
+}
+
+/* If an input is inside a flex row with a save button, keep it elegant */
+main .flex input[type="text"] {
+  flex: 1 1 320px !important;
+  min-width: 180px !important;
+}
+
+/* Buttons in settings */
+main button {
+  border-color: var(--set-border) !important;
+}
+
+main button:disabled,
+main [disabled] {
+  opacity: .58 !important;
+}
+
+/* Appearance selector: selected item should be obvious and readable */
+main button.bg-fg,
+main button.bg-accent,
+main [class*="bg-fg"],
+main [class*="bg-accent"] {
+  background: var(--set-ink) !important;
+  color: var(--set-bg) !important;
+}
+
+.dark main button.bg-fg,
+.dark main button.bg-accent,
+.dark main [class*="bg-fg"],
+.dark main [class*="bg-accent"],
+html.dark main button.bg-fg,
+html.dark main button.bg-accent,
+html.dark main [class*="bg-fg"],
+html.dark main [class*="bg-accent"] {
+  background: #F3EEE7 !important;
+  color: #0F0F10 !important;
+}
+
+/* But normal settings cards should not accidentally inherit selected-button colors */
+main div[class*="rounded-2xl"]:not(button),
+main div[class*="rounded-3xl"]:not(button) {
+  color: var(--set-ink) !important;
+}
+
+/* Light-mode inactive option readability */
+main button:not(.bg-fg):not(.bg-accent),
+main .rounded-xl:not(.bg-fg):not(.bg-accent) {
+  color: var(--set-ink) !important;
+}
+
+main button:not(.bg-fg):not(.bg-accent) .text-mute,
+main .rounded-xl:not(.bg-fg):not(.bg-accent) .text-mute {
+  color: var(--set-muted) !important;
+}
+
+/* Dark-mode inactive option readability */
+.dark main button:not(.bg-fg):not(.bg-accent),
+.dark main .rounded-xl:not(.bg-fg):not(.bg-accent),
+html.dark main button:not(.bg-fg):not(.bg-accent),
+html.dark main .rounded-xl:not(.bg-fg):not(.bg-accent) {
+  color: var(--set-ink) !important;
+}
+
+/* Time pill / backup buttons should not look washed out */
+main button[class*="bg-surface"],
+main button[class*="bg-surface2"],
+main button[class*="bg-surface3"] {
+  background: var(--set-field) !important;
+  color: var(--set-ink) !important;
+}
+
+/* Prevent settings grid rows from stretching fields into awkward raw strips on wide screens */
+@media (min-width: 900px) {
+  main input[type="text"],
+  main input[type="email"],
+  main input[type="password"] {
+    width: min(100%, 620px) !important;
+  }
+}
