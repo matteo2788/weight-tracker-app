@@ -1,5 +1,27 @@
 // pwa-register.js — service worker + safe mobile-only polish
 (function registerWeightLensPWA(){
+  function setMeta(name, content){
+    let tag = document.querySelector(`meta[name="${name}"]`);
+    if (!tag) {
+      tag = document.createElement('meta');
+      tag.setAttribute('name', name);
+      document.head.appendChild(tag);
+    }
+    tag.setAttribute('content', content);
+  }
+
+  function forceLightPwaChrome(){
+    setMeta('theme-color', '#FAFAF7');
+    setMeta('msapplication-TileColor', '#FAFAF7');
+
+    const appleStatus = document.querySelector('meta[name="apple-mobile-web-app-status-bar-style"]');
+    if (appleStatus) appleStatus.setAttribute('content', 'default');
+  }
+
+  forceLightPwaChrome();
+  window.addEventListener('pageshow', forceLightPwaChrome);
+  document.addEventListener('visibilitychange', forceLightPwaChrome);
+
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function(){
       navigator.serviceWorker.register('/sw.js').catch(function(error){
@@ -25,7 +47,6 @@
       -webkit-text-size-adjust: 100% !important;
     }
 
-    /* Desktop: make the left sidebar truly fixed, not just sticky. */
     @media (min-width: 1024px) {
       .hidden.lg\\:block.sticky.top-0.h-screen {
         position: fixed !important;
@@ -48,7 +69,6 @@
       }
     }
 
-    /* Sidebar internals: header/footer stay put, nav scrolls inside the sidebar only. */
     .hidden.lg\\:block.sticky.top-0.h-screen aside nav,
     .lg\\:hidden.fixed.inset-0.z-40.flex aside nav {
       overflow-y: auto !important;
@@ -56,7 +76,6 @@
       -webkit-overflow-scrolling: touch !important;
     }
 
-    /* Mobile drawer: lock drawer to the viewport so it never scrolls with the page behind it. */
     .lg\\:hidden.fixed.inset-0.z-40.flex {
       position: fixed !important;
       inset: 0 !important;
@@ -83,7 +102,6 @@
       overflow: hidden !important;
     }
 
-    /* Fix iPhone status-bar/notch cutting off the sidebar header. */
     .lg\\:hidden.fixed.inset-0.z-40.flex aside > div:first-child {
       padding-top: calc(env(safe-area-inset-top) + 1.25rem) !important;
     }
@@ -94,7 +112,6 @@
       }
     }
 
-    /* While mobile drawer is open, stop the page behind it from drifting. */
     body:has(.lg\\:hidden.fixed.inset-0.z-40.flex) {
       overflow: hidden !important;
       touch-action: none !important;
