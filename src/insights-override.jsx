@@ -150,7 +150,7 @@ function buildPersonalInsights(state){
 
 function InsightToneIcon({ tone }){
   const cls = tone === 'good' ? 'text-good bg-good/10' : tone === 'warn' ? 'text-warn bg-warn/10' : 'text-accent bg-accent/10';
-  return <div className={`h-9 w-9 shrink-0 rounded-xl flex items-center justify-center ${cls}`}>{tone === 'good' ? <I.Check className="h-4 w-4"/> : tone === 'warn' ? <I.Alert className="h-4 w-4"/> : <I.Sparkle className="h-4 w-4"/>}</div>;
+  return <div className={`h-9 w-9 shrink-0 rounded-xl flex items-center justify-center ${cls}`}>{tone === 'good' ? <I.Check className="h-4 w-4"/> : tone === 'warn' ? <I.Info className="h-4 w-4"/> : <I.Sparkle className="h-4 w-4"/>}</div>;
 }
 
 function PersonalizedInsightCard({ card, onAction }){
@@ -179,7 +179,7 @@ function MissingDaysCard({ state, setRoute }){
     <Card>
       <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-5">
         <div className="max-w-2xl">
-          <Pill tone={tone}><I.Calendar className="h-3 w-3"/> Data health</Pill>
+          <Pill tone={tone}><I.Weekly className="h-3 w-3"/> Data health</Pill>
           <h2 className="mt-3 text-2xl font-semibold tracking-tight">{missing14.length === 0 ? 'Your last 14 days are complete.' : `${missing14.length} missing day${missing14.length === 1 ? '' : 's'} in the last 14`}</h2>
           <p className="mt-2 text-[14px] text-mute leading-relaxed">
             {missing14.length === 0
