@@ -1,4 +1,4 @@
-/* minimal-dashboard-polish.css — stronger minimal revamp for WeightLens */
+/* minimal-dashboard-polish.css — minimal revamp for WeightLens, with proper light/dark handling */
 
 :root {
   --wl-bg: #F8F8F5;
@@ -7,6 +7,24 @@
   --wl-muted: #7A808A;
   --wl-soft: rgba(17,20,27,0.055);
   --wl-soft-2: rgba(17,20,27,0.095);
+  --wl-card: rgba(255,255,255,0.68);
+  --wl-card-main: rgba(255,255,255,0.72);
+  --wl-chip: rgba(17,20,27,0.045);
+}
+
+.dark,
+html.dark,
+body.dark,
+[data-theme="dark"] {
+  --wl-bg: #0F0F10;
+  --wl-paper: #171719;
+  --wl-ink: #F3EEE7;
+  --wl-muted: #A9A39B;
+  --wl-soft: rgba(243,238,231,0.085);
+  --wl-soft-2: rgba(243,238,231,0.14);
+  --wl-card: rgba(26,26,28,0.78);
+  --wl-card-main: rgba(26,26,28,0.86);
+  --wl-chip: rgba(243,238,231,0.075);
 }
 
 html,
@@ -21,12 +39,21 @@ body {
   text-rendering: geometricPrecision !important;
 }
 
-/* Global base: remove the heavy app-dashboard feeling */
 .bg-bg,
 .bg-surface,
 .bg-surface2,
 .bg-surface3 {
   background-color: var(--wl-bg) !important;
+}
+
+.text-fg,
+body,
+h1,
+h2,
+h3,
+.font-semibold,
+.font-bold {
+  color: var(--wl-ink) !important;
 }
 
 .text-mute,
@@ -43,38 +70,43 @@ body {
   border-color: var(--wl-soft) !important;
 }
 
-/* Desktop layout: focus on the main content, not the side widgets */
 @media (min-width: 1024px) {
   main {
     max-width: 1080px !important;
     padding: 2.35rem 2.35rem 3.5rem !important;
   }
 
-  /* Right rail becomes subtle and narrower instead of another dashboard column */
   .hidden.xl\:block.w-\[360px\],
   [class*="w-[360px]"] {
     width: 300px !important;
     background: var(--wl-bg) !important;
-    opacity: .74 !important;
+    opacity: .88 !important;
   }
 
   .hidden.xl\:block.w-\[360px\] .rounded-2xl,
   .hidden.xl\:block.w-\[360px\] .rounded-3xl,
   [class*="w-[360px]"] .rounded-2xl,
   [class*="w-[360px]"] .rounded-3xl {
-    background: transparent !important;
-    border-color: rgba(17,20,27,0.055) !important;
+    background: var(--wl-card-main) !important;
+    border-color: var(--wl-soft) !important;
     box-shadow: none !important;
   }
 }
 
-/* Sidebar: calmer, less boxed, more like a clean rail */
 aside,
 .hidden.lg\:block.sticky.top-0.h-screen,
 .lg\:hidden.fixed.inset-0.z-40.flex aside {
-  background: rgba(255,255,255,0.62) !important;
-  border-color: rgba(17,20,27,0.055) !important;
+  background: color-mix(in srgb, var(--wl-paper) 68%, transparent) !important;
+  border-color: var(--wl-soft) !important;
   box-shadow: none !important;
+}
+
+.dark aside,
+.dark .hidden.lg\:block.sticky.top-0.h-screen,
+.dark .lg\:hidden.fixed.inset-0.z-40.flex aside,
+html.dark aside,
+body.dark aside {
+  background: #111112 !important;
 }
 
 aside button,
@@ -86,10 +118,9 @@ aside a {
 aside button[class*="bg-surface3"],
 aside button[class*="bg-accent"],
 aside button[class*="bg-fg"] {
-  background: rgba(17,20,27,0.045) !important;
+  background: var(--wl-chip) !important;
 }
 
-/* Headings: more landing-page/editorial */
 h1 {
   font-size: clamp(2rem, 4vw, 3.25rem) !important;
   line-height: 0.98 !important;
@@ -108,27 +139,25 @@ h2,
 [class*="tracking-[0.14em]"],
 [class*="tracking-wider"] {
   letter-spacing: 0.19em !important;
-  color: rgba(17,20,27,0.48) !important;
+  color: color-mix(in srgb, var(--wl-ink) 48%, transparent) !important;
 }
 
-/* Universal card softening */
 .rounded-2xl.border,
 .rounded-3xl.border,
 .card-ring,
 [class*="shadow-card"],
 [class*="shadow-pop"] {
-  background: rgba(255,255,255,0.68) !important;
-  border-color: rgba(17,20,27,0.055) !important;
+  background: var(--wl-card) !important;
+  border-color: var(--wl-soft) !important;
   box-shadow: none !important;
 }
 
 main .rounded-2xl.border,
 main .rounded-3xl.border,
 main .card-ring {
-  background: rgba(255,255,255,0.72) !important;
+  background: var(--wl-card-main) !important;
 }
 
-/* Top stat cards: less chunky, less loud */
 main .grid.grid-cols-2.lg\:grid-cols-4 {
   gap: 1rem !important;
 }
@@ -137,7 +166,7 @@ main .grid.grid-cols-2.lg\:grid-cols-4 > * {
   min-height: 104px !important;
   padding: 1.05rem 1.15rem !important;
   border-radius: 1.35rem !important;
-  background: rgba(255,255,255,0.58) !important;
+  background: var(--wl-card) !important;
 }
 
 main .grid.grid-cols-2.lg\:grid-cols-4 .display,
@@ -151,17 +180,16 @@ main .grid.grid-cols-2.lg\:grid-cols-4 .text-5xl {
 
 main .grid.grid-cols-2.lg\:grid-cols-4 .text-sm,
 main .grid.grid-cols-2.lg\:grid-cols-4 .text-xs {
-  color: rgba(17,20,27,0.54) !important;
+  color: var(--wl-muted) !important;
 }
 
-/* Dashboard chart and log panels: less boxed-in */
 main .grid.grid-cols-1.xl\:grid-cols-\[1fr_360px\],
 main .grid.grid-cols-1.xl\:grid-cols-\[1fr_340px\] {
   gap: 1.1rem !important;
 }
 
 .recharts-cartesian-grid line {
-  stroke: rgba(17,20,27,0.035) !important;
+  stroke: var(--wl-soft) !important;
 }
 
 .recharts-line-curve {
@@ -169,16 +197,14 @@ main .grid.grid-cols-1.xl\:grid-cols-\[1fr_340px\] {
 }
 
 .recharts-cartesian-axis-tick text {
-  fill: rgba(17,20,27,0.42) !important;
+  fill: color-mix(in srgb, var(--wl-ink) 42%, transparent) !important;
 }
 
-/* This week's summary + recent entries: quieter */
 main .grid.grid-cols-1.xl\:grid-cols-\[1fr_360px\] + .grid .rounded-2xl,
 main .grid.grid-cols-1.xl\:grid-cols-\[1fr_340px\] + .grid .rounded-2xl {
-  background: rgba(255,255,255,0.58) !important;
+  background: var(--wl-card) !important;
 }
 
-/* Buttons: black/white minimal, no extra dashboard shine */
 button,
 .btn {
   box-shadow: none !important;
@@ -189,42 +215,75 @@ button.bg-fg,
 .btn.bg-accent,
 .btn.bg-fg,
 button[class*="bg-[#11141B]"] {
-  background: #11141B !important;
-  color: #F8F8F5 !important;
+  background: var(--wl-ink) !important;
+  color: var(--wl-bg) !important;
+}
+
+.dark button.bg-accent,
+.dark button.bg-fg,
+.dark .btn.bg-accent,
+.dark .btn.bg-fg,
+html.dark button.bg-accent,
+html.dark button.bg-fg {
+  background: #F3EEE7 !important;
+  color: #0F0F10 !important;
 }
 
 button.bg-surface3,
 button.bg-surface2,
 .btn.bg-surface3,
 .btn.bg-surface2 {
-  background: rgba(17,20,27,0.035) !important;
+  background: var(--wl-chip) !important;
 }
 
-/* Inputs: cleaner fields */
 input,
 textarea,
 select {
-  background: rgba(255,255,255,0.62) !important;
-  color: #11141B !important;
-  border-color: rgba(17,20,27,0.08) !important;
+  background: var(--wl-chip) !important;
+  color: var(--wl-ink) !important;
+  border-color: var(--wl-soft-2) !important;
   box-shadow: none !important;
 }
 
 input:focus,
 textarea:focus,
 select:focus {
-  border-color: rgba(17,20,27,0.24) !important;
+  border-color: color-mix(in srgb, var(--wl-ink) 24%, transparent) !important;
   box-shadow: none !important;
 }
 
-/* Pills should not add visual noise */
 .rounded-full.border,
 .rounded-xl.border {
-  background: rgba(255,255,255,0.38) !important;
-  border-color: rgba(17,20,27,0.065) !important;
+  background: var(--wl-chip) !important;
+  border-color: var(--wl-soft) !important;
 }
 
-/* Mobile: bigger breathing room, right rail hidden, fewer cramped panels */
+/* Fix dark-mode washout from forced light cards */
+.dark .bg-white,
+.dark .bg-surface,
+.dark .bg-surface2,
+.dark .bg-surface3,
+html.dark .bg-white,
+html.dark .bg-surface,
+html.dark .bg-surface2,
+html.dark .bg-surface3,
+body.dark .bg-white,
+body.dark .bg-surface,
+body.dark .bg-surface2,
+body.dark .bg-surface3 {
+  background-color: var(--wl-card-main) !important;
+  color: var(--wl-ink) !important;
+}
+
+.dark .text-black,
+.dark .text-fg,
+html.dark .text-black,
+html.dark .text-fg,
+body.dark .text-black,
+body.dark .text-fg {
+  color: var(--wl-ink) !important;
+}
+
 @media (max-width: 768px) {
   main {
     padding: 1.25rem !important;
@@ -251,7 +310,6 @@ select:focus {
   }
 }
 
-/* Obvious loaded marker without being visible: this file is active */
 body::after {
   content: '';
   position: fixed;
