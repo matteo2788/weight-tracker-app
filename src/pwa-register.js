@@ -18,19 +18,24 @@
     if (appleStatus) appleStatus.setAttribute('content', 'default');
   }
 
-  function loadMinimalDashboardPolish(){
-    if (document.getElementById('weightlens-minimal-dashboard-polish')) return;
+  function loadStylesheetOnce(id, href){
+    if (document.getElementById(id)) return;
     const link = document.createElement('link');
-    link.id = 'weightlens-minimal-dashboard-polish';
+    link.id = id;
     link.rel = 'stylesheet';
-    link.href = '/src/minimal-dashboard-polish.css?v=20260516-3';
+    link.href = href;
     document.head.appendChild(link);
   }
 
+  function loadPolishStyles(){
+    loadStylesheetOnce('weightlens-minimal-dashboard-polish', '/src/minimal-dashboard-polish.css?v=20260516-4');
+    loadStylesheetOnce('weightlens-settings-polish', '/src/settings-polish.css?v=20260516-1');
+  }
+
   forceLightPwaChrome();
-  loadMinimalDashboardPolish();
-  window.addEventListener('pageshow', function(){ forceLightPwaChrome(); loadMinimalDashboardPolish(); });
-  document.addEventListener('visibilitychange', function(){ forceLightPwaChrome(); loadMinimalDashboardPolish(); });
+  loadPolishStyles();
+  window.addEventListener('pageshow', function(){ forceLightPwaChrome(); loadPolishStyles(); });
+  document.addEventListener('visibilitychange', function(){ forceLightPwaChrome(); loadPolishStyles(); });
 
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function(){
