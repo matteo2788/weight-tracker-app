@@ -1,4 +1,4 @@
-// pwa-register.js — service worker + safe mobile-only polish
+// pwa-register.js — service worker + safe mobile-only polish + minimal dashboard polish loader
 (function registerWeightLensPWA(){
   function setMeta(name, content){
     let tag = document.querySelector(`meta[name="${name}"]`);
@@ -18,9 +18,19 @@
     if (appleStatus) appleStatus.setAttribute('content', 'default');
   }
 
+  function loadMinimalDashboardPolish(){
+    if (document.getElementById('weightlens-minimal-dashboard-polish')) return;
+    const link = document.createElement('link');
+    link.id = 'weightlens-minimal-dashboard-polish';
+    link.rel = 'stylesheet';
+    link.href = '/src/minimal-dashboard-polish.css?v=20260516-3';
+    document.head.appendChild(link);
+  }
+
   forceLightPwaChrome();
-  window.addEventListener('pageshow', forceLightPwaChrome);
-  document.addEventListener('visibilitychange', forceLightPwaChrome);
+  loadMinimalDashboardPolish();
+  window.addEventListener('pageshow', function(){ forceLightPwaChrome(); loadMinimalDashboardPolish(); });
+  document.addEventListener('visibilitychange', function(){ forceLightPwaChrome(); loadMinimalDashboardPolish(); });
 
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function(){
