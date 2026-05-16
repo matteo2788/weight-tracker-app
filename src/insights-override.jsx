@@ -49,6 +49,135 @@ function getMissingRecentDays(entries, days=14){
   return out;
 }
 
+function calculateMomentumScore(state){
+  const entries = entriesSortedAsc(state.entries || []);
+  const unit = state.settings?.unit || 'lbs';
+  const weekStartDay = state.settings?.weekStartDay ?? 1;
+  const goal = state.goal || {};
+
+  if (entries.length < 3) {
+    return {
+      score: null,
+      label: 'Building',
+      tone: 'neutral',
+      headline: 'Momentum score is warming up',
+      body: 'Log at least 3 weigh-ins so WeightLens can score your week without guessing.',
+      pieces: [
+        { label:'Data', value:`${entries.length}/3` },
+        { label:'Goal', value:'Waiting' },
+        { label:'Pace', value:'Waiting' },
+      ]
+    };
+  }
+
+  const missing14 = getMissingRecentDays(entries, 14);
+  const dataQuality = Math.round(((14 - missing14.length) / 14) * 100);
+  const thisWeek = getThisWeekEntries(entries, weekStartDay);
+  const consistencyPoints = Math.min(25, Math.round((thisWeek.length / 7) * 25));
+  const dataPoints = Math.min(30, Math.round((dataQuality / 100) * 30));
+
+  const rolling = rolling7(entries).filter(x => x.avg7 != null);
+  const latestAvg = rolling[rolling.length - 1]?.avg7 ?? null;
+  const prevAvg = rolling.length >= 8 ? rolling[rolling.length - 8].avg7 : null;
+  const avgDelta = latestAvg != null && prevAvg != null ? latestAvg - prevAvg : null;
+  const rate = weeklyRate(entries, weekStartDay);
+
+  let alignmentPoints = 14;
+  let alignmentLabel = 'Neutral';
+  let trendText = 'Your trend is still forming.';
+
+  if (goal.mode === 'fatloss') {
+    if (rate == null) {
+      alignmentLabel = 'Building';
+    } else if (rate < -0.25 && rate > -1.5) {
+      alignmentPoints = 25;
+      alignmentLabel = 'On track';
+      trendText = `Your trend is moving down at about ${Math.abs(rate).toFixed(2)} ${unit}/week.`;
+    } else if (rate <= -1.5) {
+      alignmentPoints = 17;
+      alignmentLabel = 'Fast';
+      trendText = `Your trend is dropping fast at about ${Math.abs(rate).toFixed(2)} ${unit}/week.`;
+    } else if (rate > 0.3) {
+      alignmentPoints = 8;
+      alignmentLabel = 'Off pace';
+      trendText = `Your trend is moving up about ${rate.toFixed(2)} ${unit}/week while fat loss is the goal.`;
+    } else {
+      alignmentPoints = 16;
+      alignmentLabel = 'Flat';
+      trendText = 'Your trend is mostly flat right now.';
+    }
+  } else if (goal.mode === 'musclegain') {
+    if (rate == null) {
+      alignmentLabel = 'Building';
+    } else if (rate > 0.15 && rate < 1.0) {
+      alignmentPoints = 25;
+      alignmentLabel = 'On track';
+      trendText = `Your trend is moving up slowly at about ${rate.toFixed(2)} ${unit}/week.`;
+    } else if (rate >= 1.0) {
+      alignmentPoints = 16;
+      alignmentLabel = 'Fast';
+      trendText = `Your trend is gaining quickly at about ${rate.toFixed(2)} ${unit}/week.`;
+    } else {
+      alignmentPoints = 10;
+      alignmentLabel = 'Slow';
+      trendText = 'Your gain trend is not clearly moving up yet.';
+    }
+  } else {
+    if (avgDelta == null) {
+      alignmentLabel = 'Building';
+    } else if (Math.abs(avgDelta) <= 0.7) {
+      alignmentPoints = 23;
+      alignmentLabel = 'Steady';
+      trendText = 'Your trend is staying controlled without big swings.';
+    } else {
+      alignmentPoints = 14;
+      alignmentLabel = avgDelta > 0 ? 'Rising' : 'Dropping';
+      trendText = `Your 7-day average moved ${avgDelta > 0 ? 'up' : 'down'} ${Math.abs(avgDelta).toFixed(1)} ${unit}.`;
+    }
+  }
+
+  let pacePoints = 15;
+  let paceLabel = 'Okay';
+  if (rate == null) {
+    pacePoints = 10;
+    paceLabel = 'Building';
+  } else if (Math.abs(rate) <= 1.25) {
+    pacePoints = 20;
+    paceLabel = 'Healthy';
+  } else if (Math.abs(rate) <= 2.0) {
+    pacePoints = 13;
+    paceLabel = 'Watch';
+  } else {
+    pacePoints = 7;
+    paceLabel = 'Aggressive';
+  }
+
+  const score = Math.max(0, Math.min(100, dataPoints + consistencyPoints + alignmentPoints + pacePoints));
+  const tone = score >= 80 ? 'good' : score >= 60 ? 'neutral' : 'warn';
+  const label = score >= 85 ? 'Strong' : score >= 70 ? 'Solid' : score >= 55 ? 'Mixed' : 'Needs data';
+
+  let headline = `Momentum score: ${score}/100`;
+  let body = `${trendText} This score rewards consistency and useful trend data, not random daily scale drops.`;
+
+  if (score >= 80) body = `${trendText} Strong week. The data is useful, your logging is consistent, and the trend is readable.`;
+  else if (score >= 60) body = `${trendText} Decent week. A few more logs or cleaner consistency would make the signal stronger.`;
+  else body = `${trendText} The score is lower mostly because the recent data is thin, inconsistent, or off your goal direction.`;
+
+  return {
+    score,
+    label,
+    tone,
+    headline,
+    body,
+    pieces: [
+      { label:'Data', value:`${dataQuality}%` },
+      { label:'Logs', value:`${thisWeek.length}/7` },
+      { label:'Goal', value:alignmentLabel },
+      { label:'Pace', value:paceLabel },
+    ]
+  };
+}
+
 function buildPersonalInsights(state){
   const entries = entriesSortedAsc(state.entries || []);
   const unit = state.settings?.unit || 'lbs';
@@ -153,6 +282,41 @@ function InsightToneIcon({ tone }){
   return <div className={`h-9 w-9 shrink-0 rounded-xl flex items-center justify-center ${cls}`}>{tone === 'good' ? <I.Check className="h-4 w-4"/> : tone === 'warn' ? <I.Info className="h-4 w-4"/> : <I.Sparkle className="h-4 w-4"/>}</div>;
 }
 
+function MomentumScoreCard({ state }){
+  const m = calculateMomentumScore(state);
+  const scoreText = m.score == null ? '—' : String(m.score);
+
+  return (
+    <Card>
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5">
+        <div className="flex items-start gap-4 min-w-0">
+          <div className={`h-14 w-14 shrink-0 rounded-2xl flex items-center justify-center ${m.tone === 'good' ? 'bg-good/10 text-good' : m.tone === 'warn' ? 'bg-warn/10 text-warn' : 'bg-accent/10 text-accent'}`}>
+            <I.Sparkle className="h-6 w-6"/>
+          </div>
+          <div className="min-w-0">
+            <div className="flex items-center gap-2 flex-wrap">
+              <div className="text-[11px] uppercase tracking-[0.18em] text-mute">Momentum score</div>
+              <Pill tone={m.tone}>{m.label}</Pill>
+            </div>
+            <h2 className="mt-2 text-2xl font-semibold tracking-tight">{m.headline}</h2>
+            <p className="mt-2 text-[14px] text-mute leading-relaxed max-w-2xl">{m.body}</p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-5 gap-2 lg:min-w-[360px]">
+          <div className="col-span-1 rounded-2xl border border-line2 bg-surface3 p-3 text-center">
+            <div className="display text-3xl font-semibold num">{scoreText}</div>
+            <div className="text-[10px] uppercase tracking-[0.14em] text-mute mt-1">Score</div>
+          </div>
+          <div className="col-span-4 grid grid-cols-2 sm:grid-cols-4 gap-2">
+            {m.pieces.map(p => <SmallMetric key={p.label} label={p.label} value={p.value} unit="" />)}
+          </div>
+        </div>
+      </div>
+    </Card>
+  );
+}
+
 function PersonalizedInsightCard({ card, onAction }){
   return (
     <Card className="h-full">
@@ -223,6 +387,7 @@ function InsightsPage(){
         <div className="text-mute mt-1.5 text-[14px] max-w-2xl">WeightLens reads your logs and turns them into plain-English coaching.</div>
       </div>
 
+      <MomentumScoreCard state={state}/>
       <MissingDaysCard state={state} setRoute={setRoute}/>
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-3">
@@ -257,4 +422,4 @@ function InsightsPage(){
 
 window.InsightsPage = InsightsPage;
 try { (0, eval)('InsightsPage = window.InsightsPage'); } catch(e) {}
-Object.assign(window, { InsightsPage, buildPersonalInsights, getMissingRecentDays, MissingDaysCard });
+Object.assign(window, { InsightsPage, buildPersonalInsights, getMissingRecentDays, MissingDaysCard, MomentumScoreCard, calculateMomentumScore });
