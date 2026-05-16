@@ -136,18 +136,20 @@ function loadWeightLensAddon(src, id){
 }
 
 (function loadFunctionalAddons(){
-  const version = 'features-3';
+  const version = 'features-4';
   window.addEventListener('load', () => {
     loadWeightLensAddon(`src/functional-goals.js?v=${version}`, 'wl-functional-goals');
     loadWeightLensAddon(`src/functional-measurements.js?v=${version}`, 'wl-functional-measurements');
     loadWeightLensAddon(`src/functional-trend-ranges.js?v=${version}`, 'wl-functional-trend-ranges');
     loadWeightLensAddon(`src/functional-settings.js?v=${version}`, 'wl-functional-settings');
+    loadWeightLensAddon(`src/functional-photos.js?v=${version}`, 'wl-functional-photos');
   });
   setTimeout(() => {
     loadWeightLensAddon(`src/functional-goals.js?v=${version}`, 'wl-functional-goals');
     loadWeightLensAddon(`src/functional-measurements.js?v=${version}`, 'wl-functional-measurements');
     loadWeightLensAddon(`src/functional-trend-ranges.js?v=${version}`, 'wl-functional-trend-ranges');
     loadWeightLensAddon(`src/functional-settings.js?v=${version}`, 'wl-functional-settings');
+    loadWeightLensAddon(`src/functional-photos.js?v=${version}`, 'wl-functional-photos');
   }, 500);
 })();
 
