@@ -1,4 +1,15 @@
 // landing-auth-fix.js — final runtime fix for landing page auth input dark-fill/autofill artifacts
+// Also loads the minimal dashboard polish stylesheet after the app renders.
+
+(function loadMinimalDashboardPolish(){
+  if (document.getElementById('weightlens-minimal-dashboard-polish')) return;
+  const link = document.createElement('link');
+  link.id = 'weightlens-minimal-dashboard-polish';
+  link.rel = 'stylesheet';
+  link.href = 'src/minimal-dashboard-polish.css?v=20260516-1';
+  document.head.appendChild(link);
+})();
+
 (function fixLandingAuthInputs(){
   const LANDING_PLACEHOLDERS = new Set([
     'your@email.com',
