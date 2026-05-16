@@ -1,0 +1,228 @@
+/* minimal-dashboard-polish.css — calmer, cleaner WeightLens UI inspired by the landing page */
+
+:root {
+  --wl-bg: #F7F7F4;
+  --wl-surface: #FFFFFF;
+  --wl-ink: #11141B;
+  --wl-muted: #747A84;
+  --wl-soft: rgba(17,20,27,0.065);
+  --wl-soft-2: rgba(17,20,27,0.105);
+}
+
+html,
+body,
+#root {
+  background: var(--wl-bg) !important;
+}
+
+body {
+  color: var(--wl-ink) !important;
+}
+
+/* Make the whole app feel less boxed-in */
+.bg-bg,
+.bg-surface,
+.bg-surface2,
+.bg-surface3 {
+  background-color: var(--wl-bg) !important;
+}
+
+main {
+  max-width: 1180px !important;
+}
+
+/* Cards: quieter, more editorial, less dashboard-y */
+.card-ring,
+.rounded-2xl.border,
+.rounded-3xl.border,
+[class*="shadow-card"] {
+  box-shadow: none !important;
+}
+
+.bg-surface.rounded-2xl,
+.bg-surface.rounded-3xl,
+.bg-surface2.rounded-2xl,
+.bg-surface2.rounded-3xl,
+.bg-surface3.rounded-2xl,
+.bg-surface3.rounded-3xl,
+[class*="rounded-2xl"][class*="border"],
+[class*="rounded-3xl"][class*="border"] {
+  border-color: var(--wl-soft) !important;
+}
+
+/* Main content cards should breathe */
+main > div > .rounded-2xl,
+main > div > .rounded-3xl,
+main .card-ring,
+main [class*="shadow-card"] {
+  background: rgba(255,255,255,0.74) !important;
+  border-color: var(--wl-soft) !important;
+  box-shadow: 0 18px 60px -50px rgba(17,20,27,0.26) !important;
+}
+
+/* Text hierarchy: landing-page feel */
+h1,
+.display,
+.font-semibold,
+.font-bold {
+  letter-spacing: -0.055em;
+}
+
+.text-mute,
+.text-mute2 {
+  color: var(--wl-muted) !important;
+}
+
+/* Reduce visual noise from tiny uppercase labels */
+[class*="tracking-[0.18em]"],
+[class*="tracking-[0.14em]"],
+[class*="tracking-wider"] {
+  letter-spacing: 0.18em !important;
+  color: rgba(17,20,27,0.52) !important;
+}
+
+/* Buttons: more minimal, less chunky */
+button,
+.btn,
+a {
+  transition: background-color .16s ease, color .16s ease, border-color .16s ease, opacity .16s ease, transform .16s ease !important;
+}
+
+button.bg-accent,
+.btn.bg-accent,
+button.bg-fg,
+.btn.bg-fg,
+button.bg-\[\#11141B\] {
+  background: #11141B !important;
+  color: #F7F7F4 !important;
+  box-shadow: none !important;
+}
+
+button.bg-surface3,
+.btn.bg-surface3,
+button.bg-surface2,
+.btn.bg-surface2 {
+  background: rgba(17,20,27,0.035) !important;
+  border-color: rgba(17,20,27,0.08) !important;
+}
+
+/* Sidebar: calmer white rail */
+aside,
+.lg\:block .w-\[260px\],
+[class*="w-[260px]"] {
+  background: rgba(255,255,255,0.72) !important;
+  border-color: rgba(17,20,27,0.06) !important;
+}
+
+/* Sidebar nav items less heavy */
+aside button,
+[class*="w-[260px]"] button {
+  border-radius: 14px !important;
+}
+
+/* Right panel: less attention, more like supporting notes */
+.border-l.hairline,
+.sticky.top-0.h-screen.overflow-auto.border-l {
+  border-color: rgba(17,20,27,0.055) !important;
+  background: rgba(247,247,244,0.82) !important;
+}
+
+/* Right panel cards should feel lighter */
+.sticky.top-0.h-screen.overflow-auto.border-l .rounded-2xl,
+.sticky.top-0.h-screen.overflow-auto.border-l .rounded-3xl {
+  background: rgba(255,255,255,0.62) !important;
+  border-color: rgba(17,20,27,0.065) !important;
+  box-shadow: none !important;
+}
+
+/* Dashboard stats: make them calmer and smaller visually */
+main .grid.grid-cols-2.lg\:grid-cols-4 > .rounded-2xl,
+main .grid.grid-cols-2.lg\:grid-cols-4 > .rounded-3xl {
+  min-height: 118px !important;
+  padding: 20px !important;
+  background: rgba(255,255,255,0.72) !important;
+}
+
+main .grid.grid-cols-2.lg\:grid-cols-4 .display,
+main .grid.grid-cols-2.lg\:grid-cols-4 .text-2xl,
+main .grid.grid-cols-2.lg\:grid-cols-4 .text-3xl,
+main .grid.grid-cols-2.lg\:grid-cols-4 .text-4xl {
+  font-size: clamp(1.45rem, 2vw, 2.05rem) !important;
+  line-height: 1.05 !important;
+}
+
+/* Chart: less boxed, less grid-noise */
+.recharts-cartesian-grid line {
+  stroke: rgba(17,20,27,0.045) !important;
+}
+
+.recharts-cartesian-axis-tick text {
+  fill: rgba(17,20,27,0.46) !important;
+}
+
+/* Inputs: clean light fields everywhere */
+input,
+textarea,
+select {
+  background-color: rgba(255,255,255,0.7) !important;
+  color: #11141B !important;
+  border-color: rgba(17,20,27,0.10) !important;
+  box-shadow: none !important;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: rgba(17,20,27,0.32) !important;
+  box-shadow: none !important;
+}
+
+/* Pills: quieter */
+.rounded-full.border,
+.rounded-xl.border {
+  border-color: rgba(17,20,27,0.08) !important;
+}
+
+/* Mobile: reduce density and make it feel like a clean product page */
+@media (max-width: 768px) {
+  main {
+    padding: 1.25rem !important;
+  }
+
+  h1 {
+    font-size: 2rem !important;
+    line-height: 1.05 !important;
+  }
+
+  main .grid.grid-cols-2.lg\:grid-cols-4 {
+    gap: 0.85rem !important;
+  }
+
+  main .grid.grid-cols-2.lg\:grid-cols-4 > .rounded-2xl,
+  main .grid.grid-cols-2.lg\:grid-cols-4 > .rounded-3xl {
+    padding: 16px !important;
+    min-height: 104px !important;
+  }
+
+  main .grid.grid-cols-2.lg\:grid-cols-4 .display,
+  main .grid.grid-cols-2.lg\:grid-cols-4 .text-2xl,
+  main .grid.grid-cols-2.lg\:grid-cols-4 .text-3xl,
+  main .grid.grid-cols-2.lg\:grid-cols-4 .text-4xl {
+    font-size: 1.55rem !important;
+  }
+
+  .sticky.top-0.h-screen.overflow-auto.border-l {
+    display: none !important;
+  }
+}
+
+/* Desktop: make top section less cramped */
+@media (min-width: 1024px) {
+  main {
+    padding-top: 2.4rem !important;
+  }
+
+  main > div.space-y-6 {
+    row-gap: 2rem !important;
+  }
+}
