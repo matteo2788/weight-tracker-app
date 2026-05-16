@@ -30,7 +30,6 @@
       .wl-subtle { font-size: 0.98rem !important; line-height: 1.55 !important; margin-top: 1rem !important; }
       .wl-metrics { margin-top: 5.4rem !important; }
 
-      /* Mobile fullscreen menu: balanced editorial rhythm */
       .wl-menu { overflow-y: auto !important; }
       .wl-menu-list {
         top: auto !important;
@@ -136,13 +135,14 @@ function loadWeightLensAddon(src, id){
 }
 
 (function loadFunctionalAddons(){
-  const version = 'features-4';
+  const version = 'features-5';
   window.addEventListener('load', () => {
     loadWeightLensAddon(`src/functional-goals.js?v=${version}`, 'wl-functional-goals');
     loadWeightLensAddon(`src/functional-measurements.js?v=${version}`, 'wl-functional-measurements');
     loadWeightLensAddon(`src/functional-trend-ranges.js?v=${version}`, 'wl-functional-trend-ranges');
     loadWeightLensAddon(`src/functional-settings.js?v=${version}`, 'wl-functional-settings');
     loadWeightLensAddon(`src/functional-photos.js?v=${version}`, 'wl-functional-photos');
+    loadWeightLensAddon(`src/functional-insights.js?v=${version}`, 'wl-functional-insights');
   });
   setTimeout(() => {
     loadWeightLensAddon(`src/functional-goals.js?v=${version}`, 'wl-functional-goals');
@@ -150,6 +150,7 @@ function loadWeightLensAddon(src, id){
     loadWeightLensAddon(`src/functional-trend-ranges.js?v=${version}`, 'wl-functional-trend-ranges');
     loadWeightLensAddon(`src/functional-settings.js?v=${version}`, 'wl-functional-settings');
     loadWeightLensAddon(`src/functional-photos.js?v=${version}`, 'wl-functional-photos');
+    loadWeightLensAddon(`src/functional-insights.js?v=${version}`, 'wl-functional-insights');
   }, 500);
 })();
 
