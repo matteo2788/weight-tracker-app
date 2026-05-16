@@ -70,10 +70,10 @@
     if(!R.ResponsiveContainer || data.length < 2) return e('div',{className:'h-72 border-t border-[var(--ed-line)]'});
     return e('div',{className:'h-[340px] w-full'},
       e(R.ResponsiveContainer,{width:'100%',height:'100%'},
-        e(R.LineChart,{data,margin:{top:20,right:18,left:0,bottom:10}},
+        e(R.LineChart,{data,margin:{top:20,right:18,left:16,bottom:10}},
           e(R.CartesianGrid,{vertical:false,stroke:'rgba(17,17,15,.06)'}),
           e(R.XAxis,{dataKey:'date',tickFormatter:shortDate,axisLine:false,tickLine:false,tick:{fontSize:11,fill:'#77736B'},interval:'preserveStartEnd'}),
-          e(R.YAxis,{domain:['dataMin - 1','dataMax + 1'],axisLine:false,tickLine:false,tick:{fontSize:11,fill:'#77736B'},width:34}),
+          e(R.YAxis,{domain:['dataMin - 1','dataMax + 1'],axisLine:false,tickLine:false,tick:{fontSize:11,fill:'#77736B'},tickMargin:10,width:54}),
           e(R.Tooltip,{content:({active,payload}) => active && payload?.length ? e('div',{className:'rounded-xl border bg-[#F6F4EF] px-3 py-2 text-xs'},`${one(payload[0].payload.weight)} ${unit}`) : null}),
           e(R.Line,{type:'monotone',dataKey:'weight',stroke:'rgba(95,115,138,.35)',strokeWidth:1.5,dot:{r:2,fill:'#8FA0B7',strokeWidth:0}}),
           e(R.Line,{type:'monotone',dataKey:'avg7',stroke:'#65A30D',strokeWidth:2.5,dot:false})
