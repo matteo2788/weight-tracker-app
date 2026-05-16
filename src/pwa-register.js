@@ -95,11 +95,15 @@ function loadWeightLensAddon(src, id){
 }
 
 (function loadFunctionalAddons(){
-  const version = 'goals-1';
+  const version = 'features-1';
   window.addEventListener('load', () => {
     loadWeightLensAddon(`src/functional-goals.js?v=${version}`, 'wl-functional-goals');
+    loadWeightLensAddon(`src/functional-measurements.js?v=${version}`, 'wl-functional-measurements');
   });
-  setTimeout(() => loadWeightLensAddon(`src/functional-goals.js?v=${version}`, 'wl-functional-goals'), 500);
+  setTimeout(() => {
+    loadWeightLensAddon(`src/functional-goals.js?v=${version}`, 'wl-functional-goals');
+    loadWeightLensAddon(`src/functional-measurements.js?v=${version}`, 'wl-functional-measurements');
+  }, 500);
 })();
 
 // Lightweight service worker registration.
