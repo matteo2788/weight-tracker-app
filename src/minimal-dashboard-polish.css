@@ -1,25 +1,27 @@
-/* minimal-dashboard-polish.css — calmer, cleaner WeightLens UI inspired by the landing page */
+/* minimal-dashboard-polish.css — stronger minimal revamp for WeightLens */
 
 :root {
-  --wl-bg: #F7F7F4;
-  --wl-surface: #FFFFFF;
+  --wl-bg: #F8F8F5;
+  --wl-paper: #FFFFFF;
   --wl-ink: #11141B;
-  --wl-muted: #747A84;
-  --wl-soft: rgba(17,20,27,0.065);
-  --wl-soft-2: rgba(17,20,27,0.105);
+  --wl-muted: #7A808A;
+  --wl-soft: rgba(17,20,27,0.055);
+  --wl-soft-2: rgba(17,20,27,0.095);
 }
 
 html,
 body,
 #root {
   background: var(--wl-bg) !important;
-}
-
-body {
   color: var(--wl-ink) !important;
 }
 
-/* Make the whole app feel less boxed-in */
+body {
+  -webkit-font-smoothing: antialiased !important;
+  text-rendering: geometricPrecision !important;
+}
+
+/* Global base: remove the heavy app-dashboard feeling */
 .bg-bg,
 .bg-surface,
 .bg-surface2,
@@ -27,202 +29,233 @@ body {
   background-color: var(--wl-bg) !important;
 }
 
-main {
-  max-width: 1180px !important;
-}
-
-/* Cards: quieter, more editorial, less dashboard-y */
-.card-ring,
-.rounded-2xl.border,
-.rounded-3xl.border,
-[class*="shadow-card"] {
-  box-shadow: none !important;
-}
-
-.bg-surface.rounded-2xl,
-.bg-surface.rounded-3xl,
-.bg-surface2.rounded-2xl,
-.bg-surface2.rounded-3xl,
-.bg-surface3.rounded-2xl,
-.bg-surface3.rounded-3xl,
-[class*="rounded-2xl"][class*="border"],
-[class*="rounded-3xl"][class*="border"] {
-  border-color: var(--wl-soft) !important;
-}
-
-/* Main content cards should breathe */
-main > div > .rounded-2xl,
-main > div > .rounded-3xl,
-main .card-ring,
-main [class*="shadow-card"] {
-  background: rgba(255,255,255,0.74) !important;
-  border-color: var(--wl-soft) !important;
-  box-shadow: 0 18px 60px -50px rgba(17,20,27,0.26) !important;
-}
-
-/* Text hierarchy: landing-page feel */
-h1,
-.display,
-.font-semibold,
-.font-bold {
-  letter-spacing: -0.055em;
-}
-
 .text-mute,
 .text-mute2 {
   color: var(--wl-muted) !important;
 }
 
-/* Reduce visual noise from tiny uppercase labels */
+.hairline,
+.border,
+.border-l,
+.border-r,
+.border-t,
+.border-b {
+  border-color: var(--wl-soft) !important;
+}
+
+/* Desktop layout: focus on the main content, not the side widgets */
+@media (min-width: 1024px) {
+  main {
+    max-width: 1080px !important;
+    padding: 2.35rem 2.35rem 3.5rem !important;
+  }
+
+  /* Right rail becomes subtle and narrower instead of another dashboard column */
+  .hidden.xl\:block.w-\[360px\],
+  [class*="w-[360px]"] {
+    width: 300px !important;
+    background: var(--wl-bg) !important;
+    opacity: .74 !important;
+  }
+
+  .hidden.xl\:block.w-\[360px\] .rounded-2xl,
+  .hidden.xl\:block.w-\[360px\] .rounded-3xl,
+  [class*="w-[360px]"] .rounded-2xl,
+  [class*="w-[360px]"] .rounded-3xl {
+    background: transparent !important;
+    border-color: rgba(17,20,27,0.055) !important;
+    box-shadow: none !important;
+  }
+}
+
+/* Sidebar: calmer, less boxed, more like a clean rail */
+aside,
+.hidden.lg\:block.sticky.top-0.h-screen,
+.lg\:hidden.fixed.inset-0.z-40.flex aside {
+  background: rgba(255,255,255,0.62) !important;
+  border-color: rgba(17,20,27,0.055) !important;
+  box-shadow: none !important;
+}
+
+aside button,
+aside a {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+aside button[class*="bg-surface3"],
+aside button[class*="bg-accent"],
+aside button[class*="bg-fg"] {
+  background: rgba(17,20,27,0.045) !important;
+}
+
+/* Headings: more landing-page/editorial */
+h1 {
+  font-size: clamp(2rem, 4vw, 3.25rem) !important;
+  line-height: 0.98 !important;
+  letter-spacing: -0.075em !important;
+  font-weight: 700 !important;
+}
+
+h2,
+.font-semibold,
+.font-bold,
+.display {
+  letter-spacing: -0.055em !important;
+}
+
 [class*="tracking-[0.18em]"],
 [class*="tracking-[0.14em]"],
 [class*="tracking-wider"] {
-  letter-spacing: 0.18em !important;
-  color: rgba(17,20,27,0.52) !important;
+  letter-spacing: 0.19em !important;
+  color: rgba(17,20,27,0.48) !important;
 }
 
-/* Buttons: more minimal, less chunky */
-button,
-.btn,
-a {
-  transition: background-color .16s ease, color .16s ease, border-color .16s ease, opacity .16s ease, transform .16s ease !important;
-}
-
-button.bg-accent,
-.btn.bg-accent,
-button.bg-fg,
-.btn.bg-fg,
-button.bg-\[\#11141B\] {
-  background: #11141B !important;
-  color: #F7F7F4 !important;
-  box-shadow: none !important;
-}
-
-button.bg-surface3,
-.btn.bg-surface3,
-button.bg-surface2,
-.btn.bg-surface2 {
-  background: rgba(17,20,27,0.035) !important;
-  border-color: rgba(17,20,27,0.08) !important;
-}
-
-/* Sidebar: calmer white rail */
-aside,
-.lg\:block .w-\[260px\],
-[class*="w-[260px]"] {
-  background: rgba(255,255,255,0.72) !important;
-  border-color: rgba(17,20,27,0.06) !important;
-}
-
-/* Sidebar nav items less heavy */
-aside button,
-[class*="w-[260px]"] button {
-  border-radius: 14px !important;
-}
-
-/* Right panel: less attention, more like supporting notes */
-.border-l.hairline,
-.sticky.top-0.h-screen.overflow-auto.border-l {
+/* Universal card softening */
+.rounded-2xl.border,
+.rounded-3xl.border,
+.card-ring,
+[class*="shadow-card"],
+[class*="shadow-pop"] {
+  background: rgba(255,255,255,0.68) !important;
   border-color: rgba(17,20,27,0.055) !important;
-  background: rgba(247,247,244,0.82) !important;
-}
-
-/* Right panel cards should feel lighter */
-.sticky.top-0.h-screen.overflow-auto.border-l .rounded-2xl,
-.sticky.top-0.h-screen.overflow-auto.border-l .rounded-3xl {
-  background: rgba(255,255,255,0.62) !important;
-  border-color: rgba(17,20,27,0.065) !important;
   box-shadow: none !important;
 }
 
-/* Dashboard stats: make them calmer and smaller visually */
-main .grid.grid-cols-2.lg\:grid-cols-4 > .rounded-2xl,
-main .grid.grid-cols-2.lg\:grid-cols-4 > .rounded-3xl {
-  min-height: 118px !important;
-  padding: 20px !important;
+main .rounded-2xl.border,
+main .rounded-3xl.border,
+main .card-ring {
   background: rgba(255,255,255,0.72) !important;
+}
+
+/* Top stat cards: less chunky, less loud */
+main .grid.grid-cols-2.lg\:grid-cols-4 {
+  gap: 1rem !important;
+}
+
+main .grid.grid-cols-2.lg\:grid-cols-4 > * {
+  min-height: 104px !important;
+  padding: 1.05rem 1.15rem !important;
+  border-radius: 1.35rem !important;
+  background: rgba(255,255,255,0.58) !important;
 }
 
 main .grid.grid-cols-2.lg\:grid-cols-4 .display,
 main .grid.grid-cols-2.lg\:grid-cols-4 .text-2xl,
 main .grid.grid-cols-2.lg\:grid-cols-4 .text-3xl,
-main .grid.grid-cols-2.lg\:grid-cols-4 .text-4xl {
-  font-size: clamp(1.45rem, 2vw, 2.05rem) !important;
+main .grid.grid-cols-2.lg\:grid-cols-4 .text-4xl,
+main .grid.grid-cols-2.lg\:grid-cols-4 .text-5xl {
+  font-size: clamp(1.55rem, 1.9vw, 2.1rem) !important;
   line-height: 1.05 !important;
 }
 
-/* Chart: less boxed, less grid-noise */
+main .grid.grid-cols-2.lg\:grid-cols-4 .text-sm,
+main .grid.grid-cols-2.lg\:grid-cols-4 .text-xs {
+  color: rgba(17,20,27,0.54) !important;
+}
+
+/* Dashboard chart and log panels: less boxed-in */
+main .grid.grid-cols-1.xl\:grid-cols-\[1fr_360px\],
+main .grid.grid-cols-1.xl\:grid-cols-\[1fr_340px\] {
+  gap: 1.1rem !important;
+}
+
 .recharts-cartesian-grid line {
-  stroke: rgba(17,20,27,0.045) !important;
+  stroke: rgba(17,20,27,0.035) !important;
+}
+
+.recharts-line-curve {
+  stroke-width: 2.25px !important;
 }
 
 .recharts-cartesian-axis-tick text {
-  fill: rgba(17,20,27,0.46) !important;
+  fill: rgba(17,20,27,0.42) !important;
 }
 
-/* Inputs: clean light fields everywhere */
+/* This week's summary + recent entries: quieter */
+main .grid.grid-cols-1.xl\:grid-cols-\[1fr_360px\] + .grid .rounded-2xl,
+main .grid.grid-cols-1.xl\:grid-cols-\[1fr_340px\] + .grid .rounded-2xl {
+  background: rgba(255,255,255,0.58) !important;
+}
+
+/* Buttons: black/white minimal, no extra dashboard shine */
+button,
+.btn {
+  box-shadow: none !important;
+}
+
+button.bg-accent,
+button.bg-fg,
+.btn.bg-accent,
+.btn.bg-fg,
+button[class*="bg-[#11141B]"] {
+  background: #11141B !important;
+  color: #F8F8F5 !important;
+}
+
+button.bg-surface3,
+button.bg-surface2,
+.btn.bg-surface3,
+.btn.bg-surface2 {
+  background: rgba(17,20,27,0.035) !important;
+}
+
+/* Inputs: cleaner fields */
 input,
 textarea,
 select {
-  background-color: rgba(255,255,255,0.7) !important;
+  background: rgba(255,255,255,0.62) !important;
   color: #11141B !important;
-  border-color: rgba(17,20,27,0.10) !important;
+  border-color: rgba(17,20,27,0.08) !important;
   box-shadow: none !important;
 }
 
 input:focus,
 textarea:focus,
 select:focus {
-  border-color: rgba(17,20,27,0.32) !important;
+  border-color: rgba(17,20,27,0.24) !important;
   box-shadow: none !important;
 }
 
-/* Pills: quieter */
+/* Pills should not add visual noise */
 .rounded-full.border,
 .rounded-xl.border {
-  border-color: rgba(17,20,27,0.08) !important;
+  background: rgba(255,255,255,0.38) !important;
+  border-color: rgba(17,20,27,0.065) !important;
 }
 
-/* Mobile: reduce density and make it feel like a clean product page */
+/* Mobile: bigger breathing room, right rail hidden, fewer cramped panels */
 @media (max-width: 768px) {
   main {
     padding: 1.25rem !important;
   }
 
   h1 {
-    font-size: 2rem !important;
-    line-height: 1.05 !important;
+    font-size: 2.25rem !important;
+    line-height: 1 !important;
+  }
+
+  .hidden.xl\:block.w-\[360px\],
+  [class*="w-[360px]"] {
+    display: none !important;
   }
 
   main .grid.grid-cols-2.lg\:grid-cols-4 {
-    gap: 0.85rem !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: .85rem !important;
   }
 
-  main .grid.grid-cols-2.lg\:grid-cols-4 > .rounded-2xl,
-  main .grid.grid-cols-2.lg\:grid-cols-4 > .rounded-3xl {
-    padding: 16px !important;
-    min-height: 104px !important;
-  }
-
-  main .grid.grid-cols-2.lg\:grid-cols-4 .display,
-  main .grid.grid-cols-2.lg\:grid-cols-4 .text-2xl,
-  main .grid.grid-cols-2.lg\:grid-cols-4 .text-3xl,
-  main .grid.grid-cols-2.lg\:grid-cols-4 .text-4xl {
-    font-size: 1.55rem !important;
-  }
-
-  .sticky.top-0.h-screen.overflow-auto.border-l {
-    display: none !important;
+  main .grid.grid-cols-2.lg\:grid-cols-4 > * {
+    min-height: 96px !important;
+    padding: .95rem !important;
   }
 }
 
-/* Desktop: make top section less cramped */
-@media (min-width: 1024px) {
-  main {
-    padding-top: 2.4rem !important;
-  }
-
-  main > div.space-y-6 {
-    row-gap: 2rem !important;
-  }
+/* Obvious loaded marker without being visible: this file is active */
+body::after {
+  content: '';
+  position: fixed;
+  width: 0;
+  height: 0;
+  pointer-events: none;
 }
