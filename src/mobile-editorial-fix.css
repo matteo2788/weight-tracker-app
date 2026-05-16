@@ -107,12 +107,12 @@
   }
 
   .wl-hero-title {
-    margin: 76px 0 28px !important;
-    max-width: 10.5ch !important;
+    margin: 78px 0 34px !important;
+    max-width: 11.8ch !important;
     text-align: left !important;
-    font-size: 42px !important;
-    line-height: 0.98 !important;
-    letter-spacing: -0.075em !important;
+    font-size: 44px !important;
+    line-height: 1.04 !important;
+    letter-spacing: -0.073em !important;
   }
 
   .wl-hero-meta {
@@ -124,17 +124,17 @@
   }
 
   .wl-big-number {
-    margin-top: 18px !important;
+    margin-top: 16px !important;
     text-align: left !important;
-    font-size: 70px !important;
-    line-height: 0.92 !important;
-    letter-spacing: -0.075em !important;
+    font-size: 58px !important;
+    line-height: 0.96 !important;
+    letter-spacing: -0.066em !important;
   }
 
   .wl-unit {
-    font-size: 13px !important;
-    letter-spacing: 0.24em !important;
-    margin-left: 5px !important;
+    font-size: 12px !important;
+    letter-spacing: 0.23em !important;
+    margin-left: 4px !important;
   }
 
   .wl-subtle {
@@ -247,12 +247,13 @@
   }
 
   .wl-hero-title {
-    font-size: 38px !important;
-    max-width: 10.7ch !important;
+    font-size: 42px !important;
+    max-width: 11.2ch !important;
+    line-height: 1.04 !important;
   }
 
   .wl-big-number {
-    font-size: 64px !important;
+    font-size: 54px !important;
   }
 
   .wl-page > .grid.grid-cols-3 button {
@@ -275,8 +276,8 @@
 }
 
 @media (max-width: 380px) {
-  .wl-hero-title { font-size: 35px !important; }
-  .wl-big-number { font-size: 58px !important; }
+  .wl-hero-title { font-size: 38px !important; }
+  .wl-big-number { font-size: 50px !important; }
   .wl-logo { font-size: 18px !important; }
   .wl-link { font-size: 10px !important; letter-spacing: 0.19em !important; }
   .wl-menu-lines i { width: 27px !important; }
