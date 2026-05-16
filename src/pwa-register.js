@@ -136,14 +136,16 @@ function loadWeightLensAddon(src, id){
 }
 
 (function loadFunctionalAddons(){
-  const version = 'features-1';
+  const version = 'features-2';
   window.addEventListener('load', () => {
     loadWeightLensAddon(`src/functional-goals.js?v=${version}`, 'wl-functional-goals');
     loadWeightLensAddon(`src/functional-measurements.js?v=${version}`, 'wl-functional-measurements');
+    loadWeightLensAddon(`src/functional-trend-ranges.js?v=${version}`, 'wl-functional-trend-ranges');
   });
   setTimeout(() => {
     loadWeightLensAddon(`src/functional-goals.js?v=${version}`, 'wl-functional-goals');
     loadWeightLensAddon(`src/functional-measurements.js?v=${version}`, 'wl-functional-measurements');
+    loadWeightLensAddon(`src/functional-trend-ranges.js?v=${version}`, 'wl-functional-trend-ranges');
   }, 500);
 })();
 
