@@ -128,18 +128,24 @@
     if (!shell) return;
 
     const reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const targets = [
+    const topItems = [
       shell.querySelector('.weightlens-topnav'),
       shell.querySelector('.weightlens-landing-kicker'),
       shell.querySelector('.weightlens-landing-title'),
-      shell.querySelector('.weightlens-landing-body'),
+      shell.querySelector('.weightlens-landing-body')
+    ].filter(Boolean);
+
+    const scrollItems = [
       ...shell.querySelectorAll('.weightlens-landing-feature'),
       shell.querySelector('.weightlens-auth-card')
     ].filter(Boolean);
 
-    targets.forEach((el) => {
+    const allItems = [...topItems, ...scrollItems];
+
+    allItems.forEach((el) => {
       if (el.dataset.revealItem === 'true') return;
       el.dataset.revealItem = 'true';
+      el.classList.remove('is-visible');
       el.classList.add('weightlens-reveal');
 
       if (el.classList.contains('weightlens-landing-title') || el.classList.contains('weightlens-auth-card')) {
@@ -153,23 +159,31 @@
     });
 
     if (reduceMotion || !('IntersectionObserver' in window)) {
-      targets.forEach(el => el.classList.add('is-visible'));
+      allItems.forEach(el => el.classList.add('is-visible'));
       return;
     }
 
-    if (!landingRevealObserver) {
-      landingRevealObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            landingRevealObserver.unobserve(entry.target);
-          }
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        topItems.forEach((el, index) => {
+          setTimeout(() => el.classList.add('is-visible'), 120 + index * 130);
         });
-      }, { threshold: 0.08, rootMargin: '0px 0px -10% 0px' });
-    }
 
-    targets.forEach((el) => {
-      if (!el.classList.contains('is-visible')) landingRevealObserver.observe(el);
+        if (!landingRevealObserver) {
+          landingRevealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                landingRevealObserver.unobserve(entry.target);
+              }
+            });
+          }, { threshold: 0.12, rootMargin: '0px 0px -18% 0px' });
+        }
+
+        scrollItems.forEach((el) => {
+          if (!el.classList.contains('is-visible')) landingRevealObserver.observe(el);
+        });
+      });
     });
   }
 
