@@ -1,4 +1,4 @@
-// measurements-override.jsx — polished measurements page
+// measurements-override.jsx — polished measurements page, forced global override
 
 function measurementDeltaTone(fieldId, delta){
   if (delta == null || Math.abs(delta) < 0.05) return 'neutral';
@@ -8,63 +8,22 @@ function measurementDeltaTone(fieldId, delta){
 
 function buildMeasurementCoach(measurements){
   const sortedAsc = [...measurements].sort((a,b)=>a.date.localeCompare(b.date));
-  if (sortedAsc.length === 0) {
-    return {
-      tone:'neutral',
-      headline:'Add your first measurement',
-      body:'Measurements help you see progress the scale can miss, especially during recomp or muscle gain.'
-    };
-  }
-
-  if (sortedAsc.length === 1) {
-    return {
-      tone:'neutral',
-      headline:'Baseline saved',
-      body:'You have a starting point. Add another measurement in 2–4 weeks to see real change without obsessing day to day.'
-    };
-  }
+  if (sortedAsc.length === 0) return { tone:'neutral', headline:'Add your first measurement', body:'Measurements help you see progress the scale can miss, especially during recomp or muscle gain.' };
+  if (sortedAsc.length === 1) return { tone:'neutral', headline:'Baseline saved', body:'You have a starting point. Add another measurement in 2–4 weeks to see real change without obsessing day to day.' };
 
   const first = sortedAsc[0];
   const latest = sortedAsc[sortedAsc.length - 1];
-  const waistDelta = latest.measurements?.waist != null && first.measurements?.waist != null
-    ? latest.measurements.waist - first.measurements.waist
-    : null;
-  const chestDelta = latest.measurements?.chest != null && first.measurements?.chest != null
-    ? latest.measurements.chest - first.measurements.chest
-    : null;
+  const waistDelta = latest.measurements?.waist != null && first.measurements?.waist != null ? latest.measurements.waist - first.measurements.waist : null;
+  const chestDelta = latest.measurements?.chest != null && first.measurements?.chest != null ? latest.measurements.chest - first.measurements.chest : null;
 
-  if (waistDelta != null && waistDelta <= -1) {
-    return {
-      tone:'good',
-      headline:`Waist is down ${Math.abs(waistDelta).toFixed(1)} in`,
-      body:'That is a strong non-scale signal. Even if body weight is noisy, waist change often shows fat-loss progress more clearly.'
-    };
-  }
+  if (waistDelta != null && waistDelta <= -1) return { tone:'good', headline:`Waist is down ${Math.abs(waistDelta).toFixed(1)} in`, body:'That is a strong non-scale signal. Even if body weight is noisy, waist change often shows fat-loss progress more clearly.' };
+  if (waistDelta != null && waistDelta >= 1) return { tone:'warn', headline:`Waist is up ${waistDelta.toFixed(1)} in`, body:'Do not panic from one reading, but compare the next check-in. Measure at the same time and same spot for consistency.' };
+  if (chestDelta != null && chestDelta > 0.5) return { tone:'neutral', headline:'Upper-body measurement is moving up', body:'This can be useful during muscle gain or recomp. Pair it with photos, strength, and waist trend for better context.' };
 
-  if (waistDelta != null && waistDelta >= 1) {
-    return {
-      tone:'warn',
-      headline:`Waist is up ${waistDelta.toFixed(1)} in`,
-      body:'Do not panic from one reading, but compare the next check-in. Measure at the same time and same spot for consistency.'
-    };
-  }
-
-  if (chestDelta != null && chestDelta > 0.5) {
-    return {
-      tone:'neutral',
-      headline:'Upper-body measurement is moving up',
-      body:'This can be useful during muscle gain or recomp. Pair it with photos, strength, and waist trend for better context.'
-    };
-  }
-
-  return {
-    tone:'neutral',
-    headline:'Measurements are mostly steady',
-    body:'Stable measurements are still useful data. Keep check-ins spaced out so you are tracking real change, not tiny measuring noise.'
-  };
+  return { tone:'neutral', headline:'Measurements are mostly steady', body:'Stable measurements are still useful data. Keep check-ins spaced out so you are tracking real change, not tiny measuring noise.' };
 }
 
-function MeasurementsPage(){
+function WeightLensMeasurementsPage(){
   const { state, updateState } = useApp();
   const [open, setOpen] = useState(false);
   const [draft, setDraft] = useState(null);
@@ -104,7 +63,7 @@ function MeasurementsPage(){
     <div className="space-y-6 fadein">
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-3">
         <div>
-          <div className="text-[11px] uppercase tracking-[0.18em] text-mute mb-1.5">Body measurements</div>
+          <div className="text-[11px] uppercase tracking-[0.18em] text-mute mb-1.5">Body measurements · upgraded</div>
           <h1 className="text-[28px] md:text-[32px] font-semibold tracking-tight">Measurements</h1>
           <div className="text-mute mt-1.5 text-[14px] max-w-2xl">Track waist, chest, hips, arms, thighs, and neck so progress is not judged by scale weight alone.</div>
         </div>
@@ -167,20 +126,10 @@ function MeasurementsPage(){
               <tbody>
                 {sortedDesc.map(m => (
                   <tr key={m.id} className="border-b hairline last:border-0 hover:bg-surface3/40">
-                    <td className="px-4 py-3">
-                      <div className="font-medium">{fmtShort(m.date)}</div>
-                      <div className="text-[11px] text-mute">{m.date}</div>
-                    </td>
-                    {MEASUREMENT_FIELDS.map(f => (
-                      <td key={f.id} className="px-3 py-2 num text-fg/90">{m.measurements[f.id] != null ? m.measurements[f.id].toFixed(1) : <span className="text-mute2">—</span>}</td>
-                    ))}
+                    <td className="px-4 py-3"><div className="font-medium">{fmtShort(m.date)}</div><div className="text-[11px] text-mute">{m.date}</div></td>
+                    {MEASUREMENT_FIELDS.map(f => <td key={f.id} className="px-3 py-2 num text-fg/90">{m.measurements[f.id] != null ? m.measurements[f.id].toFixed(1) : <span className="text-mute2">—</span>}</td>)}
                     <td className="px-3 py-2 text-mute max-w-[220px] truncate">{m.notes || '—'}</td>
-                    <td className="px-2">
-                      <div className="flex justify-end gap-1">
-                        <IconButton onClick={()=>{ setDraft({...m, measurements:{...(m.measurements||{})}}); setOpen(true); }}><I.Edit className="h-4 w-4"/></IconButton>
-                        <IconButton className="hover:text-danger" onClick={()=>deleteMeasurement(m.id)}><I.Trash className="h-4 w-4"/></IconButton>
-                      </div>
-                    </td>
+                    <td className="px-2"><div className="flex justify-end gap-1"><IconButton onClick={()=>{ setDraft({...m, measurements:{...(m.measurements||{})}}); setOpen(true); }}><I.Edit className="h-4 w-4"/></IconButton><IconButton className="hover:text-danger" onClick={()=>deleteMeasurement(m.id)}><I.Trash className="h-4 w-4"/></IconButton></div></td>
                   </tr>
                 ))}
               </tbody>
@@ -192,33 +141,14 @@ function MeasurementsPage(){
       <Modal open={open} onClose={()=>{ setOpen(false); setDraft(null); }} title={draft?.createdAt && state.measurements.some(m => m.id === draft.id) ? 'Edit measurement' : 'New measurement'} maxWidth="max-w-xl">
         {draft && (
           <div className="space-y-4">
-            <div>
-              <label className="block text-[11px] uppercase tracking-[0.18em] text-mute mb-1.5">Date</label>
-              <Input type="date" className="w-full" value={draft.date} onChange={e=>setDraft({...draft, date: e.target.value})} max={todayISO()}/>
-            </div>
+            <div><label className="block text-[11px] uppercase tracking-[0.18em] text-mute mb-1.5">Date</label><Input type="date" className="w-full" value={draft.date} onChange={e=>setDraft({...draft, date: e.target.value})} max={todayISO()}/></div>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-              {MEASUREMENT_FIELDS.map(f => (
-                <div key={f.id}>
-                  <label className="block text-[11px] uppercase tracking-[0.18em] text-mute mb-1.5">{f.label}</label>
-                  <div className="flex gap-2">
-                    <Input type="number" step="0.1" className="flex-1" value={draft.measurements[f.id] ?? ''} onChange={e=>setDraft({...draft, measurements: { ...draft.measurements, [f.id]: e.target.value ? +e.target.value : null }})}/>
-                    <div className="px-3 h-10 flex items-center text-mute text-xs bg-surface3 border border-line2 rounded-xl">in</div>
-                  </div>
-                </div>
-              ))}
+              {MEASUREMENT_FIELDS.map(f => <div key={f.id}><label className="block text-[11px] uppercase tracking-[0.18em] text-mute mb-1.5">{f.label}</label><div className="flex gap-2"><Input type="number" step="0.1" className="flex-1" value={draft.measurements[f.id] ?? ''} onChange={e=>setDraft({...draft, measurements: { ...draft.measurements, [f.id]: e.target.value ? +e.target.value : null }})}/><div className="px-3 h-10 flex items-center text-mute text-xs bg-surface3 border border-line2 rounded-xl">in</div></div></div>)}
             </div>
-            <div>
-              <label className="block text-[11px] uppercase tracking-[0.18em] text-mute mb-1.5">Notes</label>
-              <Textarea rows={2} className="w-full" value={draft.notes} onChange={e=>setDraft({...draft, notes: e.target.value})} placeholder="Optional check-in notes…"/>
-            </div>
+            <div><label className="block text-[11px] uppercase tracking-[0.18em] text-mute mb-1.5">Notes</label><Textarea rows={2} className="w-full" value={draft.notes} onChange={e=>setDraft({...draft, notes: e.target.value})} placeholder="Optional check-in notes…"/></div>
             <div className="flex items-center justify-between gap-2 pt-2 border-t hairline">
-              {state.measurements.some(m => m.id === draft.id) ? (
-                <Button variant="danger" onClick={()=>deleteMeasurement(draft.id)}><I.Trash className="h-4 w-4"/> Delete</Button>
-              ) : <div/>}
-              <div className="flex justify-end gap-2">
-                <Button variant="secondary" onClick={()=>{ setOpen(false); setDraft(null); }}>Cancel</Button>
-                <Button onClick={saveDraft}>Save</Button>
-              </div>
+              {state.measurements.some(m => m.id === draft.id) ? <Button variant="danger" onClick={()=>deleteMeasurement(draft.id)}><I.Trash className="h-4 w-4"/> Delete</Button> : <div/>}
+              <div className="flex justify-end gap-2"><Button variant="secondary" onClick={()=>{ setOpen(false); setDraft(null); }}>Cancel</Button><Button onClick={saveDraft}>Save</Button></div>
             </div>
           </div>
         )}
@@ -227,4 +157,7 @@ function MeasurementsPage(){
   );
 }
 
-Object.assign(window, { MeasurementsPage, buildMeasurementCoach, measurementDeltaTone });
+window.WeightLensMeasurementsPage = WeightLensMeasurementsPage;
+window.MeasurementsPage = WeightLensMeasurementsPage;
+try { (0, eval)('MeasurementsPage = window.WeightLensMeasurementsPage'); } catch(e) {}
+Object.assign(window, { MeasurementsPage: WeightLensMeasurementsPage, buildMeasurementCoach, measurementDeltaTone });
