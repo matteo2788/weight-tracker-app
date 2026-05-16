@@ -25,6 +25,81 @@
       -webkit-text-size-adjust: 100% !important;
     }
 
+    /* Desktop: make the left sidebar truly fixed, not just sticky. */
+    @media (min-width: 1024px) {
+      .hidden.lg\\:block.sticky.top-0.h-screen {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        bottom: 0 !important;
+        width: 240px !important;
+        height: 100dvh !important;
+        z-index: 30 !important;
+      }
+
+      .hidden.lg\\:block.sticky.top-0.h-screen + .flex-1 {
+        margin-left: 240px !important;
+      }
+
+      .hidden.lg\\:block.sticky.top-0.h-screen aside {
+        height: 100dvh !important;
+        max-height: 100dvh !important;
+        overflow: hidden !important;
+      }
+    }
+
+    /* Sidebar internals: header/footer stay put, nav scrolls inside the sidebar only. */
+    .hidden.lg\\:block.sticky.top-0.h-screen aside nav,
+    .lg\\:hidden.fixed.inset-0.z-40.flex aside nav {
+      overflow-y: auto !important;
+      overscroll-behavior: contain !important;
+      -webkit-overflow-scrolling: touch !important;
+    }
+
+    /* Mobile drawer: lock drawer to the viewport so it never scrolls with the page behind it. */
+    .lg\\:hidden.fixed.inset-0.z-40.flex {
+      position: fixed !important;
+      inset: 0 !important;
+      height: 100dvh !important;
+      max-height: 100dvh !important;
+      overflow: hidden !important;
+      overscroll-behavior: contain !important;
+      z-index: 999 !important;
+    }
+
+    .lg\\:hidden.fixed.inset-0.z-40.flex > .relative.bg-surface.h-full {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      bottom: 0 !important;
+      height: 100dvh !important;
+      max-height: 100dvh !important;
+      overflow: hidden !important;
+    }
+
+    .lg\\:hidden.fixed.inset-0.z-40.flex aside {
+      height: 100dvh !important;
+      max-height: 100dvh !important;
+      overflow: hidden !important;
+    }
+
+    /* Fix iPhone status-bar/notch cutting off the sidebar header. */
+    .lg\\:hidden.fixed.inset-0.z-40.flex aside > div:first-child {
+      padding-top: calc(env(safe-area-inset-top) + 1.25rem) !important;
+    }
+
+    @supports (padding-top: constant(safe-area-inset-top)) {
+      .lg\\:hidden.fixed.inset-0.z-40.flex aside > div:first-child {
+        padding-top: calc(constant(safe-area-inset-top) + 1.25rem) !important;
+      }
+    }
+
+    /* While mobile drawer is open, stop the page behind it from drifting. */
+    body:has(.lg\\:hidden.fixed.inset-0.z-40.flex) {
+      overflow: hidden !important;
+      touch-action: none !important;
+    }
+
     @media (max-width: 640px) {
       html,
       body,
