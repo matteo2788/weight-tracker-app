@@ -4,6 +4,12 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>WeightLens — Trend dashboard</title>
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#FAFAF7">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="WeightLens">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-icon" href="/icons/icon-192.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -99,13 +105,20 @@
   <script src="https://unpkg.com/prop-types@15.8.1/prop-types.min.js"></script>
   <script src="https://unpkg.com/react-is@18.3.1/umd/react-is.production.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/recharts@2.12.7/umd/Recharts.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    window.SUPABASE_URL = "https://pikthuwtzzfzvmunlrid.supabase.co";
+    window.SUPABASE_KEY = "sb_publishable_721kpx4mjIOxcLHDAvlhXA_3gjw9tuB";
+  </script>
 
-  <script type="text/babel" data-presets="env,react" src="src/store.jsx?v=claude-reset-1"></script>
-  <script type="text/babel" data-presets="env,react" src="src/tweaks-panel.jsx?v=claude-reset-1"></script>
-  <script type="text/babel" data-presets="env,react" src="src/components.jsx?v=claude-reset-1"></script>
-  <script type="text/babel" data-presets="env,react" src="src/pages-main.jsx?v=claude-reset-1"></script>
-  <script type="text/babel" data-presets="env,react" src="src/pages-trends.jsx?v=claude-reset-1"></script>
-  <script type="text/babel" data-presets="env,react" src="src/pages-misc.jsx?v=claude-reset-1"></script>
-  <script type="text/babel" data-presets="env,react" src="src/app.jsx?v=claude-reset-1"></script>
+  <script type="text/babel" data-presets="env,react" src="src/store.jsx?v=claude-reset-auth-1"></script>
+  <script type="text/babel" data-presets="env,react" src="src/tweaks-panel.jsx?v=claude-reset-auth-1"></script>
+  <script type="text/babel" data-presets="env,react" src="src/components.jsx?v=claude-reset-auth-1"></script>
+  <script type="text/babel" data-presets="env,react" src="src/pages-main.jsx?v=claude-reset-auth-1"></script>
+  <script type="text/babel" data-presets="env,react" src="src/pages-trends.jsx?v=claude-reset-auth-1"></script>
+  <script type="text/babel" data-presets="env,react" src="src/pages-misc.jsx?v=claude-reset-auth-1"></script>
+  <script type="text/babel" data-presets="env,react" src="src/onboarding.jsx?v=claude-reset-auth-1"></script>
+  <script type="text/babel" data-presets="env,react" src="src/app.jsx?v=claude-reset-auth-1"></script>
+  <script src="src/pwa-register.js?v=claude-reset-auth-1"></script>
 </body>
 </html>
