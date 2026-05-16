@@ -187,128 +187,190 @@ function LoginScreen(){
     }
   };
 
+  const authTitle = mode === 'signup'
+    ? 'Create your account'
+    : mode === 'reset'
+      ? 'Reset your password'
+      : 'Sign in to save across devices';
+
+  const authDescription = mode === 'signup'
+    ? 'Create an account and start with your own private dashboard.'
+    : mode === 'reset'
+      ? 'Enter your email and we will send you a secure password reset link.'
+      : 'Sign in with your email and password. Your data will sync across devices.';
+
   return (
-    <div className="min-h-screen bg-bg text-fg flex items-center justify-center p-6">
-      <div className="w-full max-w-md bg-surface rounded-3xl card-ring p-6 md:p-8">
-        <div className="mb-6">
-          <div className="text-sm text-mute mb-2">WeightLens cloud sync</div>
-
-          <h1 className="text-3xl font-semibold tracking-tight">
-            {mode === 'signup'
-              ? 'Create your account'
-              : mode === 'reset'
-                ? 'Reset your password'
-                : 'Sign in to save across devices'}
-          </h1>
-
-          <p className="text-mute mt-3 leading-relaxed">
-            {mode === 'signup'
-              ? 'Create an account and start with your own private dashboard.'
-              : mode === 'reset'
-                ? 'Enter your email and we will send you a secure password reset link.'
-                : 'Sign in with your email and password. Your data will sync across devices.'}
-          </p>
-        </div>
-
-        {mode !== 'reset' && (
-          <div className="grid grid-cols-2 gap-2 mb-5 rounded-2xl bg-surface3 p-1">
-            <button
-              type="button"
-              className={`btn rounded-xl px-3 py-2 text-sm font-medium ${mode === 'signin' ? 'bg-surface card-ring' : 'text-mute'}`}
-              onClick={() => {
-                setMode('signin');
-                setStatus('');
-              }}
-            >
-              Sign in
-            </button>
-
-            <button
-              type="button"
-              className={`btn rounded-xl px-3 py-2 text-sm font-medium ${mode === 'signup' ? 'bg-surface card-ring' : 'text-mute'}`}
-              onClick={() => {
-                setMode('signup');
-                setStatus('');
-              }}
-            >
-              Create account
-            </button>
+    <div className="min-h-screen bg-[#F7F7F4] text-[#11141B] overflow-x-hidden">
+      <div className="mx-auto flex min-h-screen w-full max-w-[1440px] flex-col px-5 py-6 sm:px-8 lg:px-12">
+        <header className="flex items-start justify-between">
+          <div className="flex items-start gap-3">
+            <div className="mt-1 flex h-9 w-9 items-center justify-center rounded-full border border-[#11141B] text-[#11141B]">
+              <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M4 18 9 12l4 4 7-8" />
+              </svg>
+            </div>
+            <div>
+              <div className="font-semibold tracking-[-0.07em] text-[1.55rem] leading-none sm:text-[1.85rem]">WeightLens</div>
+              <div className="mt-1 text-[0.62rem] font-bold uppercase tracking-[0.28em] text-[#8C8790]">Studio</div>
+            </div>
           </div>
-        )}
 
-        <form onSubmit={handleAuth} className="space-y-4">
-          {mode === 'signup' && (
-            <input
-              className="w-full rounded-2xl border hairline bg-surface3 px-4 py-3 text-base focus-ring"
-              type="text"
-              placeholder="Your name"
-              value={name}
-              onChange={e => setName(e.target.value)}
-            />
-          )}
-
-          <input
-            className="w-full rounded-2xl border hairline bg-surface3 px-4 py-3 text-base focus-ring"
-            type="email"
-            placeholder="your@email.com"
-            value={email}
-            onChange={e => setEmail(e.target.value)}
-          />
-
-          {mode !== 'reset' && (
-            <input
-              className="w-full rounded-2xl border hairline bg-surface3 px-4 py-3 text-base focus-ring"
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={e => setPassword(e.target.value)}
-            />
-          )}
-
-          <button
-            className="btn w-full rounded-2xl bg-fg text-bg px-4 py-3 font-medium disabled:opacity-50"
-            disabled={loading}
-          >
-            {loading
-              ? (mode === 'signup' ? 'Creating account...' : mode === 'reset' ? 'Sending reset link...' : 'Signing in...')
-              : (mode === 'signup' ? 'Create account' : mode === 'reset' ? 'Send reset link' : 'Sign in')}
-          </button>
-        </form>
-
-        <div className="mt-4 flex items-center justify-center gap-3 text-sm">
-          {mode === 'signin' && (
-            <button
-              type="button"
-              className="btn text-mute hover:text-fg"
-              onClick={() => {
-                setMode('reset');
-                setPassword('');
-                setStatus('');
-              }}
-            >
-              Forgot password?
-            </button>
-          )}
-
-          {mode === 'reset' && (
-            <button
-              type="button"
-              className="btn text-mute hover:text-fg"
-              onClick={() => {
-                setMode('signin');
-                setStatus('');
-              }}
-            >
-              Back to sign in
-            </button>
-          )}
-        </div>
-
-        {status && (
-          <div className="mt-4 text-sm text-mute leading-relaxed">
-            {status}
+          <div className="mt-2 flex flex-col gap-1.5">
+            <span className="block h-px w-7 bg-[#11141B]" />
+            <span className="block h-px w-7 bg-[#11141B]" />
           </div>
-        )}
+        </header>
+
+        <main className="flex flex-1 flex-col justify-center gap-16 py-16 lg:gap-20 lg:py-20">
+          <section className="mx-auto w-full max-w-5xl text-center animate-[fadeUp_0.8s_ease-out_both]">
+            <div className="text-[0.68rem] font-bold uppercase tracking-[0.34em] text-[#8C8790] sm:text-xs">
+              Weight tracking, finally calm
+            </div>
+
+            <h1 className="mx-auto mt-7 max-w-[11ch] font-bold leading-[1.02] tracking-[-0.075em] text-[3.2rem] sm:text-[5rem] lg:text-[6.5rem]">
+              Does your scale tell the real story?
+            </h1>
+
+            <p className="mx-auto mt-7 max-w-2xl text-base leading-8 text-[#737985] sm:text-xl sm:leading-9">
+              WeightLens turns daily weigh-ins into a clean trend dashboard — so you can see direction, pace, and progress without overreacting to one morning.
+            </p>
+          </section>
+
+          <section className="mx-auto grid w-full max-w-5xl grid-cols-2 gap-x-8 gap-y-10 text-center lg:grid-cols-4 animate-[fadeUp_0.9s_ease-out_0.15s_both]">
+            <div>
+              <div className="font-bold tracking-[-0.05em] text-3xl sm:text-5xl">7-day</div>
+              <p className="mx-auto mt-3 max-w-[12rem] text-sm leading-6 text-[#777B86] sm:text-base">average trend, not daily noise</p>
+            </div>
+            <div>
+              <div className="font-bold tracking-[-0.05em] text-3xl sm:text-5xl">Goals</div>
+              <p className="mx-auto mt-3 max-w-[12rem] text-sm leading-6 text-[#777B86] sm:text-base">pace, ETA, and remaining progress</p>
+            </div>
+            <div>
+              <div className="font-bold tracking-[-0.05em] text-3xl sm:text-5xl">Insights</div>
+              <p className="mx-auto mt-3 max-w-[12rem] text-sm leading-6 text-[#777B86] sm:text-base">plain-English fluctuation coaching</p>
+            </div>
+            <div>
+              <div className="font-bold tracking-[-0.05em] text-3xl sm:text-5xl">Cloud</div>
+              <p className="mx-auto mt-3 max-w-[12rem] text-sm leading-6 text-[#777B86] sm:text-base">your dashboard across devices</p>
+            </div>
+          </section>
+
+          <section className="mx-auto w-full max-w-xl animate-[fadeUp_0.9s_ease-out_0.3s_both]">
+            <div className="mx-auto mb-8 h-px w-36 bg-[#11141B]/20" />
+
+            <div className="text-center">
+              <div className="text-sm text-[#777B86]">WeightLens cloud sync</div>
+              <h2 className="mt-2 text-2xl font-bold tracking-[-0.05em] sm:text-3xl">
+                {authTitle}
+              </h2>
+              <p className="mx-auto mt-3 max-w-md text-sm leading-7 text-[#6E7480] sm:text-base">
+                {authDescription}
+              </p>
+            </div>
+
+            {mode !== 'reset' && (
+              <div className="mx-auto mt-8 grid w-full max-w-sm grid-cols-2 border-b border-[#11141B]/15">
+                <button
+                  type="button"
+                  className={`relative pb-3 text-sm font-semibold transition ${mode === 'signin' ? 'text-[#11141B]' : 'text-[#8A8F98]'}`}
+                  onClick={() => {
+                    setMode('signin');
+                    setStatus('');
+                  }}
+                >
+                  Sign in
+                  {mode === 'signin' && <span className="absolute bottom-[-1px] left-0 right-0 h-0.5 rounded-full bg-[#11141B]" />}
+                </button>
+
+                <button
+                  type="button"
+                  className={`relative pb-3 text-sm font-semibold transition ${mode === 'signup' ? 'text-[#11141B]' : 'text-[#8A8F98]'}`}
+                  onClick={() => {
+                    setMode('signup');
+                    setStatus('');
+                  }}
+                >
+                  Create account
+                  {mode === 'signup' && <span className="absolute bottom-[-1px] left-0 right-0 h-0.5 rounded-full bg-[#11141B]" />}
+                </button>
+              </div>
+            )}
+
+            <form onSubmit={handleAuth} className="mt-9 grid gap-5 sm:grid-cols-2">
+              {mode === 'signup' && (
+                <input
+                  className="h-14 min-w-0 border-0 border-b border-[#11141B]/20 bg-transparent px-0 text-base text-[#11141B] outline-none placeholder:text-[#8F949D] focus:border-[#11141B] sm:col-span-1"
+                  type="text"
+                  placeholder="Your name"
+                  value={name}
+                  onChange={e => setName(e.target.value)}
+                />
+              )}
+
+              <input
+                className={`h-14 min-w-0 border-0 border-b border-[#11141B]/20 bg-transparent px-0 text-base text-[#11141B] outline-none placeholder:text-[#8F949D] focus:border-[#11141B] ${mode !== 'signup' ? 'sm:col-span-1' : 'sm:col-span-1'}`}
+                type="email"
+                placeholder="your@email.com"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
+              />
+
+              {mode !== 'reset' && (
+                <input
+                  className={`h-14 min-w-0 border-0 border-b border-[#11141B]/20 bg-transparent px-0 text-base text-[#11141B] outline-none placeholder:text-[#8F949D] focus:border-[#11141B] ${mode === 'signin' ? 'sm:col-span-1' : 'sm:col-span-2'}`}
+                  type="password"
+                  placeholder="Password"
+                  value={password}
+                  onChange={e => setPassword(e.target.value)}
+                />
+              )}
+
+              <button
+                className="mt-2 flex h-14 items-center justify-center rounded-full bg-[#11141B] px-6 font-semibold text-white shadow-[0_18px_45px_-28px_rgba(17,20,27,0.55)] transition hover:translate-y-[-1px] disabled:opacity-50 sm:col-span-2"
+                disabled={loading}
+              >
+                {loading
+                  ? (mode === 'signup' ? 'Creating account...' : mode === 'reset' ? 'Sending reset link...' : 'Signing in...')
+                  : (mode === 'signup' ? 'Create account' : mode === 'reset' ? 'Send reset link' : 'Sign in')}
+              </button>
+            </form>
+
+            <div className="mt-5 flex items-center justify-center gap-3 text-sm">
+              {mode === 'signin' && (
+                <button
+                  type="button"
+                  className="text-[#6E7480] transition hover:text-[#11141B]"
+                  onClick={() => {
+                    setMode('reset');
+                    setPassword('');
+                    setStatus('');
+                  }}
+                >
+                  Forgot password?
+                </button>
+              )}
+
+              {mode === 'reset' && (
+                <button
+                  type="button"
+                  className="text-[#6E7480] transition hover:text-[#11141B]"
+                  onClick={() => {
+                    setMode('signin');
+                    setStatus('');
+                  }}
+                >
+                  Back to sign in
+                </button>
+              )}
+            </div>
+
+            {status && (
+              <div className="mt-5 text-center text-sm leading-relaxed text-[#6E7480]">
+                {status}
+              </div>
+            )}
+          </section>
+        </main>
       </div>
     </div>
   );
