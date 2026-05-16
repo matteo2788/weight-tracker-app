@@ -4,12 +4,14 @@
   --wl-bg: #F8F8F5;
   --wl-paper: #FFFFFF;
   --wl-ink: #11141B;
-  --wl-muted: #7A808A;
+  --wl-muted: #6F7680;
+  --wl-muted-strong: #4F5661;
   --wl-soft: rgba(17,20,27,0.055);
-  --wl-soft-2: rgba(17,20,27,0.095);
+  --wl-soft-2: rgba(17,20,27,0.115);
   --wl-card: rgba(255,255,255,0.68);
-  --wl-card-main: rgba(255,255,255,0.72);
+  --wl-card-main: rgba(255,255,255,0.74);
   --wl-chip: rgba(17,20,27,0.045);
+  --wl-field: rgba(17,20,27,0.038);
 }
 
 .dark,
@@ -19,12 +21,14 @@ body.dark,
   --wl-bg: #0F0F10;
   --wl-paper: #171719;
   --wl-ink: #F3EEE7;
-  --wl-muted: #A9A39B;
-  --wl-soft: rgba(243,238,231,0.085);
-  --wl-soft-2: rgba(243,238,231,0.14);
+  --wl-muted: #B6B0A8;
+  --wl-muted-strong: #D7D1C8;
+  --wl-soft: rgba(243,238,231,0.09);
+  --wl-soft-2: rgba(243,238,231,0.16);
   --wl-card: rgba(26,26,28,0.78);
-  --wl-card-main: rgba(26,26,28,0.86);
+  --wl-card-main: rgba(26,26,28,0.88);
   --wl-chip: rgba(243,238,231,0.075);
+  --wl-field: rgba(243,238,231,0.085);
 }
 
 html,
@@ -44,9 +48,7 @@ body {
 .bg-bg,
 .bg-surface,
 .bg-surface2,
-.bg-surface3 {
-  background-color: var(--wl-bg) !important;
-}
+.bg-surface3 { background-color: var(--wl-bg) !important; }
 
 .text-fg,
 body,
@@ -54,25 +56,18 @@ h1,
 h2,
 h3,
 .font-semibold,
-.font-bold {
-  color: var(--wl-ink) !important;
-}
+.font-bold { color: var(--wl-ink) !important; }
 
 .text-mute,
-.text-mute2 {
-  color: var(--wl-muted) !important;
-}
+.text-mute2 { color: var(--wl-muted) !important; }
 
 .hairline,
 .border,
 .border-l,
 .border-r,
 .border-t,
-.border-b {
-  border-color: var(--wl-soft) !important;
-}
+.border-b { border-color: var(--wl-soft) !important; }
 
-/* Desktop layout: keep everything inside the viewport */
 @media (min-width: 1024px) {
   #root > div,
   body > div,
@@ -121,9 +116,7 @@ h3,
   }
 
   .flex-1,
-  .min-w-0.flex-1 {
-    min-width: 0 !important;
-  }
+  .min-w-0.flex-1 { min-width: 0 !important; }
 
   .hidden.xl\:block.w-\[360px\],
   [class*="w-[360px]"] {
@@ -144,22 +137,10 @@ h3,
     box-sizing: border-box !important;
     overflow-x: hidden !important;
   }
-
-  .hidden.xl\:block.w-\[360px\] .rounded-2xl,
-  .hidden.xl\:block.w-\[360px\] .rounded-3xl,
-  [class*="w-[360px]"] .rounded-2xl,
-  [class*="w-[360px]"] .rounded-3xl {
-    background: var(--wl-card-main) !important;
-    border-color: var(--wl-soft) !important;
-    box-shadow: none !important;
-  }
 }
 
 @media (min-width: 1500px) {
-  main {
-    padding-right: 1.25rem !important;
-  }
-
+  main { padding-right: 1.25rem !important; }
   main .grid.grid-cols-1.xl\:grid-cols-\[1fr_360px\],
   main .grid.grid-cols-1.xl\:grid-cols-\[1fr_340px\] {
     grid-template-columns: minmax(0, 1.55fr) minmax(280px, .68fr) !important;
@@ -178,9 +159,7 @@ aside,
 .dark .hidden.lg\:block.sticky.top-0.h-screen,
 .dark .lg\:hidden.fixed.inset-0.z-40.flex aside,
 html.dark aside,
-body.dark aside {
-  background: #111112 !important;
-}
+body.dark aside { background: #111112 !important; }
 
 aside button,
 aside a {
@@ -190,9 +169,7 @@ aside a {
 
 aside button[class*="bg-surface3"],
 aside button[class*="bg-accent"],
-aside button[class*="bg-fg"] {
-  background: var(--wl-chip) !important;
-}
+aside button[class*="bg-fg"] { background: var(--wl-chip) !important; }
 
 h1 {
   font-size: clamp(2rem, 4vw, 3.25rem) !important;
@@ -204,15 +181,13 @@ h1 {
 h2,
 .font-semibold,
 .font-bold,
-.display {
-  letter-spacing: -0.055em !important;
-}
+.display { letter-spacing: -0.055em !important; }
 
 [class*="tracking-[0.18em]"],
 [class*="tracking-[0.14em]"],
 [class*="tracking-wider"] {
   letter-spacing: 0.19em !important;
-  color: color-mix(in srgb, var(--wl-ink) 48%, transparent) !important;
+  color: color-mix(in srgb, var(--wl-ink) 55%, transparent) !important;
 }
 
 .rounded-2xl.border,
@@ -227,21 +202,16 @@ h2,
 
 main .rounded-2xl.border,
 main .rounded-3xl.border,
-main .card-ring {
-  background: var(--wl-card-main) !important;
-}
+main .card-ring { background: var(--wl-card-main) !important; }
 
-main .grid.grid-cols-2.lg\:grid-cols-4 {
-  gap: 1rem !important;
-}
-
+/* Dashboard stat cards */
+main .grid.grid-cols-2.lg\:grid-cols-4 { gap: 1rem !important; }
 main .grid.grid-cols-2.lg\:grid-cols-4 > * {
   min-height: 104px !important;
   padding: 1.05rem 1.15rem !important;
   border-radius: 1.35rem !important;
   background: var(--wl-card) !important;
 }
-
 main .grid.grid-cols-2.lg\:grid-cols-4 .display,
 main .grid.grid-cols-2.lg\:grid-cols-4 .text-2xl,
 main .grid.grid-cols-2.lg\:grid-cols-4 .text-3xl,
@@ -250,39 +220,18 @@ main .grid.grid-cols-2.lg\:grid-cols-4 .text-5xl {
   font-size: clamp(1.55rem, 1.9vw, 2.1rem) !important;
   line-height: 1.05 !important;
 }
-
 main .grid.grid-cols-2.lg\:grid-cols-4 .text-sm,
-main .grid.grid-cols-2.lg\:grid-cols-4 .text-xs {
-  color: var(--wl-muted) !important;
-}
+main .grid.grid-cols-2.lg\:grid-cols-4 .text-xs { color: var(--wl-muted) !important; }
 
 main .grid.grid-cols-1.xl\:grid-cols-\[1fr_360px\],
-main .grid.grid-cols-1.xl\:grid-cols-\[1fr_340px\] {
-  gap: 1.1rem !important;
-}
+main .grid.grid-cols-1.xl\:grid-cols-\[1fr_340px\] { gap: 1.1rem !important; }
 
-.recharts-cartesian-grid line {
-  stroke: var(--wl-soft) !important;
-}
-
-.recharts-line-curve {
-  stroke-width: 2.25px !important;
-}
-
-.recharts-cartesian-axis-tick text {
-  fill: color-mix(in srgb, var(--wl-ink) 42%, transparent) !important;
-}
-
-main .grid.grid-cols-1.xl\:grid-cols-\[1fr_360px\] + .grid .rounded-2xl,
-main .grid.grid-cols-1.xl\:grid-cols-\[1fr_340px\] + .grid .rounded-2xl {
-  background: var(--wl-card) !important;
-}
+.recharts-cartesian-grid line { stroke: var(--wl-soft) !important; }
+.recharts-line-curve { stroke-width: 2.25px !important; }
+.recharts-cartesian-axis-tick text { fill: color-mix(in srgb, var(--wl-ink) 42%, transparent) !important; }
 
 button,
-.btn {
-  box-shadow: none !important;
-}
-
+.btn { box-shadow: none !important; }
 button.bg-accent,
 button.bg-fg,
 .btn.bg-accent,
@@ -291,7 +240,6 @@ button[class*="bg-[#11141B]"] {
   background: var(--wl-ink) !important;
   color: var(--wl-bg) !important;
 }
-
 .dark button.bg-accent,
 .dark button.bg-fg,
 .dark .btn.bg-accent,
@@ -301,28 +249,104 @@ html.dark button.bg-fg {
   background: #F3EEE7 !important;
   color: #0F0F10 !important;
 }
-
 button.bg-surface3,
 button.bg-surface2,
 .btn.bg-surface3,
-.btn.bg-surface2 {
-  background: var(--wl-chip) !important;
-}
+.btn.bg-surface2 { background: var(--wl-chip) !important; }
 
+/* Forms and settings polish */
 input,
 textarea,
 select {
-  background: var(--wl-chip) !important;
+  background: var(--wl-field) !important;
   color: var(--wl-ink) !important;
   border-color: var(--wl-soft-2) !important;
   box-shadow: none !important;
 }
-
 input:focus,
 textarea:focus,
 select:focus {
-  border-color: color-mix(in srgb, var(--wl-ink) 24%, transparent) !important;
-  box-shadow: none !important;
+  border-color: color-mix(in srgb, var(--wl-ink) 28%, transparent) !important;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--wl-ink) 7%, transparent) !important;
+}
+input::placeholder,
+textarea::placeholder { color: color-mix(in srgb, var(--wl-ink) 46%, transparent) !important; }
+
+/* Settings page specifically: avoid ugly full-width strips and low contrast */
+main input[type="text"],
+main input[type="email"],
+main input[type="password"],
+main input[type="number"],
+main input[type="time"],
+main select,
+main textarea {
+  min-height: 42px !important;
+  border-radius: 14px !important;
+  padding-left: 14px !important;
+  padding-right: 14px !important;
+  background: var(--wl-field) !important;
+}
+
+main .rounded-2xl input,
+main .rounded-3xl input,
+main .rounded-2xl select,
+main .rounded-3xl select,
+main .rounded-2xl textarea,
+main .rounded-3xl textarea {
+  background: var(--wl-field) !important;
+}
+
+/* Make single-line profile field look intentional, not like a raw white strip */
+main input[value="Matteo"] {
+  max-width: min(100%, 560px) !important;
+  background: var(--wl-field) !important;
+  border: 1px solid var(--wl-soft-2) !important;
+}
+
+/* Settings segmented cards/options */
+main .grid button,
+main .grid .rounded-xl,
+main .grid .rounded-2xl {
+  color: var(--wl-ink) !important;
+}
+
+main .grid button:not(:disabled) .text-mute,
+main .grid .rounded-xl .text-mute,
+main .grid .rounded-2xl .text-mute {
+  color: var(--wl-muted) !important;
+}
+
+main button:disabled,
+main [disabled] {
+  opacity: .52 !important;
+  cursor: not-allowed !important;
+}
+
+.dark main button:disabled,
+.dark main [disabled],
+html.dark main button:disabled,
+html.dark main [disabled] {
+  opacity: .55 !important;
+}
+
+/* Active selection in dark mode should not look like a broken light input */
+.dark main button.bg-fg,
+.dark main button.bg-accent,
+html.dark main button.bg-fg,
+html.dark main button.bg-accent {
+  background: #F3EEE7 !important;
+  color: #0F0F10 !important;
+}
+
+/* Muted body/helper copy readable */
+main p,
+main .text-xs,
+main .text-sm {
+  color: color-mix(in srgb, var(--wl-ink) 68%, transparent) !important;
+}
+main .text-mute,
+main .text-mute2 {
+  color: color-mix(in srgb, var(--wl-ink) 58%, transparent) !important;
 }
 
 .rounded-full.border,
@@ -346,36 +370,22 @@ body.dark .bg-surface3 {
   background-color: var(--wl-card-main) !important;
   color: var(--wl-ink) !important;
 }
-
 .dark .text-black,
 .dark .text-fg,
 html.dark .text-black,
 html.dark .text-fg,
 body.dark .text-black,
-body.dark .text-fg {
-  color: var(--wl-ink) !important;
-}
+body.dark .text-fg { color: var(--wl-ink) !important; }
 
 @media (max-width: 768px) {
-  main {
-    padding: 1.25rem !important;
-  }
-
-  h1 {
-    font-size: 2.25rem !important;
-    line-height: 1 !important;
-  }
-
+  main { padding: 1.25rem !important; }
+  h1 { font-size: 2.25rem !important; line-height: 1 !important; }
   .hidden.xl\:block.w-\[360px\],
-  [class*="w-[360px]"] {
-    display: none !important;
-  }
-
+  [class*="w-[360px]"] { display: none !important; }
   main .grid.grid-cols-2.lg\:grid-cols-4 {
     grid-template-columns: 1fr 1fr !important;
     gap: .85rem !important;
   }
-
   main .grid.grid-cols-2.lg\:grid-cols-4 > * {
     min-height: 96px !important;
     padding: .95rem !important;
