@@ -19,6 +19,42 @@
     catch(e){ return d || '—'; }
   };
   const today = () => typeof todayISO === 'function' ? todayISO() : new Date().toISOString().slice(0,10);
+  const entryDraft = (entry, state) => ({
+    originalDate: entry?.date || '',
+    date: entry?.date || today(),
+    weight: entry?.weight ?? '',
+    tagsText: Array.isArray(entry?.tags) ? entry.tags.join(', ') : '',
+    notes: entry?.notes || '',
+    unit: entry?.unit || unitOf(state)
+  });
+  const cleanTags = (text) => String(text || '').split(',').map(x=>x.trim()).filter(Boolean);
+
+  function saveEntryToState(state, updateState, draft){
+    const date = String(draft.date || '').trim();
+    const weight = Number(draft.weight);
+    if(!date){ alert('Please choose a date.'); return false; }
+    if(!Number.isFinite(weight)){ alert('Please enter a valid weight.'); return false; }
+
+    const clean = {
+      id: date,
+      date,
+      weight,
+      unit: draft.unit || unitOf(state),
+      tags: cleanTags(draft.tagsText),
+      notes: String(draft.notes || '').trim()
+    };
+
+    const withoutOld = (state.entries || []).filter(e => e.date !== (draft.originalDate || date) && e.date !== date);
+    const entries = [...withoutOld, clean].sort((a,b)=>String(a.date).localeCompare(String(b.date)));
+    updateState({ entries });
+    return true;
+  }
+
+  function deleteEntryFromState(state, updateState, date){
+    if(!date) return;
+    if(!confirm(`Delete the entry for ${date}?`)) return;
+    updateState({ entries: (state.entries || []).filter(e => e.date !== date) });
+  }
 
   function rolling(entries){
     return entries.map((e,i) => {
@@ -193,29 +229,37 @@
   function QuickLog(){
     const { state, updateState } = useApp();
     const s = stats(state);
-    const [weight,setWeight] = useState(s.latest?.weight || '');
-    const [date,setDate] = useState(today());
+    const [draft,setDraft] = useState(entryDraft(s.latest, state));
     function save(){
-      const clean = { id: date, date, weight:+weight, unit:s.unit, tags:[], notes:'' };
-      const entries = [...(state.entries||[]).filter(e=>e.date!==date), clean].sort((a,b)=>a.date.localeCompare(b.date));
-      updateState({ entries });
+      const ok = saveEntryToState(state, updateState, draft);
+      if(ok) setDraft(entryDraft({ ...draft, weight:+draft.weight }, state));
     }
-    return <div className="wl-rule"><div className="flex justify-between mb-5"><div><div className="wl-kicker">Quick log</div><p className="text-sm text-[#686761] mt-2">Daily weight fluctuates. The trend matters more than one day.</p></div><div className="wl-kicker">Editing</div></div><div className="grid grid-cols-2 gap-4"><div><div className="wl-kicker mb-2">Weight</div><input className="wl-form-line w-full" value={weight} onChange={e=>setWeight(e.target.value)} /></div><div><div className="wl-kicker mb-2">Date</div><input className="wl-form-line w-full" type="date" value={date} onChange={e=>setDate(e.target.value)} /></div></div><button className="wl-btn w-full mt-5" onClick={save}>Update entry</button></div>;
+    return <div className="wl-rule"><div className="flex justify-between mb-5"><div><div className="wl-kicker">Quick log</div><p className="text-sm text-[#686761] mt-2">Daily weight fluctuates. The trend matters more than one day.</p></div><div className="wl-kicker">Editing</div></div><div className="grid grid-cols-2 gap-4"><div><div className="wl-kicker mb-2">Weight</div><input className="wl-form-line w-full" inputMode="decimal" value={draft.weight} onChange={e=>setDraft({...draft, weight:e.target.value})} /></div><div><div className="wl-kicker mb-2">Date</div><input className="wl-form-line w-full" type="date" value={draft.date} onChange={e=>setDraft({...draft, date:e.target.value})} /></div></div><div className="grid grid-cols-2 gap-4 mt-4"><div><div className="wl-kicker mb-2">Tags</div><input className="wl-form-line w-full" placeholder="high sodium, ate late" value={draft.tagsText} onChange={e=>setDraft({...draft, tagsText:e.target.value})} /></div><div><div className="wl-kicker mb-2">Notes</div><input className="wl-form-line w-full" placeholder="Optional" value={draft.notes} onChange={e=>setDraft({...draft, notes:e.target.value})} /></div></div><button className="wl-btn w-full mt-5" onClick={save}>Save entry</button></div>;
   }
 
   function RecentEntries({ setRoute }){
-    const { state } = useApp();
+    const { state, updateState } = useApp();
     const s = stats(state);
     const rows = safeDesc(state).slice(0,5);
-    return <section className="wl-section"><div className="wl-section-head"><div><div className="wl-kicker">Recent entries</div><h2 className="wl-title">The last few days.</h2></div><button className="wl-link" onClick={()=>setRoute('log')}>All entries ›</button></div><div className="wl-list">{rows.map((e,i)=><div className="wl-list-row" key={e.date}><div className="wl-row-index">{String(i+1).padStart(2,'0')}</div><div><div className="wl-row-title">{shortDate(e.date)}</div><div className="wl-row-sub">{e.date}</div></div><div><b>{one(e.weight)}</b> <span className="text-xs">{s.unit}</span></div><div className="wl-row-sub">{(e.tags||[]).length ? e.tags.join(', ') : 'No tags'}</div><div></div></div>)}</div></section>;
+    return <section className="wl-section"><div className="wl-section-head"><div><div className="wl-kicker">Recent entries</div><h2 className="wl-title">The last few days.</h2></div><button className="wl-link" onClick={()=>setRoute('log')}>All entries ›</button></div><div className="wl-list">{rows.map((e,i)=><div className="wl-list-row" key={e.date}><div className="wl-row-index">{String(i+1).padStart(2,'0')}</div><div><div className="wl-row-title">{shortDate(e.date)}</div><div className="wl-row-sub">{e.date}</div></div><div><b>{one(e.weight)}</b> <span className="text-xs">{s.unit}</span></div><div className="wl-row-sub">{(e.tags||[]).length ? e.tags.join(', ') : 'No tags'}</div><div className="flex gap-3 justify-end"><button className="text-[#77736B]" onClick={()=>{window.__wlEditEntryDate=e.date; setRoute('log');}}>Edit</button><button className="text-[#999]" onClick={()=>deleteEntryFromState(state, updateState, e.date)}>⌫</button></div></div>)}</div></section>;
   }
 
   function LogWeightPage(){
     const { state, updateState } = useApp();
     const s = stats(state);
+    const pendingDate = window.__wlEditEntryDate || '';
+    if(window.__wlEditEntryDate) window.__wlEditEntryDate = '';
+    const pendingEntry = pendingDate ? (state.entries || []).find(e=>e.date===pendingDate) : null;
     const [q,setQ] = useState('');
-    const rows = safeDesc(state).filter(e => !q || e.date.includes(q) || shortDate(e.date).toLowerCase().includes(q.toLowerCase()));
-    return <div className="wl-page fadein"><div className="wl-section-head"><div><div className="wl-kicker">All entries</div><h1 className="wl-title">Log weight</h1><p className="mt-4 text-[#686761]">Add, edit, or remove daily weight entries.</p></div><button className="wl-btn">+ New entry</button></div><div className="mb-5"><input className="wl-form-line w-full" placeholder="Search by date…" value={q} onChange={e=>setQ(e.target.value)} /></div><div className="wl-list">{rows.map((e,i)=><div className="wl-list-row" key={e.date}><div className="wl-row-index">{String(i+1).padStart(2,'0')}</div><div><div className="font-bold">{longDate(e.date).replace(', 2026','')}</div><div className="wl-row-sub">{e.date}</div></div><div><b>{one(e.weight)}</b> <span className="text-xs">{s.unit}</span></div><div>{(e.tags||[]).map(t=><span className="wl-pill mr-2" key={t}>{t}</span>)}</div><div className="text-right"><button className="text-[#999]" onClick={()=>updateState({entries:state.entries.filter(x=>x.date!==e.date)})}>⌫</button></div></div>)}</div></div>;
+    const [draft,setDraft] = useState(entryDraft(pendingEntry, state));
+    const [isEditing,setIsEditing] = useState(Boolean(pendingEntry));
+    const rows = safeDesc(state).filter(e => !q || e.date.includes(q) || shortDate(e.date).toLowerCase().includes(q.toLowerCase()) || longDate(e.date).toLowerCase().includes(q.toLowerCase()) || (e.tags||[]).join(' ').toLowerCase().includes(q.toLowerCase()) || String(e.notes||'').toLowerCase().includes(q.toLowerCase()));
+    const startNew = () => { setDraft(entryDraft(null, state)); setIsEditing(true); };
+    const edit = (entry) => { setDraft(entryDraft(entry, state)); setIsEditing(true); window.scrollTo({top:0, behavior:'smooth'}); };
+    const save = () => { if(saveEntryToState(state, updateState, draft)){ setIsEditing(false); setDraft(entryDraft(null, state)); } };
+    const remove = (date) => { deleteEntryFromState(state, updateState, date); if(draft.originalDate === date){ setIsEditing(false); setDraft(entryDraft(null, state)); } };
+
+    return <div className="wl-page fadein"><div className="wl-section-head"><div><div className="wl-kicker">All entries</div><h1 className="wl-title">Log weight</h1><p className="mt-4 text-[#686761]">Add, edit, search, or remove daily weight entries.</p></div><button className="wl-btn" onClick={startNew}>+ New entry</button></div>{isEditing && <div className="wl-rule mb-10"><div className="flex justify-between items-start gap-4 mb-6"><div><div className="wl-kicker">{draft.originalDate ? 'Edit entry' : 'New entry'}</div><p className="mt-2 text-[#686761]">Saving a date that already exists will replace that day.</p></div><button className="wl-link" onClick={()=>{setIsEditing(false); setDraft(entryDraft(null, state));}}>Cancel</button></div><div className="grid grid-cols-2 gap-6"><label><div className="wl-kicker mb-2">Date</div><input className="wl-form-line w-full" type="date" value={draft.date} onChange={e=>setDraft({...draft,date:e.target.value})}/></label><label><div className="wl-kicker mb-2">Weight</div><input className="wl-form-line w-full" inputMode="decimal" value={draft.weight} onChange={e=>setDraft({...draft,weight:e.target.value})}/></label><label><div className="wl-kicker mb-2">Tags</div><input className="wl-form-line w-full" placeholder="high sodium, ate late" value={draft.tagsText} onChange={e=>setDraft({...draft,tagsText:e.target.value})}/></label><label><div className="wl-kicker mb-2">Notes</div><input className="wl-form-line w-full" placeholder="Optional note" value={draft.notes} onChange={e=>setDraft({...draft,notes:e.target.value})}/></label></div><div className="flex gap-3 mt-6"><button className="wl-btn" onClick={save}>{draft.originalDate ? 'Save changes' : 'Save entry'}</button>{draft.originalDate && <button className="wl-btn light text-red-600" onClick={()=>remove(draft.originalDate)}>Delete</button>}</div></div>}<div className="mb-5"><input className="wl-form-line w-full" placeholder="Search by date, tag, or note…" value={q} onChange={e=>setQ(e.target.value)} /></div><div className="wl-list">{rows.length ? rows.map((e,i)=><div className="wl-list-row" key={e.date}><div className="wl-row-index">{String(i+1).padStart(2,'0')}</div><div><div className="font-bold">{longDate(e.date).replace(', 2026','')}</div><div className="wl-row-sub">{e.date}</div></div><div><b>{one(e.weight)}</b> <span className="text-xs">{s.unit}</span></div><div>{(e.tags||[]).length ? (e.tags||[]).map(t=><span className="wl-pill mr-2" key={t}>{t}</span>) : <span className="wl-row-sub">No tags</span>}{e.notes && <div className="wl-row-sub mt-2">{e.notes}</div>}</div><div className="text-right flex gap-3 justify-end"><button className="text-[#77736B]" onClick={()=>edit(e)}>Edit</button><button className="text-[#999]" onClick={()=>remove(e.date)}>⌫</button></div></div>) : <div className="py-14 text-center text-[#686761]">No entries found.</div>}</div></div>;
   }
 
   function BackfillPage({ setRoute }){
