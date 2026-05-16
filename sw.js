@@ -1,4 +1,4 @@
-const CACHE_NAME = 'weightlens-v2-align-fix-2';
+const CACHE_NAME = 'weightlens-v2-mobile-polish-2';
 const APP_SHELL = [
   '/',
   '/index.html',
