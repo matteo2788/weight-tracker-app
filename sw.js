@@ -1,4 +1,4 @@
-const CACHE_NAME = 'weightlens-v2-mobile-sections-1';
+const CACHE_NAME = 'weightlens-v2-mobile-hero-nobox-1';
 const APP_SHELL = [
   '/',
   '/index.html',
