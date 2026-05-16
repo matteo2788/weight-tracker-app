@@ -6,9 +6,9 @@
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "background_color": "#0F0F10",
-  "theme_color": "#0F0F10",
-  "categories": ["health", "fitness", "productivity"],
+  "background_color": "#FAFAF7",
+  "theme_color": "#FAFAF7",
+  "categories": ["productivity"],
   "icons": [
     {
       "src": "/icons/icon-192.svg",
