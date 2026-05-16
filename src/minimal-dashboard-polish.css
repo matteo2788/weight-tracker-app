@@ -70,17 +70,34 @@ h3,
   border-color: var(--wl-soft) !important;
 }
 
+/* Desktop layout: use the screen properly */
 @media (min-width: 1024px) {
   main {
-    max-width: 1080px !important;
+    max-width: none !important;
+    width: 100% !important;
+    flex: 1 1 auto !important;
     padding: 2.35rem 2.35rem 3.5rem !important;
   }
 
+  main > div,
+  main > div.space-y-6,
+  main > div.fadein {
+    width: 100% !important;
+    max-width: none !important;
+  }
+
+  .flex-1,
+  .min-w-0.flex-1 {
+    min-width: 0 !important;
+  }
+
+  /* Keep the support rail useful, but do not let it create a giant empty gutter */
   .hidden.xl\:block.w-\[360px\],
   [class*="w-[360px]"] {
-    width: 300px !important;
+    width: clamp(300px, 18vw, 360px) !important;
+    flex: 0 0 clamp(300px, 18vw, 360px) !important;
     background: var(--wl-bg) !important;
-    opacity: .88 !important;
+    opacity: .9 !important;
   }
 
   .hidden.xl\:block.w-\[360px\] .rounded-2xl,
@@ -90,6 +107,18 @@ h3,
     background: var(--wl-card-main) !important;
     border-color: var(--wl-soft) !important;
     box-shadow: none !important;
+  }
+}
+
+/* Ultra-wide desktop: stretch dashboard cards/charts instead of leaving dead space */
+@media (min-width: 1500px) {
+  main {
+    padding-right: 2.75rem !important;
+  }
+
+  main .grid.grid-cols-1.xl\:grid-cols-\[1fr_360px\],
+  main .grid.grid-cols-1.xl\:grid-cols-\[1fr_340px\] {
+    grid-template-columns: minmax(0, 1.7fr) minmax(320px, .78fr) !important;
   }
 }
 
@@ -258,7 +287,6 @@ select:focus {
   border-color: var(--wl-soft) !important;
 }
 
-/* Fix dark-mode washout from forced light cards */
 .dark .bg-white,
 .dark .bg-surface,
 .dark .bg-surface2,
