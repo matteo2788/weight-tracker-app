@@ -67,69 +67,47 @@
   .display { font-variant-numeric: tabular-nums; letter-spacing: -0.04em; }
   .hairline { border-color: rgba(10,10,10,0.06); }
 
-  /* recharts polish */
   .recharts-cartesian-axis-tick text { fill:#737373; font-size: 11px; font-family: 'Geist Mono', monospace; }
   .recharts-cartesian-grid line { stroke: rgba(10,10,10,0.05); }
   .recharts-tooltip-wrapper { outline:none !important; }
 
-  /* fade-in */
   @keyframes fadein { from { opacity:0; } to { opacity:1; } }
   .fadein { animation: fadein .25s ease both; transform: none !important; }
   @keyframes pop { from { opacity:0; transform: scale(.97); } to { opacity:1; transform:none; } }
   .pop { animation: pop .18s ease both; }
 
-  /* inputs */
   input[type="date"]::-webkit-calendar-picker-indicator { opacity: 0.5; cursor: pointer; }
   input:focus, button:focus, select:focus, textarea:focus { outline: none; }
   .focus-ring:focus { box-shadow: 0 0 0 2px #FFFFFF, 0 0 0 3.5px rgba(101,163,13,0.45); }
-
   .btn { transition: background .15s ease, color .15s ease, transform .15s ease, opacity .15s ease; }
   .btn:active { transform: translateY(1px); }
-
-  /* dotted underline for inline tips */
   .help { border-bottom: 1px dotted rgba(10,10,10,0.25); cursor: help; }
-
-  /* light surfaces with crisp ring */
   .card-ring { box-shadow: 0 0 0 1px rgba(10,10,10,0.05), 0 1px 2px rgba(10,10,10,0.04), 0 8px 24px -16px rgba(10,10,10,0.08); }
 
-  /* premium modal polish */
   .fixed.inset-0.z-50 > .absolute.inset-0 {
     background: rgba(250,250,247,0.78) !important;
     backdrop-filter: blur(14px) saturate(1.08) !important;
     -webkit-backdrop-filter: blur(14px) saturate(1.08) !important;
   }
-
   .fixed.inset-0.z-50 > .relative {
     border-radius: 1.75rem !important;
     border-color: rgba(10,10,10,0.08) !important;
     box-shadow: 0 30px 90px -44px rgba(10,10,10,0.50), 0 0 0 1px rgba(255,255,255,0.9) inset !important;
   }
-
-  .fixed.inset-0.z-50 > .relative.max-w-xl {
-    max-width: 42rem !important;
-  }
-
+  .fixed.inset-0.z-50 > .relative.max-w-xl { max-width: 42rem !important; }
   .fixed.inset-0.z-50 > .relative > div:first-child {
     background: rgba(255,255,255,0.82);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
   }
-
   .fixed.inset-0.z-50 input,
   .fixed.inset-0.z-50 textarea,
-  .fixed.inset-0.z-50 select {
-    min-width: 0 !important;
-  }
-
+  .fixed.inset-0.z-50 select { min-width: 0 !important; }
   .fixed.inset-0.z-50 [class~="grid-cols-2"][class~="md:grid-cols-3"] {
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)) !important;
     gap: 1rem !important;
   }
-
-  .fixed.inset-0.z-50 input[type="number"] {
-    width: 100% !important;
-  }
-
+  .fixed.inset-0.z-50 input[type="number"] { width: 100% !important; }
   .fixed.inset-0.z-50 input[type="number"] + div {
     flex: 0 0 2.75rem !important;
     width: 2.75rem !important;
@@ -139,25 +117,14 @@
   }
 
   @media (max-width: 640px) {
-    .fixed.inset-0.z-50 {
-      align-items: center !important;
-      padding: 0.75rem !important;
-    }
-
-    .fixed.inset-0.z-50 > .relative {
-      border-radius: 1.5rem !important;
-      max-height: min(84vh, 46rem) !important;
-    }
-
-    .fixed.inset-0.z-50 [class~="grid-cols-2"][class~="md:grid-cols-3"] {
-      grid-template-columns: 1fr !important;
-    }
+    .fixed.inset-0.z-50 { align-items: center !important; padding: 0.75rem !important; }
+    .fixed.inset-0.z-50 > .relative { border-radius: 1.5rem !important; max-height: min(84vh, 46rem) !important; }
+    .fixed.inset-0.z-50 [class~="grid-cols-2"][class~="md:grid-cols-3"] { grid-template-columns: 1fr !important; }
   }
 </style>
 </head>
 <body class="min-h-screen bg-bg">
   <script>
-    // Silence Recharts' internal defaultProps deprecation warning (library-side, not actionable here)
     (function(){
       const orig = console.error;
       console.error = function(...args){
@@ -187,6 +154,7 @@
   <script type="text/babel" data-presets="env,react" src="src/pages-main.jsx"></script>
   <script type="text/babel" data-presets="env,react" src="src/dashboard-recent-override.jsx"></script>
   <script type="text/babel" data-presets="env,react" src="src/pages-trends.jsx"></script>
+  <script type="text/babel" data-presets="env,react" src="src/weekly-reports-override.jsx"></script>
   <script type="text/babel" data-presets="env,react" src="src/goals-override.jsx"></script>
   <script type="text/babel" data-presets="env,react" src="src/pages-misc.jsx"></script>
   <script type="text/babel" data-presets="env,react" src="src/insights-override.jsx"></script>
