@@ -84,6 +84,41 @@
   .help { border-bottom: 1px dotted rgba(10,10,10,0.25); cursor: help; }
   .card-ring { box-shadow: 0 0 0 1px rgba(10,10,10,0.05), 0 1px 2px rgba(10,10,10,0.04), 0 8px 24px -16px rgba(10,10,10,0.08); }
 
+  /* Landing page auth fields: prevent browser/PWA autofill from forcing ugly dark boxes */
+  input[placeholder="your@email.com"],
+  input[placeholder="Password"],
+  input[placeholder="Your name"] {
+    background: transparent !important;
+    background-color: transparent !important;
+    color: #11141B !important;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
+    caret-color: #11141B !important;
+    -webkit-appearance: none !important;
+    appearance: none !important;
+    border-radius: 0 !important;
+  }
+
+  input[placeholder="your@email.com"]:-webkit-autofill,
+  input[placeholder="Password"]:-webkit-autofill,
+  input[placeholder="Your name"]:-webkit-autofill,
+  input[placeholder="your@email.com"]:-webkit-autofill:hover,
+  input[placeholder="Password"]:-webkit-autofill:hover,
+  input[placeholder="Your name"]:-webkit-autofill:hover,
+  input[placeholder="your@email.com"]:-webkit-autofill:focus,
+  input[placeholder="Password"]:-webkit-autofill:focus,
+  input[placeholder="Your name"]:-webkit-autofill:focus,
+  input[placeholder="your@email.com"]:autofill,
+  input[placeholder="Password"]:autofill,
+  input[placeholder="Your name"]:autofill {
+    -webkit-text-fill-color: #11141B !important;
+    caret-color: #11141B !important;
+    box-shadow: 0 0 0 1000px #F7F7F4 inset !important;
+    -webkit-box-shadow: 0 0 0 1000px #F7F7F4 inset !important;
+    border-bottom-color: rgba(17,20,27,0.22) !important;
+    transition: background-color 9999s ease-in-out 0s !important;
+  }
+
   .fixed.inset-0.z-50 > .absolute.inset-0 {
     background: rgba(250,250,247,0.78) !important;
     backdrop-filter: blur(14px) saturate(1.08) !important;
