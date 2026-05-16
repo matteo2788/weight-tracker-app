@@ -74,7 +74,7 @@
 
       .wl-hero-title {
         position: relative !important;
-        isolation: isolate !important;
+        isolation: auto !important;
         font-size: clamp(3.65rem, 12.4vw, 4.85rem) !important;
         line-height: 1.08 !important;
         letter-spacing: -0.035em !important;
@@ -84,17 +84,8 @@
       }
 
       .wl-hero-title::before {
-        content: '' !important;
-        position: absolute !important;
-        left: -1.2rem !important;
-        right: -1.2rem !important;
-        top: -1.4rem !important;
-        bottom: -1.25rem !important;
-        border-radius: 2.25rem !important;
-        background: linear-gradient(180deg, rgba(255,255,255,0.24), rgba(17,17,15,0.018)) !important;
-        border: 1px solid rgba(17,17,15,0.045) !important;
-        z-index: -1 !important;
-        pointer-events: none !important;
+        content: none !important;
+        display: none !important;
       }
 
       .wl-hero-meta {
