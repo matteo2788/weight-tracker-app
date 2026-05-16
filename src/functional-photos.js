@@ -14,17 +14,49 @@
       label: row?.label || 'Front',
       notes: row?.notes || '',
       src: row?.src || '',
-      fileName: row?.fileName || ''
+      fileName: row?.fileName || '',
+      originalSize: row?.originalSize || null,
+      compressedSize: row?.compressedSize || null
     };
   }
 
-  function readImage(file){
+  function dataUrlSize(dataUrl){
+    if(!dataUrl) return 0;
+    const base64 = String(dataUrl).split(',')[1] || '';
+    return Math.round((base64.length * 3) / 4);
+  }
+
+  function formatBytes(bytes){
+    if(!Number.isFinite(Number(bytes)) || bytes <= 0) return '—';
+    if(bytes < 1024) return bytes + ' B';
+    if(bytes < 1024 * 1024) return (bytes / 1024).toFixed(0) + ' KB';
+    return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
+  }
+
+  function compressImage(file, maxSide = 1400, quality = 0.78){
     return new Promise((resolve,reject)=>{
       if(!file) return resolve(null);
       if(!String(file.type || '').startsWith('image/')) return reject(new Error('Please choose an image file.'));
+
       const reader = new FileReader();
-      reader.onload = () => resolve(String(reader.result || ''));
       reader.onerror = () => reject(new Error('Could not read that image.'));
+      reader.onload = () => {
+        const img = new Image();
+        img.onerror = () => reject(new Error('Could not load that image.'));
+        img.onload = () => {
+          const scale = Math.min(1, maxSide / Math.max(img.width, img.height));
+          const width = Math.max(1, Math.round(img.width * scale));
+          const height = Math.max(1, Math.round(img.height * scale));
+          const canvas = document.createElement('canvas');
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          const src = canvas.toDataURL('image/jpeg', quality);
+          resolve({ src, width, height, originalSize:file.size || 0, compressedSize:dataUrlSize(src) });
+        };
+        img.src = String(reader.result || '');
+      };
       reader.readAsDataURL(file);
     });
   }
@@ -36,6 +68,7 @@
     const [open,setOpen] = useState(false);
     const [saved,setSaved] = useState(false);
     const [preview,setPreview] = useState(null);
+    const [loading,setLoading] = useState(false);
 
     function patch(x){ setSaved(false); setDraft(prev => ({...prev,...x})); }
     function start(){ setDraft(blank()); setPreview(null); setOpen(true); }
@@ -45,10 +78,21 @@
       try {
         const file = event.target.files && event.target.files[0];
         if(!file) return;
-        const src = await readImage(file);
-        patch({ src, fileName:file.name || 'photo' });
-        setPreview(src);
-      } catch(err){ alert(err.message || 'Could not load photo.'); }
+        setLoading(true);
+        const result = await compressImage(file);
+        patch({
+          src: result.src,
+          fileName:file.name || 'photo',
+          originalSize: result.originalSize,
+          compressedSize: result.compressedSize
+        });
+        setPreview(result.src);
+      } catch(err){
+        alert(err.message || 'Could not load photo.');
+      } finally {
+        setLoading(false);
+        event.target.value = '';
+      }
     }
 
     function save(){
@@ -61,6 +105,8 @@
         notes: String(draft.notes || '').trim(),
         src: draft.src,
         fileName: draft.fileName || 'photo',
+        originalSize: draft.originalSize || null,
+        compressedSize: draft.compressedSize || dataUrlSize(draft.src),
         createdAt: draft.id ? (photos.find(x=>x.id === draft.id)?.createdAt || new Date().toISOString()) : new Date().toISOString()
       };
       const without = (state.photos || []).filter(x => x.id !== photo.id);
@@ -79,7 +125,7 @@
         e('div',null,
           e('div',{className:'wl-kicker'},'Progress photos'),
           e('h1',{className:'wl-title mt-4'},'Progress Photos'),
-          e('p',{className:'mt-4 text-[#686761] max-w-xl'},'Upload optional photos over time so you can compare visual progress alongside weight and measurements.')
+          e('p',{className:'mt-4 text-[#686761] max-w-xl'},'Upload optional photos over time so you can compare visual progress alongside weight and measurements. Photos are automatically compressed before saving.')
         ),
         e('button',{className:'wl-btn',onClick:start},'+ Add photo')
       ),
@@ -96,11 +142,12 @@
               e('label',null,e('div',{className:'wl-kicker mb-2'},'Label'),e('select',{className:'wl-form-line w-full',value:draft.label,onChange:x=>patch({label:x.target.value})},e('option',null,'Front'),e('option',null,'Side'),e('option',null,'Back'),e('option',null,'Other')))
             ),
             e('label',{className:'block mt-8'},e('div',{className:'wl-kicker mb-2'},'Notes'),e('textarea',{className:'wl-form-line w-full',style:{minHeight:'90px',lineHeight:'1.5',paddingTop:'12px'},value:draft.notes,onChange:x=>patch({notes:x.target.value}),placeholder:'Optional notes...'})),
-            e('label',{className:'wl-btn light mt-8 inline-flex cursor-pointer'},'Choose photo',e('input',{type:'file',accept:'image/*',onChange:chooseFile,style:{display:'none'}})),
-            e('div',{className:'flex gap-3 mt-8 flex-wrap'},e('button',{className:'wl-btn',onClick:save},draft.id ? 'Save changes' : 'Save photo'),draft.id && e('button',{className:'wl-btn light text-red-600',onClick:()=>remove(draft.id)},'Delete'))
+            e('label',{className:'wl-btn light mt-8 inline-flex cursor-pointer'},loading ? 'Compressing...' : 'Choose photo',e('input',{type:'file',accept:'image/*',onChange:chooseFile,style:{display:'none'},disabled:loading})),
+            draft.compressedSize && e('p',{className:'text-[#686761] mt-3 text-sm'},`Optimized: ${formatBytes(draft.originalSize)} → ${formatBytes(draft.compressedSize)}`),
+            e('div',{className:'flex gap-3 mt-8 flex-wrap'},e('button',{className:'wl-btn',onClick:save,disabled:loading},draft.id ? 'Save changes' : 'Save photo'),draft.id && e('button',{className:'wl-btn light text-red-600',onClick:()=>remove(draft.id)},'Delete'))
           ),
           e('div',{className:'wl-rule'},
-            preview ? e('img',{src:preview,alt:'Progress preview',style:{width:'100%',maxHeight:'520px',objectFit:'cover',borderRadius:'18px'}}) : e('div',{className:'text-center py-24 text-[#686761]'},'No photo selected yet')
+            preview ? e('img',{src:preview,alt:'Progress preview',style:{width:'100%',maxHeight:'520px',objectFit:'cover',borderRadius:'18px'}}) : e('div',{className:'text-center py-24 text-[#686761]'},loading ? 'Optimizing photo...' : 'No photo selected yet')
           )
         )
       ),
@@ -110,6 +157,7 @@
         e('div',{className:'grid grid-cols-3 gap-6'},photos.map(photo=>e('article',{className:'wl-rule',key:photo.id},
           e('img',{src:photo.src,alt:photo.label || 'Progress photo',style:{width:'100%',aspectRatio:'3/4',objectFit:'cover',borderRadius:'18px'}}),
           e('div',{className:'mt-5 flex justify-between gap-3'},e('div',null,e('div',{className:'wl-row-title'},shortDate(photo.date)),e('div',{className:'wl-row-sub'},photo.label || 'Progress')),e('div',{className:'flex gap-3'},e('button',{className:'text-[#77736B]',onClick:()=>edit(photo)},'Edit'),e('button',{className:'text-[#999]',onClick:()=>remove(photo.id)},'⌫'))),
+          photo.compressedSize && e('p',{className:'text-[#999] text-xs mt-2'},formatBytes(photo.compressedSize)),
           photo.notes && e('p',{className:'text-[#686761] mt-4'},photo.notes)
         )))
       )
