@@ -147,6 +147,7 @@
   function applyAppearance(){
     const resolved = resolveAppearance(getStoredAppearance());
     document.documentElement.setAttribute('data-theme', resolved);
+    document.documentElement.classList.toggle('dark', resolved === 'dark');
     document.documentElement.style.colorScheme = resolved;
   }
 
@@ -177,6 +178,58 @@ function SettingsPage(){
   const profileName = state.profile?.name || currentUser?.user_metadata?.name || 'New User';
   const email = currentUser?.email || 'No email found';
   const appearance = s.appearance || 'light';
+  const resolvedDark = appearance === 'dark' || (appearance === 'system' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) || document.documentElement.getAttribute('data-theme') === 'dark';
+
+  const ui = resolvedDark ? {
+    ink: '#F3EEE7',
+    bg: '#0F0F10',
+    card: '#1A1A1C',
+    field: '#242427',
+    field2: '#202023',
+    border: 'rgba(243,238,231,0.13)',
+    borderStrong: 'rgba(243,238,231,0.24)',
+    muted: '#B7AEA4',
+    muted2: '#8A8178',
+    activeBg: '#F3EEE7',
+    activeText: '#0F0F10',
+    inactiveBg: '#242427',
+    inactiveText: '#F3EEE7',
+    inactiveBody: '#B7AEA4'
+  } : {
+    ink: '#11141B',
+    bg: '#F8F8F5',
+    card: '#FFFFFF',
+    field: '#F0F0ED',
+    field2: '#F4F4F1',
+    border: 'rgba(17,20,27,0.10)',
+    borderStrong: 'rgba(17,20,27,0.22)',
+    muted: '#66707A',
+    muted2: '#8A919A',
+    activeBg: '#11141B',
+    activeText: '#F8F8F5',
+    inactiveBg: '#F4F4F1',
+    inactiveText: '#11141B',
+    inactiveBody: '#66707A'
+  };
+
+  const cardStyle = {
+    background: resolvedDark ? 'rgba(26,26,28,0.88)' : 'rgba(255,255,255,0.78)',
+    borderColor: ui.border,
+    color: ui.ink
+  };
+
+  const fieldStyle = {
+    backgroundColor: ui.field,
+    color: ui.ink,
+    WebkitTextFillColor: ui.ink,
+    border: `1px solid ${ui.border}`,
+    borderRadius: 14,
+    minHeight: 42,
+    boxShadow: 'none'
+  };
+
+  const mutedStyle = { color: ui.muted };
+  const muted2Style = { color: ui.muted2 };
 
   useEffect(() => {
     setProfileDraft(profileName);
@@ -259,24 +312,24 @@ function SettingsPage(){
   ];
 
   return (
-    <div className="space-y-6 fadein max-w-3xl pb-8">
+    <div className="space-y-6 fadein max-w-3xl pb-8" style={{ color: ui.ink }}>
       <div>
-        <div className="text-[11px] uppercase tracking-[0.18em] text-mute mb-1.5">Preferences</div>
-        <h1 className="text-[28px] md:text-[32px] font-semibold tracking-tight">Settings</h1>
-        <div className="text-mute mt-1.5 text-[14px] max-w-xl">Manage your account, syncing, preferences, and backups.</div>
+        <div className="text-[11px] uppercase tracking-[0.18em] mb-1.5" style={mutedStyle}>Preferences</div>
+        <h1 className="text-[28px] md:text-[32px] font-semibold tracking-tight" style={{ color: ui.ink }}>Settings</h1>
+        <div className="mt-1.5 text-[14px] max-w-xl" style={mutedStyle}>Manage your account, syncing, preferences, and backups.</div>
       </div>
 
-      <Card>
+      <Card style={cardStyle}>
         <SectionLabel right={<Pill tone={cloudReady ? 'good' : 'neutral'}>{cloudReady ? 'Synced' : 'Checking'}</Pill>}>Account</SectionLabel>
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-3 min-w-0">
-            <div className="h-11 w-11 shrink-0 rounded-2xl bg-fg text-bg flex items-center justify-center font-semibold">
+            <div className="h-11 w-11 shrink-0 rounded-2xl flex items-center justify-center font-semibold" style={{ background: ui.activeBg, color: ui.activeText }}>
               {(profileName[0] || 'N').toUpperCase()}
             </div>
             <div className="min-w-0">
-              <div className="font-medium truncate">{profileName}</div>
-              <div className="text-[12.5px] text-mute truncate">{email}</div>
-              <div className="text-[12px] text-mute2 mt-0.5">Your weight data syncs privately to this account.</div>
+              <div className="font-medium truncate" style={{ color: ui.ink }}>{profileName}</div>
+              <div className="text-[12.5px] truncate" style={mutedStyle}>{email}</div>
+              <div className="text-[12px] mt-0.5" style={muted2Style}>Your weight data syncs privately to this account.</div>
             </div>
           </div>
           <Button variant="secondary" onClick={signOut} className="sm:w-auto w-full">
@@ -285,7 +338,7 @@ function SettingsPage(){
         </div>
       </Card>
 
-      <Card>
+      <Card style={cardStyle}>
         <SectionLabel>Appearance</SectionLabel>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {appearanceOptions.map(opt => {
@@ -295,26 +348,33 @@ function SettingsPage(){
                 key={opt.value}
                 type="button"
                 onClick={() => setS({ appearance: opt.value })}
-                className={`btn text-left rounded-2xl border p-4 transition-colors ${active ? 'bg-fg text-bg border-fg' : 'bg-surface3 text-fg border-line2 hover:border-line2'}`}
+                className="btn text-left rounded-2xl border p-4 transition-colors"
+                style={{
+                  background: active ? ui.activeBg : ui.inactiveBg,
+                  color: active ? ui.activeText : ui.inactiveText,
+                  borderColor: active ? ui.activeBg : ui.border,
+                  boxShadow: 'none'
+                }}
               >
-                <div className="font-medium">{opt.label}</div>
-                <div className={`text-[12.5px] mt-1 ${active ? 'text-bg/75' : 'text-mute'}`}>{opt.body}</div>
+                <div className="font-medium" style={{ color: active ? ui.activeText : ui.inactiveText }}>{opt.label}</div>
+                <div className="text-[12.5px] mt-1" style={{ color: active ? (resolvedDark ? 'rgba(15,15,16,0.72)' : 'rgba(248,248,245,0.78)') : ui.inactiveBody }}>{opt.body}</div>
               </button>
             );
           })}
         </div>
-        <div className="text-[12.5px] text-mute mt-3 leading-relaxed">
+        <div className="text-[12.5px] mt-3 leading-relaxed" style={mutedStyle}>
           Dark mode is easier on the eyes for early morning weigh-ins. System follows your phone or computer setting.
         </div>
       </Card>
 
-      <Card>
+      <Card style={cardStyle}>
         <SectionLabel>Profile</SectionLabel>
-        <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-3 items-end">
+        <div className="grid grid-cols-1 sm:grid-cols-[minmax(220px,560px)_auto] gap-3 items-end">
           <div>
-            <label className="block text-[11.5px] text-mute mb-1.5">Display name</label>
+            <label className="block text-[11.5px] mb-1.5" style={mutedStyle}>Display name</label>
             <Input
               className="w-full"
+              style={fieldStyle}
               type="text"
               value={profileDraft}
               onChange={e => {
@@ -328,32 +388,32 @@ function SettingsPage(){
             {profileSaving ? 'Saving...' : 'Save profile'}
           </Button>
         </div>
-        <div className="text-[12.5px] text-mute mt-3 leading-relaxed">
+        <div className="text-[12.5px] mt-3 leading-relaxed" style={mutedStyle}>
           This name appears in your sidebar and saves with your account.
         </div>
-        {profileStatus && <div className="text-[12.5px] text-mute mt-2">{profileStatus}</div>}
+        {profileStatus && <div className="text-[12.5px] mt-2" style={mutedStyle}>{profileStatus}</div>}
       </Card>
 
-      <Card>
+      <Card style={cardStyle}>
         <SectionLabel>Units & week</SectionLabel>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
           <div>
-            <label className="block text-[11.5px] text-mute mb-1.5">Weight unit</label>
-            <Select className="w-full" value={s.unit} onChange={e=>setS({ unit: e.target.value })}>
+            <label className="block text-[11.5px] mb-1.5" style={mutedStyle}>Weight unit</label>
+            <Select className="w-full" style={fieldStyle} value={s.unit} onChange={e=>setS({ unit: e.target.value })}>
               <option value="lbs">Pounds (lbs)</option>
               <option value="kg">Kilograms (kg)</option>
             </Select>
           </div>
           <div>
-            <label className="block text-[11.5px] text-mute mb-1.5">Week starts on</label>
-            <Select className="w-full" value={s.weekStartDay} onChange={e=>setS({ weekStartDay: +e.target.value })}>
+            <label className="block text-[11.5px] mb-1.5" style={mutedStyle}>Week starts on</label>
+            <Select className="w-full" style={fieldStyle} value={s.weekStartDay} onChange={e=>setS({ weekStartDay: +e.target.value })}>
               <option value={1}>Monday</option>
               <option value={0}>Sunday</option>
             </Select>
           </div>
           <div>
-            <label className="block text-[11.5px] text-mute mb-1.5">Default goal mode</label>
-            <Select className="w-full" value={s.defaultGoal} onChange={e=>setS({ defaultGoal: e.target.value })}>
+            <label className="block text-[11.5px] mb-1.5" style={mutedStyle}>Default goal mode</label>
+            <Select className="w-full" style={fieldStyle} value={s.defaultGoal} onChange={e=>setS({ defaultGoal: e.target.value })}>
               <option value="fatloss">Fat loss</option>
               <option value="musclegain">Muscle gain</option>
               <option value="maintenance">Maintenance</option>
@@ -364,18 +424,18 @@ function SettingsPage(){
         </div>
       </Card>
 
-      <Card>
+      <Card style={cardStyle}>
         <SectionLabel>Reminders</SectionLabel>
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div>
-            <div className="text-[14px]">Daily weigh-in reminder</div>
-            <div className="text-[12.5px] text-mute">Preview setting only for now. Real notifications can be added later.</div>
+            <div className="text-[14px]" style={{ color: ui.ink }}>Daily weigh-in reminder</div>
+            <div className="text-[12.5px]" style={mutedStyle}>Preview setting only for now. Real notifications can be added later.</div>
           </div>
-          <Input className="w-full sm:w-auto" type="time" value={s.reminderTime || ''} onChange={e=>setS({ reminderTime: e.target.value })}/>
+          <Input className="w-full sm:w-auto" style={fieldStyle} type="time" value={s.reminderTime || ''} onChange={e=>setS({ reminderTime: e.target.value })}/>
         </div>
       </Card>
 
-      <Card>
+      <Card style={cardStyle}>
         <SectionLabel>Data</SectionLabel>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <Button variant="secondary" onClick={onExport}><I.Download className="h-4 w-4"/> Backup as JSON</Button>
@@ -387,15 +447,15 @@ function SettingsPage(){
         </div>
       </Card>
 
-      <Card>
+      <Card style={cardStyle}>
         <SectionLabel>About</SectionLabel>
-        <p className="text-[13.5px] text-mute leading-relaxed">
+        <p className="text-[13.5px] leading-relaxed" style={mutedStyle}>
           WeightLens is a calm trend dashboard for body weight. Your weight entries, goals, settings, and notes save to your account and sync across devices. You can also export a local backup anytime. Progress photos are still stored in your browser unless photo cloud sync is added later.
         </p>
       </Card>
 
       <Modal open={importOpen} onClose={()=>setImportOpen(false)} title="Restore from JSON" maxWidth="max-w-xl">
-        <Textarea rows={10} className="w-full font-mono text-[12px]" placeholder='Paste WeightLens JSON backup here…' value={importText} onChange={e=>setImportText(e.target.value)}/>
+        <Textarea rows={10} style={fieldStyle} className="w-full font-mono text-[12px]" placeholder='Paste WeightLens JSON backup here…' value={importText} onChange={e=>setImportText(e.target.value)}/>
         <div className="flex justify-end gap-2 mt-3">
           <Button variant="secondary" onClick={()=>setImportOpen(false)}>Cancel</Button>
           <Button onClick={onImport}>Restore</Button>
