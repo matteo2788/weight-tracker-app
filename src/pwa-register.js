@@ -19,17 +19,20 @@
   }
 
   function loadStylesheetOnce(id, href){
-    if (document.getElementById(id)) return;
-    const link = document.createElement('link');
-    link.id = id;
-    link.rel = 'stylesheet';
-    link.href = href;
-    document.head.appendChild(link);
+    let link = document.getElementById(id);
+    if (!link) {
+      link = document.createElement('link');
+      link.id = id;
+      link.rel = 'stylesheet';
+      document.head.appendChild(link);
+    }
+    if (link.getAttribute('href') !== href) link.href = href;
   }
 
   function loadPolishStyles(){
     loadStylesheetOnce('weightlens-minimal-dashboard-polish', '/src/minimal-dashboard-polish.css?v=20260516-4');
     loadStylesheetOnce('weightlens-settings-polish', '/src/settings-polish.css?v=20260516-1');
+    loadStylesheetOnce('weightlens-settings-hard-fix', '/src/settings-hard-fix.css?v=20260516-1');
   }
 
   forceLightPwaChrome();
