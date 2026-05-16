@@ -33,6 +33,23 @@
   const style = document.createElement('style');
   style.id = 'weightlens-pwa-safe-area-polish';
   style.textContent = `
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      [class*="animate-"] {
+        animation: none !important;
+      }
+    }
+
     html,
     body,
     #root {
