@@ -30,38 +30,34 @@
       .wl-subtle { font-size: 0.98rem !important; line-height: 1.55 !important; margin-top: 1rem !important; }
       .wl-metrics { margin-top: 5.4rem !important; }
 
-      /* Mobile fullscreen menu: start higher and feel intentional */
-      .wl-menu {
-        overflow-y: auto !important;
-      }
-
+      /* Mobile fullscreen menu: balanced editorial rhythm */
+      .wl-menu { overflow-y: auto !important; }
       .wl-menu-list {
         top: auto !important;
         transform: none !important;
         margin-top: 0 !important;
-        left: 1.25rem !important;
-        right: 1.25rem !important;
+        left: 1.35rem !important;
+        right: 1.35rem !important;
         width: auto !important;
         max-width: none !important;
-        padding-top: calc(env(safe-area-inset-top, 0px) + 158px) !important;
-        padding-bottom: 2rem !important;
+        padding-top: calc(env(safe-area-inset-top, 0px) + 178px) !important;
+        padding-bottom: 2.5rem !important;
       }
-
       .wl-menu-item {
-        margin: 0.1rem 0 !important;
-        grid-template-columns: 38px minmax(0, 1fr) !important;
-        gap: 0.85rem !important;
+        margin: 0 !important;
+        padding: 0.33rem 0 !important;
+        grid-template-columns: 40px minmax(0, 1fr) !important;
+        gap: 0.95rem !important;
+        align-items: baseline !important;
       }
-
       .wl-menu-name {
-        font-size: clamp(2.35rem, 8.8vw, 3.35rem) !important;
-        line-height: 1.02 !important;
-        letter-spacing: -0.06em !important;
+        font-size: clamp(2.18rem, 8.1vw, 3.05rem) !important;
+        line-height: 1.08 !important;
+        letter-spacing: -0.055em !important;
       }
-
       .wl-menu-num {
         font-size: 0.8rem !important;
-        padding-top: 0.42rem !important;
+        padding-top: 0.5rem !important;
       }
 
       .wl-section { overflow: visible !important; }
@@ -89,17 +85,18 @@
     @media (max-width: 430px) {
       .wl-hero-title { font-size: clamp(2.78rem, 9.6vw, 3.55rem) !important; max-width: none !important; line-height: 1.08 !important; }
       .wl-big-number { font-size: clamp(3.1rem, 13.5vw, 4.15rem) !important; }
-      .wl-menu-list { padding-top: calc(env(safe-area-inset-top, 0px) + 148px) !important; }
-      .wl-menu-name { font-size: clamp(2.15rem, 8.4vw, 3rem) !important; }
-      .wl-menu-item { margin: 0.04rem 0 !important; }
+      .wl-menu-list { padding-top: calc(env(safe-area-inset-top, 0px) + 168px) !important; }
+      .wl-menu-item { padding: 0.28rem 0 !important; }
+      .wl-menu-name { font-size: clamp(2.02rem, 7.7vw, 2.75rem) !important; line-height: 1.1 !important; }
       .wl-section .wl-section-head .wl-title { font-size: clamp(1.85rem, 8.2vw, 2.55rem) !important; }
       .wl-section .recharts-responsive-container, .wl-section .recharts-wrapper, .wl-section .h-\[340px\], .wl-section .h-72 { height: 230px !important; min-height: 230px !important; }
     }
 
     @media (max-width: 380px) {
       .wl-hero-title { font-size: clamp(2.45rem, 9.2vw, 3.15rem) !important; }
-      .wl-menu-list { padding-top: calc(env(safe-area-inset-top, 0px) + 132px) !important; }
-      .wl-menu-name { font-size: clamp(1.9rem, 8vw, 2.65rem) !important; }
+      .wl-menu-list { padding-top: calc(env(safe-area-inset-top, 0px) + 148px) !important; }
+      .wl-menu-item { padding: 0.22rem 0 !important; }
+      .wl-menu-name { font-size: clamp(1.82rem, 7.35vw, 2.45rem) !important; line-height: 1.1 !important; }
       .wl-section .wl-section-head .wl-title { font-size: clamp(1.7rem, 7.8vw, 2.28rem) !important; }
       .wl-section .recharts-responsive-container, .wl-section .recharts-wrapper, .wl-section .h-\[340px\], .wl-section .h-72 { height: 215px !important; min-height: 215px !important; }
     }
