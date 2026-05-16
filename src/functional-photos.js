@@ -29,7 +29,7 @@
     });
   }
 
-  function ProgressPhotosPage(){
+  function PhotoTrackerPage(){
     const { state, updateState } = useApp();
     const photos = rowsOf(state);
     const [draft,setDraft] = useState(blank());
@@ -116,6 +116,9 @@
     );
   }
 
-  function install(){ window.ProgressPhotosPage = ProgressPhotosPage; }
-  install(); window.addEventListener('load', install); setTimeout(install,100); setTimeout(install,500);
+  function install(){
+    window.ProgressPhotosPage = PhotoTrackerPage;
+    window.PhotosPage = PhotoTrackerPage;
+  }
+  install(); window.addEventListener('load', install); setTimeout(install,100); setTimeout(install,500); setTimeout(install,1500);
 })();
