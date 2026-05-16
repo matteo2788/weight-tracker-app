@@ -126,6 +126,128 @@
       .wl-metrics {
         margin-top: 5.4rem !important;
       }
+
+      /* Mobile dashboard trend section */
+      .wl-section {
+        overflow: visible !important;
+      }
+
+      .wl-section .wl-section-head {
+        display: block !important;
+        margin-bottom: 1.25rem !important;
+      }
+
+      .wl-section .wl-section-head .wl-title {
+        font-size: clamp(2.05rem, 9vw, 3rem) !important;
+        line-height: 1.03 !important;
+        letter-spacing: -0.055em !important;
+        max-width: 12ch !important;
+      }
+
+      .wl-section .wl-tabs {
+        display: flex !important;
+        gap: 1.1rem !important;
+        margin-top: 1.4rem !important;
+        overflow-x: auto !important;
+        white-space: nowrap !important;
+        padding-bottom: 0.45rem !important;
+      }
+
+      .wl-section .wl-tabs button {
+        flex: 0 0 auto !important;
+        font-size: 0.72rem !important;
+        letter-spacing: 0.23em !important;
+      }
+
+      .wl-section .recharts-responsive-container,
+      .wl-section .recharts-wrapper,
+      .wl-section .recharts-surface {
+        width: 100% !important;
+      }
+
+      .wl-section .recharts-responsive-container {
+        height: 245px !important;
+        min-height: 245px !important;
+        display: block !important;
+      }
+
+      .wl-section .recharts-wrapper {
+        height: 245px !important;
+        min-height: 245px !important;
+        display: block !important;
+      }
+
+      .wl-section .h-\[340px\] {
+        height: 245px !important;
+        min-height: 245px !important;
+        display: block !important;
+        margin-top: 1.25rem !important;
+        overflow: visible !important;
+      }
+
+      .wl-section .h-72 {
+        height: 245px !important;
+        min-height: 245px !important;
+      }
+
+      .wl-section > .flex.justify-between.text-xs {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 0.5rem !important;
+        margin-top: 1.05rem !important;
+        font-size: 0.78rem !important;
+        line-height: 1.45 !important;
+      }
+
+      .wl-section > .flex.justify-between.text-xs span {
+        display: block !important;
+        width: 100% !important;
+      }
+
+      .wl-section.wl-grid-2 {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 3.25rem !important;
+        margin-top: 4.75rem !important;
+      }
+
+      .wl-section.wl-grid-2 .wl-note {
+        font-size: clamp(1.35rem, 5.8vw, 1.85rem) !important;
+        line-height: 1.18 !important;
+        letter-spacing: -0.04em !important;
+      }
+
+      .wl-section.wl-grid-2 .wl-rule {
+        border-top: 1px solid rgba(17,17,15,0.12) !important;
+        padding-top: 1.6rem !important;
+      }
+
+      .wl-section.wl-grid-2 .wl-rule > .flex.justify-between {
+        display: block !important;
+        margin-bottom: 1.4rem !important;
+      }
+
+      .wl-section.wl-grid-2 .wl-rule > .flex.justify-between > .wl-kicker,
+      .wl-section.wl-grid-2 .wl-rule > .flex.justify-between > div + div {
+        margin-top: 0.75rem !important;
+      }
+
+      .wl-section.wl-grid-2 .wl-rule .grid.grid-cols-2 {
+        display: grid !important;
+        grid-template-columns: 1fr !important;
+        gap: 1.45rem !important;
+      }
+
+      .wl-section.wl-grid-2 .wl-form-line {
+        font-size: 1.15rem !important;
+        height: 46px !important;
+      }
+
+      .wl-section.wl-grid-2 .wl-btn {
+        width: 100% !important;
+        height: 52px !important;
+        margin-top: 1.4rem !important;
+      }
     }
 
     @media (max-width: 430px) {
@@ -138,11 +260,35 @@
       .wl-big-number {
         font-size: clamp(3.1rem, 13.5vw, 4.15rem) !important;
       }
+
+      .wl-section .wl-section-head .wl-title {
+        font-size: clamp(1.85rem, 8.2vw, 2.55rem) !important;
+      }
+
+      .wl-section .recharts-responsive-container,
+      .wl-section .recharts-wrapper,
+      .wl-section .h-\[340px\],
+      .wl-section .h-72 {
+        height: 230px !important;
+        min-height: 230px !important;
+      }
     }
 
     @media (max-width: 380px) {
       .wl-hero-title {
         font-size: clamp(2.45rem, 9.2vw, 3.15rem) !important;
+      }
+
+      .wl-section .wl-section-head .wl-title {
+        font-size: clamp(1.7rem, 7.8vw, 2.28rem) !important;
+      }
+
+      .wl-section .recharts-responsive-container,
+      .wl-section .recharts-wrapper,
+      .wl-section .h-\[340px\],
+      .wl-section .h-72 {
+        height: 215px !important;
+        min-height: 215px !important;
       }
     }
   `;
