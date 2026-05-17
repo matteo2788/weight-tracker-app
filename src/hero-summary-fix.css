@@ -1,0 +1,82 @@
+/* hero-summary-fix.css — fixes the mini stat row under today's hero weight */
+.wl-hero-summary {
+  width: min(100%, 560px) !important;
+  margin: 1.35rem auto 0 !important;
+  padding: 1.05rem 0 !important;
+  border-top: 1px solid rgba(17,17,15,.10) !important;
+  border-bottom: 1px solid rgba(17,17,15,.08) !important;
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 1.5rem !important;
+  text-align: center !important;
+  align-items: start !important;
+}
+
+.wl-hero-summary-item {
+  min-width: 0 !important;
+  display: grid !important;
+  gap: .42rem !important;
+  justify-items: center !important;
+}
+
+.wl-hero-summary-label {
+  font-family: var(--wl-font-ui, 'Geist Mono', monospace) !important;
+  font-style: normal !important;
+  font-size: .62rem !important;
+  line-height: 1 !important;
+  letter-spacing: .24em !important;
+  text-transform: uppercase !important;
+  font-weight: 400 !important;
+  color: rgba(17,17,15,.42) !important;
+  white-space: nowrap !important;
+}
+
+.wl-hero-summary-value {
+  font-family: var(--wl-font-ui, 'Geist Mono', monospace) !important;
+  font-style: normal !important;
+  font-size: .86rem !important;
+  line-height: 1.25 !important;
+  letter-spacing: -.02em !important;
+  font-weight: 400 !important;
+  color: rgba(17,17,15,.78) !important;
+  white-space: nowrap !important;
+}
+
+@media (max-width: 900px) {
+  .wl-hero-summary {
+    width: 100% !important;
+    margin: 1.1rem 0 0 !important;
+    padding: .9rem 0 !important;
+    gap: 1rem !important;
+    text-align: left !important;
+  }
+
+  .wl-hero-summary-item {
+    justify-items: start !important;
+  }
+
+  .wl-hero-summary-label {
+    font-size: .56rem !important;
+    letter-spacing: .20em !important;
+  }
+
+  .wl-hero-summary-value {
+    font-size: .82rem !important;
+  }
+}
+
+@media (max-width: 430px) {
+  .wl-hero-summary {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: .75rem !important;
+  }
+
+  .wl-hero-summary-label {
+    font-size: .52rem !important;
+    letter-spacing: .18em !important;
+  }
+
+  .wl-hero-summary-value {
+    font-size: .78rem !important;
+  }
+}
