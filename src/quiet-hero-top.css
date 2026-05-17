@@ -1,0 +1,224 @@
+/* quiet-hero-top.css — make dashboard top cluster feel like quiet utility */
+
+/* Desktop/tablet: make meta row whisper and keep only Log Entry visually strong */
+.wl-page > .grid.grid-cols-3:first-child {
+  padding-top: 0.35rem !important;
+  margin-bottom: clamp(2.7rem, 4vw, 4.7rem) !important;
+  align-items: center !important;
+}
+
+.wl-page > .grid.grid-cols-3:first-child > :first-child,
+.wl-page > .grid.grid-cols-3:first-child > :nth-child(2) {
+  color: rgba(17,17,15,.38) !important;
+  font-size: clamp(.58rem, .55vw, .68rem) !important;
+  letter-spacing: .34em !important;
+  line-height: 1.25 !important;
+  font-weight: 800 !important;
+  transform: translateY(-.1rem) !important;
+}
+
+.wl-page > .grid.grid-cols-3:first-child > :nth-child(3) {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: .8rem !important;
+}
+
+.wl-page > .grid.grid-cols-3:first-child > :nth-child(3) button {
+  height: 2.15rem !important;
+  min-height: 2.15rem !important;
+  padding: 0 1rem !important;
+  font-size: .73rem !important;
+  letter-spacing: -.015em !important;
+  border-radius: 999px !important;
+}
+
+/* Backfill becomes quiet utility */
+.wl-page > .grid.grid-cols-3:first-child > :nth-child(3) button:first-child {
+  width: auto !important;
+  background: transparent !important;
+  border: 0 !important;
+  color: rgba(17,17,15,.48) !important;
+  padding: 0 .15rem !important;
+  min-width: 0 !important;
+  text-decoration: underline !important;
+  text-underline-offset: .35rem !important;
+  text-decoration-thickness: 1px !important;
+  text-decoration-color: rgba(17,17,15,.22) !important;
+  font-weight: 750 !important;
+}
+
+/* Log entry stays primary, but compact */
+.wl-page > .grid.grid-cols-3:first-child > :nth-child(3) button:last-child {
+  width: auto !important;
+  background: #11110F !important;
+  color: #F6F4EF !important;
+  min-width: 6.7rem !important;
+  font-weight: 850 !important;
+}
+
+.wl-hero-title {
+  margin-top: clamp(3.25rem, 4.8vw, 5.3rem) !important;
+}
+
+@media (max-width: 900px) {
+  /* Top cluster becomes a quiet two-line utility strip instead of a chunky control block */
+  .wl-page > .grid.grid-cols-3:first-child,
+  .wl-page > .grid.grid-cols-3 {
+    display: grid !important;
+    grid-template-columns: 1fr auto !important;
+    column-gap: 1rem !important;
+    row-gap: .35rem !important;
+    padding-top: .15rem !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    align-items: start !important;
+  }
+
+  .wl-page > .grid.grid-cols-3:first-child > :first-child,
+  .wl-page > .grid.grid-cols-3 > :first-child {
+    grid-column: 1 / 2 !important;
+    grid-row: 1 !important;
+    min-height: 0 !important;
+    display: block !important;
+    text-align: left !important;
+    color: rgba(17,17,15,.42) !important;
+    font-size: 8.8px !important;
+    letter-spacing: .32em !important;
+    line-height: 1.35 !important;
+    font-weight: 850 !important;
+    transform: none !important;
+    max-width: 18ch !important;
+  }
+
+  .wl-page > .grid.grid-cols-3:first-child > :nth-child(2),
+  .wl-page > .grid.grid-cols-3 > :nth-child(2) {
+    grid-column: 1 / 2 !important;
+    grid-row: 2 !important;
+    min-height: 0 !important;
+    display: block !important;
+    text-align: left !important;
+    justify-content: flex-start !important;
+    color: rgba(17,17,15,.32) !important;
+    font-size: 8.5px !important;
+    letter-spacing: .31em !important;
+    line-height: 1.2 !important;
+    font-weight: 800 !important;
+    transform: translateY(-.05rem) !important;
+    max-width: 22ch !important;
+  }
+
+  .wl-page > .grid.grid-cols-3:first-child > :nth-child(3),
+  .wl-page > .grid.grid-cols-3 > :nth-child(3) {
+    grid-column: 2 / 3 !important;
+    grid-row: 1 / span 2 !important;
+    align-self: start !important;
+    justify-self: end !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: .6rem !important;
+    width: auto !important;
+    margin-top: -.18rem !important;
+    transform: none !important;
+  }
+
+  .wl-page > .grid.grid-cols-3:first-child > :nth-child(3) button,
+  .wl-page > .grid.grid-cols-3 > :nth-child(3) button {
+    width: auto !important;
+    height: 32px !important;
+    min-height: 32px !important;
+    padding: 0 .75rem !important;
+    border-radius: 999px !important;
+    font-size: 12px !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+  }
+
+  /* On mobile, Backfill is secondary text so it does not steal attention */
+  .wl-page > .grid.grid-cols-3:first-child > :nth-child(3) button:first-child,
+  .wl-page > .grid.grid-cols-3 > :nth-child(3) button:first-child {
+    background: transparent !important;
+    border: 0 !important;
+    color: rgba(17,17,15,.46) !important;
+    padding: 0 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    font-size: 11px !important;
+    font-weight: 800 !important;
+    text-decoration: underline !important;
+    text-underline-offset: .28rem !important;
+    text-decoration-thickness: 1px !important;
+    text-decoration-color: rgba(17,17,15,.22) !important;
+  }
+
+  .wl-page > .grid.grid-cols-3:first-child > :nth-child(3) button:last-child,
+  .wl-page > .grid.grid-cols-3 > :nth-child(3) button:last-child {
+    min-width: 5.9rem !important;
+    background: #11110F !important;
+    color: #F6F4EF !important;
+    font-weight: 900 !important;
+  }
+
+  /* Pull hero up and make it the first loud object */
+  .wl-hero-title {
+    margin-top: 2.55rem !important;
+    margin-bottom: 1.55rem !important;
+    font-size: clamp(3.45rem, 13.3vw, 4.15rem) !important;
+    line-height: .98 !important;
+    letter-spacing: -.048em !important;
+    font-weight: 950 !important;
+    max-width: 11.7ch !important;
+  }
+
+  .wl-hero-meta {
+    font-size: 9px !important;
+    letter-spacing: .34em !important;
+    color: rgba(17,17,15,.40) !important;
+  }
+
+  .wl-big-number {
+    margin-top: .55rem !important;
+    font-size: clamp(2.8rem, 11.5vw, 3.65rem) !important;
+    line-height: .95 !important;
+  }
+
+  .wl-subtle {
+    margin-top: .85rem !important;
+    font-size: 14.5px !important;
+    line-height: 1.5 !important;
+    color: rgba(17,17,15,.58) !important;
+  }
+
+  .wl-metrics {
+    margin-top: 3.9rem !important;
+  }
+}
+
+@media (max-width: 430px) {
+  .wl-page > .grid.grid-cols-3:first-child,
+  .wl-page > .grid.grid-cols-3 {
+    column-gap: .7rem !important;
+  }
+
+  .wl-page > .grid.grid-cols-3:first-child > :nth-child(3),
+  .wl-page > .grid.grid-cols-3 > :nth-child(3) {
+    gap: .5rem !important;
+  }
+
+  .wl-page > .grid.grid-cols-3:first-child > :nth-child(3) button:last-child,
+  .wl-page > .grid.grid-cols-3 > :nth-child(3) button:last-child {
+    min-width: 5.55rem !important;
+    padding-inline: .65rem !important;
+  }
+
+  .wl-page > .grid.grid-cols-3:first-child > :nth-child(3) button:first-child,
+  .wl-page > .grid.grid-cols-3 > :nth-child(3) button:first-child {
+    font-size: 10.5px !important;
+  }
+
+  .wl-hero-title {
+    margin-top: 2.3rem !important;
+    font-size: clamp(3.1rem, 12.7vw, 3.8rem) !important;
+  }
+}
