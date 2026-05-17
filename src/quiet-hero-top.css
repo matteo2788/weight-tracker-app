@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,50..100;1,9..144,300..700,50..100&family=Geist+Mono:wght@300;400;500;600&display=swap');
+
 /* quiet-hero-top.css — quiet utility row above the hero, without overlap */
 
 /* Desktop/tablet: subtle meta, compact actions */
@@ -222,26 +224,60 @@
   }
 }
 
-/* Targeted typography layer only — preserves all current layout/design changes */
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,50..100;1,9..144,300..700,50..100&family=Geist+Mono:wght@300;400;500;600&display=swap');
-
+/* FINAL FONT SYSTEM — ONLY FRAUNCES + GEIST MONO */
 :root {
-  --wl-font-serif: 'Fraunces', Georgia, ui-serif, serif;
-  --wl-font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --wl-font-display: 'Fraunces', Georgia, ui-serif, serif;
+  --wl-font-ui: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
-/* Fraunces: wordmark + route/page label only */
+html,
+body,
+#root,
+body *,
+button,
+input,
+select,
+textarea,
+svg text {
+  font-family: var(--wl-font-ui) !important;
+  font-style: normal !important;
+}
+
+.wl-logo,
+.wl-now b,
+.wl-hero-title,
+.wl-big-number,
+.wl-title,
+.wl-note,
+.wl-metric-value,
+.wl-menu-name,
+.wl-row-title,
+.wl-log-card-title,
+.wl-log-context-main,
+.wl-chart-key-coach,
+.wl-right .big {
+  font-family: var(--wl-font-display) !important;
+  font-style: italic !important;
+  font-variation-settings: 'SOFT' 85, 'opsz' 72 !important;
+}
+
 .wl-logo,
 .wl-now b {
-  font-family: var(--wl-font-serif) !important;
-  font-style: italic !important;
   font-weight: 450 !important;
-  font-variation-settings: 'SOFT' 85, 'opsz' 72 !important;
   letter-spacing: -0.045em !important;
   text-transform: none !important;
 }
 
-/* Geist Mono: TREND, NOW VIEWING, + LOG ENTRY, all small kicker labels */
+.wl-hero-title,
+.wl-title,
+.wl-note,
+.wl-menu-name,
+.wl-big-number,
+.wl-metric-value,
+.wl-log-context-main {
+  font-weight: 650 !important;
+}
+
 .wl-logo span,
 .wl-now,
 .wl-link,
@@ -255,10 +291,13 @@
 .wl-log-pill,
 .wl-row-index,
 .wl-menu-num,
-.recharts-cartesian-axis-tick text,
-button.wl-btn,
-.wl-btn {
-  font-family: var(--wl-font-mono) !important;
+.wl-btn,
+button,
+input,
+textarea,
+select,
+.recharts-cartesian-axis-tick text {
+  font-family: var(--wl-font-ui) !important;
   font-style: normal !important;
 }
 
@@ -278,7 +317,8 @@ button.wl-btn,
   letter-spacing: .30em !important;
 }
 
-.wl-btn {
+.wl-btn,
+button {
   font-weight: 500 !important;
   letter-spacing: .04em !important;
 }
