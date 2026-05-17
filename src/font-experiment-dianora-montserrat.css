@@ -2,7 +2,9 @@
   font-family: 'Dianora';
   src: url('/fonts/Dianora-Regular.woff2') format('woff2'),
        url('/fonts/Dianora.otf') format('opentype'),
-       url('/fonts/Dianora.ttf') format('truetype');
+       url('/Dianora.otf') format('opentype'),
+       url('/fonts/Dianora.ttf') format('truetype'),
+       url('/Dianora.ttf') format('truetype');
   font-weight: 400 900;
   font-style: normal;
   font-display: swap;
