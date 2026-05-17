@@ -74,10 +74,10 @@
   .wl-page > .grid.grid-cols-3 {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
-    gap: 14px 16px !important;
+    gap: 12px 16px !important;
     align-items: start !important;
     margin-top: 0 !important;
-    padding-top: 4px !important;
+    padding-top: 0 !important;
   }
 
   .wl-page > .grid.grid-cols-3 > :first-child,
@@ -86,6 +86,10 @@
     font-size: 10px !important;
     letter-spacing: 0.31em !important;
     line-height: 1.35 !important;
+    align-self: start !important;
+    padding-top: 0 !important;
+    margin-top: 0 !important;
+    display: block !important;
   }
 
   .wl-page > .grid.grid-cols-3 > :nth-child(2) {
@@ -96,18 +100,20 @@
     grid-column: 1 / -1 !important;
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
-    gap: 14px !important;
+    gap: 12px !important;
     text-align: initial !important;
     width: 100% !important;
+    margin-top: 4px !important;
+    transform: translateY(-4px) !important;
   }
 
   .wl-page > .grid.grid-cols-3 button {
     width: 100% !important;
-    height: 46px !important;
-    min-height: 46px !important;
+    height: 40px !important;
+    min-height: 40px !important;
     border-radius: 999px !important;
-    padding: 0 12px !important;
-    font-size: 14px !important;
+    padding: 0 10px !important;
+    font-size: 13px !important;
     line-height: 1 !important;
     margin: 0 !important;
   }
@@ -116,7 +122,7 @@
   .wl-hero-title {
     position: relative !important;
     isolation: auto !important;
-    margin: 34px 0 28px !important;
+    margin: 30px 0 26px !important;
     max-width: 11.4ch !important;
     text-align: left !important;
     font-size: 54px !important;
@@ -354,11 +360,11 @@
 
 @media (max-width: 430px) {
   .min-h-screen.flex.bg-bg.text-fg > .flex-1.min-w-0.flex.flex-col > .flex-1.min-w-0.flex { padding: 0 20px !important; }
-  .wl-hero-title { font-size: 50px !important; max-width: 11.2ch !important; line-height: 1.02 !important; margin-top: 32px !important; letter-spacing: -0.04em !important; }
+  .wl-hero-title { font-size: 50px !important; max-width: 11.2ch !important; line-height: 1.02 !important; margin-top: 28px !important; letter-spacing: -0.04em !important; }
   .wl-hero-title::before, .wl-hero-title::after { content: none !important; display: none !important; }
   .wl-big-number { font-size: 42px !important; }
-  .wl-page > .grid.grid-cols-3 { margin-top: 0 !important; padding-top: 2px !important; gap: 12px 14px !important; }
-  .wl-page > .grid.grid-cols-3 button { height: 44px !important; min-height: 44px !important; font-size: 14px !important; }
+  .wl-page > .grid.grid-cols-3 { margin-top: 0 !important; padding-top: 0 !important; gap: 10px 14px !important; }
+  .wl-page > .grid.grid-cols-3 button { height: 38px !important; min-height: 38px !important; font-size: 13px !important; }
   .wl-metric-value { font-size: 36px !important; }
   .wl-metric-sub { font-size: 13px !important; }
   .wl-menu-name { font-size: 31px !important; }
@@ -369,8 +375,8 @@
 
 @media (max-width: 380px) {
   .min-h-screen.flex.bg-bg.text-fg main { padding-top: 0 !important; }
-  .wl-page > .grid.grid-cols-3 { padding-top: 0 !important; gap: 10px 12px !important; }
-  .wl-hero-title { font-size: 44px !important; margin-top: 26px !important; }
+  .wl-page > .grid.grid-cols-3 { padding-top: 0 !important; gap: 8px 12px !important; }
+  .wl-hero-title { font-size: 44px !important; margin-top: 24px !important; }
   .wl-big-number { font-size: 39px !important; }
   .wl-logo { font-size: 18px !important; }
   .wl-link { font-size: 10px !important; letter-spacing: 0.19em !important; }
@@ -391,10 +397,27 @@
   .wl-page > .grid.grid-cols-3:first-child,
   .wl-page > .grid.grid-cols-3 {
     margin-top: 0 !important;
-    padding-top: 2px !important;
+    padding-top: 0 !important;
+    align-items: start !important;
+  }
+
+  .wl-page > .grid.grid-cols-3:first-child > :first-child,
+  .wl-page > .grid.grid-cols-3:first-child > :nth-child(2) {
+    min-height: 34px !important;
+    display: flex !important;
+    align-items: flex-start !important;
+  }
+
+  .wl-page > .grid.grid-cols-3:first-child > :nth-child(2) {
+    justify-content: flex-end !important;
+  }
+
+  .wl-page > .grid.grid-cols-3:first-child > :nth-child(3) {
+    margin-top: 0 !important;
+    transform: translateY(-6px) !important;
   }
 
   .wl-hero-title {
-    margin-top: 32px !important;
+    margin-top: 24px !important;
   }
 }
