@@ -375,7 +375,7 @@ function loadWeightLensAddon(src, id){
 }
 
 (function loadFunctionalAddons(){
-  const version = 'features-8';
+  const version = 'features-9';
   window.addEventListener('load', () => {
     loadWeightLensAddon(`src/functional-goals.js?v=${version}`, 'wl-functional-goals');
     loadWeightLensAddon(`src/functional-measurements.js?v=${version}`, 'wl-functional-measurements');
@@ -384,6 +384,7 @@ function loadWeightLensAddon(src, id){
     loadWeightLensAddon(`src/functional-photos.js?v=${version}`, 'wl-functional-photos');
     loadWeightLensAddon(`src/functional-insights.js?v=${version}`, 'wl-functional-insights');
     loadWeightLensAddon(`src/functional-log-polish.js?v=${version}`, 'wl-functional-log-polish');
+    loadWeightLensAddon(`src/right-panel-fix.js?v=${version}`, 'wl-right-panel-fix');
   });
   setTimeout(() => {
     loadWeightLensAddon(`src/functional-goals.js?v=${version}`, 'wl-functional-goals');
@@ -393,6 +394,7 @@ function loadWeightLensAddon(src, id){
     loadWeightLensAddon(`src/functional-photos.js?v=${version}`, 'wl-functional-photos');
     loadWeightLensAddon(`src/functional-insights.js?v=${version}`, 'wl-functional-insights');
     loadWeightLensAddon(`src/functional-log-polish.js?v=${version}`, 'wl-functional-log-polish');
+    loadWeightLensAddon(`src/right-panel-fix.js?v=${version}`, 'wl-right-panel-fix');
   }, 500);
 })();
 
