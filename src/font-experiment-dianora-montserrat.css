@@ -1,7 +1,7 @@
-/* font-experiment-dianora-montserrat.css — typography layer now using Lora + Open Sans */
+/* font-experiment-dianora-montserrat.css — Lora + Open Sans with clearer contrast */
 
 :root {
-  --wl-font-body: 'Open Sans', 'Geist', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --wl-font-body: 'Open Sans', ui-sans-serif, system-ui, sans-serif;
   --wl-font-display: 'Lora', Georgia, 'Times New Roman', serif;
   --wl-font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
@@ -17,50 +17,72 @@ textarea {
 
 body {
   font-weight: 400 !important;
-  letter-spacing: -0.006em !important;
+  letter-spacing: -0.004em !important;
 }
 
-/* Display moments: Lora gives the app a calmer editorial feel */
+/* SERIF ONLY WHERE IT SHOULD FEEL EDITORIAL */
 .wl-hero-title,
 .wl-title,
-.wl-note,
-.wl-menu-name,
 .wl-log-card-title {
   font-family: var(--wl-font-display) !important;
   font-weight: 700 !important;
-  letter-spacing: -0.045em !important;
+  letter-spacing: -0.055em !important;
+  line-height: .96 !important;
 }
 
-/* Keep key numbers sans-serif so the dashboard still feels modern and usable */
+.wl-hero-title {
+  font-size: clamp(4.4rem, 8vw, 8.2rem) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.065em !important;
+}
+
+.wl-title {
+  font-weight: 700 !important;
+  letter-spacing: -0.052em !important;
+}
+
+/* SANS-SERIF FOR APP / DATA / NAV — this keeps the app modern */
 .wl-big-number,
 .wl-metric-value,
 .wl-log-context-main,
-.wl-right .big {
+.wl-right .big,
+.wl-note,
+.wl-menu-name,
+.wl-row-title,
+.wl-logo,
+.wl-now b {
   font-family: var(--wl-font-body) !important;
   font-weight: 800 !important;
   letter-spacing: -0.055em !important;
+  line-height: .95 !important;
 }
 
-/* Brand/UI stays clean and minimal */
+.wl-big-number {
+  font-weight: 800 !important;
+  letter-spacing: -0.065em !important;
+}
+
+.wl-metric-value,
+.wl-log-context-main {
+  font-weight: 800 !important;
+  letter-spacing: -0.06em !important;
+}
+
+.wl-note,
+.wl-menu-name {
+  font-weight: 800 !important;
+  letter-spacing: -0.05em !important;
+  line-height: 1.04 !important;
+}
+
 .wl-logo,
-.wl-now b,
-.wl-row-title {
-  font-family: var(--wl-font-body) !important;
+.wl-row-title,
+.wl-now b {
   font-weight: 800 !important;
   letter-spacing: -0.035em !important;
 }
 
-.wl-hero-title {
-  line-height: 0.98 !important;
-}
-
-.wl-title,
-.wl-note,
-.wl-menu-name {
-  line-height: 1.02 !important;
-}
-
-/* Small labels and controls: Open Sans for clarity */
+/* SMALL LABELS: more mechanical, more UI, clearly not the heading font */
 .wl-kicker,
 .wl-hero-meta,
 .wl-metric-label,
@@ -72,10 +94,11 @@ body {
 .wl-log-pill {
   font-family: var(--wl-font-body) !important;
   font-weight: 700 !important;
-  letter-spacing: 0.26em !important;
+  letter-spacing: .30em !important;
+  text-transform: uppercase !important;
 }
 
-/* Reading text: Open Sans, lighter and calmer */
+/* BODY COPY: lighter, readable Open Sans */
 .wl-subtle,
 .wl-page p,
 .wl-metric-sub,
@@ -86,13 +109,25 @@ body {
 .wl-chart-key-coach {
   font-family: var(--wl-font-body) !important;
   font-weight: 400 !important;
-  letter-spacing: -0.01em !important;
+  letter-spacing: -0.008em !important;
+  line-height: 1.58 !important;
+}
+
+.wl-chart-key-coach {
+  font-weight: 700 !important;
 }
 
 .wl-btn {
   font-family: var(--wl-font-body) !important;
   font-weight: 800 !important;
-  letter-spacing: -0.02em !important;
+  letter-spacing: -0.018em !important;
+}
+
+input,
+textarea,
+select {
+  font-family: var(--wl-font-body) !important;
+  font-weight: 500 !important;
 }
 
 .recharts-cartesian-axis-tick text,
@@ -103,19 +138,25 @@ body {
 
 @media (max-width: 900px) {
   .wl-hero-title {
-    letter-spacing: -0.038em !important;
-    line-height: 1.02 !important;
+    font-size: clamp(3.65rem, 13vw, 5.35rem) !important;
+    line-height: .98 !important;
+    letter-spacing: -0.058em !important;
   }
 
   .wl-title,
+  .wl-log-card-title {
+    letter-spacing: -0.048em !important;
+    line-height: 1 !important;
+  }
+
   .wl-note,
   .wl-menu-name {
-    letter-spacing: -0.038em !important;
+    letter-spacing: -0.045em !important;
   }
 
   .wl-subtle,
   .wl-page p,
   .wl-chart-key-copy {
-    line-height: 1.58 !important;
+    line-height: 1.6 !important;
   }
 }
