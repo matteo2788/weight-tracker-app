@@ -42,6 +42,20 @@
   white-space: nowrap !important;
 }
 
+/* Weekly summary should feel editorial, not cursive/calligraphy */
+.wl-note {
+  font-family: var(--wl-font-display, 'Fraunces', Georgia, serif) !important;
+  font-style: normal !important;
+  font-variation-settings: 'SOFT' 70, 'opsz' 72 !important;
+  font-weight: 650 !important;
+  letter-spacing: -0.045em !important;
+  line-height: 1.06 !important;
+}
+
+.wl-chart-key-coach {
+  font-style: normal !important;
+}
+
 @media (max-width: 900px) {
   .wl-hero-summary {
     width: 100% !important;
@@ -62,6 +76,11 @@
 
   .wl-hero-summary-value {
     font-size: .82rem !important;
+  }
+
+  .wl-note {
+    letter-spacing: -0.04em !important;
+    line-height: 1.08 !important;
   }
 }
 
