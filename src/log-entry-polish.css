@@ -1,0 +1,246 @@
+/* log-entry-polish.css — polished daily logging UI */
+.wl-log-page .wl-section-head {
+  align-items: start !important;
+}
+
+.wl-log-hero {
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: space-between !important;
+  gap: 2rem !important;
+  margin-bottom: 2.5rem !important;
+}
+
+.wl-log-hero-actions {
+  display: flex !important;
+  align-items: center !important;
+  gap: .85rem !important;
+  white-space: nowrap !important;
+}
+
+.wl-log-saved {
+  margin: 0 0 1.35rem !important;
+  padding: .9rem 1rem !important;
+  border-top: 1px solid rgba(101,163,13,.28) !important;
+  border-bottom: 1px solid rgba(101,163,13,.18) !important;
+  color: #47750B !important;
+  font-weight: 850 !important;
+  letter-spacing: -.01em !important;
+}
+
+.wl-log-card {
+  border-top: 1px solid rgba(17,17,15,.13) !important;
+  border-bottom: 1px solid rgba(17,17,15,.08) !important;
+  padding: 1.6rem 0 1.8rem !important;
+  margin-bottom: 3.5rem !important;
+}
+
+.wl-log-card-head {
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+  gap: 1.25rem !important;
+  margin-bottom: 2rem !important;
+}
+
+.wl-log-card-title {
+  font-size: clamp(1.85rem, 2.4vw, 3rem) !important;
+  line-height: .98 !important;
+  letter-spacing: -.055em !important;
+  font-weight: 950 !important;
+  margin-top: .65rem !important;
+  color: #11110F !important;
+}
+
+.wl-log-status {
+  font-size: .68rem !important;
+  line-height: 1.2 !important;
+  letter-spacing: .24em !important;
+  text-transform: uppercase !important;
+  color: rgba(17,17,15,.48) !important;
+  font-weight: 850 !important;
+  padding-top: .25rem !important;
+  text-align: right !important;
+}
+
+.wl-log-form-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 2rem 2.2rem !important;
+}
+
+.wl-log-weight-input {
+  font-size: 1.55rem !important;
+  font-weight: 850 !important;
+  letter-spacing: -.04em !important;
+}
+
+.wl-log-context {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  gap: 1.5rem !important;
+  margin-top: 2.25rem !important;
+  padding-top: 1.4rem !important;
+  border-top: 1px solid rgba(17,17,15,.09) !important;
+}
+
+.wl-log-context-main {
+  margin-top: .75rem !important;
+  font-size: clamp(1.55rem, 2.1vw, 2.65rem) !important;
+  line-height: .98 !important;
+  letter-spacing: -.055em !important;
+  font-weight: 950 !important;
+  color: #11110F !important;
+}
+
+.wl-log-context-main.small {
+  font-size: clamp(1.3rem, 1.65vw, 2rem) !important;
+}
+
+.wl-log-context-main.good { color: var(--ed-good, #16A34A) !important; }
+.wl-log-context-main.warn { color: var(--ed-warn, #F59E0B) !important; }
+
+.wl-log-context-sub {
+  margin-top: .55rem !important;
+  font-size: .86rem !important;
+  line-height: 1.42 !important;
+  color: rgba(17,17,15,.55) !important;
+}
+
+.wl-log-actions {
+  display: flex !important;
+  align-items: center !important;
+  gap: .9rem !important;
+  margin-top: 2rem !important;
+  flex-wrap: wrap !important;
+}
+
+.wl-log-danger {
+  color: #DC2626 !important;
+}
+
+.wl-log-search {
+  min-width: min(22rem, 100%) !important;
+}
+
+.wl-log-row-actions {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  gap: .9rem !important;
+}
+
+.wl-log-row-actions button {
+  color: rgba(17,17,15,.52) !important;
+}
+
+.wl-log-pill {
+  display: inline-flex !important;
+  align-items: center !important;
+  border: 1px solid rgba(17,17,15,.11) !important;
+  border-radius: 999px !important;
+  padding: .28rem .62rem !important;
+  margin: 0 .35rem .35rem 0 !important;
+  font-size: .68rem !important;
+  letter-spacing: .16em !important;
+  text-transform: uppercase !important;
+  color: rgba(17,17,15,.56) !important;
+}
+
+@media (max-width: 900px) {
+  .wl-log-hero {
+    display: block !important;
+    margin-bottom: 2rem !important;
+  }
+
+  .wl-log-hero-actions {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: .8rem !important;
+    margin-top: 1.3rem !important;
+  }
+
+  .wl-log-hero-actions .wl-btn {
+    width: 100% !important;
+    height: 44px !important;
+    min-height: 44px !important;
+  }
+
+  .wl-log-card {
+    padding: 1.35rem 0 1.55rem !important;
+    margin-bottom: 3rem !important;
+  }
+
+  .wl-log-card-head {
+    display: block !important;
+    margin-bottom: 1.55rem !important;
+  }
+
+  .wl-log-card-title {
+    font-size: 2rem !important;
+    line-height: 1.03 !important;
+  }
+
+  .wl-log-status {
+    margin-top: 1rem !important;
+    text-align: left !important;
+    font-size: .63rem !important;
+    letter-spacing: .22em !important;
+  }
+
+  .wl-log-form-grid {
+    grid-template-columns: 1fr !important;
+    gap: 1.55rem !important;
+  }
+
+  .wl-log-weight-input {
+    font-size: 1.35rem !important;
+  }
+
+  .wl-log-context {
+    grid-template-columns: 1fr !important;
+    gap: 1.35rem !important;
+    margin-top: 1.8rem !important;
+  }
+
+  .wl-log-context-main {
+    font-size: 2rem !important;
+  }
+
+  .wl-log-actions {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: .85rem !important;
+  }
+
+  .wl-log-actions .wl-btn,
+  .wl-log-actions .wl-link {
+    width: 100% !important;
+    text-align: center !important;
+    justify-content: center !important;
+  }
+
+  .wl-log-history .wl-section-head {
+    display: block !important;
+  }
+
+  .wl-log-search {
+    width: 100% !important;
+    margin-top: 1.4rem !important;
+  }
+
+  .wl-log-row {
+    grid-template-columns: 2rem 1fr auto !important;
+  }
+
+  .wl-log-row > div:nth-child(4) {
+    grid-column: 2 / -1 !important;
+    margin-top: .25rem !important;
+  }
+
+  .wl-log-row > div:nth-child(5) {
+    grid-column: 2 / -1 !important;
+    justify-content: flex-start !important;
+    margin-top: .35rem !important;
+  }
+}
