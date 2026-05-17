@@ -42,14 +42,24 @@
     margin-top: 1.6rem !important;
   }
 
-  .wl-trends-chart-lock {
-    height: 300px !important;
-    min-height: 300px !important;
-    margin-top: 1.25rem !important;
+  .wl-trends-chart-lock,
+  .wl-chart-block {
+    height: 250px !important;
+    min-height: 250px !important;
+    margin-top: 1.1rem !important;
+    margin-bottom: 0 !important;
   }
 
-  .wl-trends-page-fixed .wl-chart-key {
-    margin-top: 1.5rem !important;
+  .wl-chart-block .recharts-responsive-container,
+  .wl-chart-block .recharts-wrapper {
+    height: 250px !important;
+    min-height: 250px !important;
+  }
+
+  .wl-trends-page-fixed .wl-chart-key,
+  .wl-section .wl-chart-key {
+    margin-top: .35rem !important;
+    padding-top: .9rem !important;
   }
 
   .wl-trends-range-copy {
@@ -58,8 +68,20 @@
 }
 
 @media (max-width: 430px) {
-  .wl-trends-chart-lock {
-    height: 285px !important;
-    min-height: 285px !important;
+  .wl-trends-chart-lock,
+  .wl-chart-block {
+    height: 235px !important;
+    min-height: 235px !important;
+  }
+
+  .wl-chart-block .recharts-responsive-container,
+  .wl-chart-block .recharts-wrapper {
+    height: 235px !important;
+    min-height: 235px !important;
+  }
+
+  .wl-trends-page-fixed .wl-chart-key,
+  .wl-section .wl-chart-key {
+    margin-top: .25rem !important;
   }
 }
