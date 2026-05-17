@@ -55,7 +55,6 @@
       border-radius: 0 !important;
     }
 
-    /* Desktop top navigation alignment */
     .wl-topnav {
       position: sticky !important;
       top: 0 !important;
@@ -96,7 +95,6 @@
       gap: 1rem !important;
     }
 
-    /* Right panel: stop cramped text and make it feel intentional */
     .wl-right {
       width: clamp(18.5rem, 20vw, 23rem) !important;
       padding: clamp(2rem, 2.6vw, 3.25rem) clamp(1.55rem, 2vw, 2.35rem) !important;
@@ -154,9 +152,7 @@
       font-weight: 750 !important;
       vertical-align: baseline !important;
     }
-    .wl-right .accent {
-      color: var(--ed-warn, #F59E0B) !important;
-    }
+    .wl-right .accent { color: var(--ed-warn, #F59E0B) !important; }
     .wl-right button,
     .wl-right .wl-link {
       font-size: 0.72rem !important;
@@ -164,7 +160,6 @@
       line-height: 1.4 !important;
     }
 
-    /* Dashboard meta row: balanced, not floaty */
     .wl-page > .grid.grid-cols-3:first-child {
       width: 100% !important;
       grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) !important;
@@ -180,11 +175,8 @@
       margin: 0 !important;
       text-align: left !important;
     }
-    .wl-page > .grid.grid-cols-3:first-child .wl-hero-meta {
-      text-align: center !important;
-    }
+    .wl-page > .grid.grid-cols-3:first-child .wl-hero-meta { text-align: center !important; }
 
-    /* Metric and section polish */
     .wl-metrics {
       width: 100% !important;
       display: grid !important;
@@ -218,14 +210,8 @@
       margin-top: clamp(5rem, 6vw, 7rem) !important;
       padding-top: 0 !important;
     }
-    .wl-section-head {
-      align-items: end !important;
-      gap: 2rem !important;
-    }
-    .wl-title {
-      letter-spacing: -0.043em !important;
-      line-height: 1.02 !important;
-    }
+    .wl-section-head { align-items: end !important; gap: 2rem !important; }
+    .wl-title { letter-spacing: -0.043em !important; line-height: 1.02 !important; }
 
     @media (min-width: 1280px) {
       .wl-page { padding-inline: clamp(3.5rem, 5vw, 6.5rem) !important; }
@@ -247,35 +233,12 @@
 
     @media (max-width: 900px) {
       .wl-topnav { padding-left: 1rem !important; padding-right: 1rem !important; }
-      .wl-page {
-        padding-inline: clamp(1.25rem, 5vw, 2rem) !important;
-        padding-top: 3.2rem !important;
-      }
-      .wl-page > .grid.grid-cols-3:first-child {
-        display: grid !important;
-        grid-template-columns: 1fr 1fr !important;
-        gap: 1.55rem 1rem !important;
-        margin-bottom: 5.25rem !important;
-      }
-      .wl-page > .grid.grid-cols-3:first-child > :first-child {
-        grid-column: 1 / 2 !important;
-      }
-      .wl-page > .grid.grid-cols-3:first-child > :nth-child(2) {
-        grid-column: 2 / 3 !important;
-        text-align: right !important;
-      }
-      .wl-page > .grid.grid-cols-3:first-child > :last-child {
-        grid-column: 1 / -1 !important;
-        justify-self: stretch !important;
-        display: grid !important;
-        grid-template-columns: 1fr 1fr !important;
-        gap: 0.85rem !important;
-      }
-      .wl-page > .grid.grid-cols-3:first-child .wl-btn {
-        width: 100% !important;
-        min-height: 3.25rem !important;
-        margin: 0 !important;
-      }
+      .wl-page { padding-inline: clamp(1.25rem, 5vw, 2rem) !important; padding-top: 3.2rem !important; }
+      .wl-page > .grid.grid-cols-3:first-child { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 1.55rem 1rem !important; margin-bottom: 5.25rem !important; }
+      .wl-page > .grid.grid-cols-3:first-child > :first-child { grid-column: 1 / 2 !important; }
+      .wl-page > .grid.grid-cols-3:first-child > :nth-child(2) { grid-column: 2 / 3 !important; text-align: right !important; }
+      .wl-page > .grid.grid-cols-3:first-child > :last-child { grid-column: 1 / -1 !important; justify-self: stretch !important; display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 0.85rem !important; }
+      .wl-page > .grid.grid-cols-3:first-child .wl-btn { width: 100% !important; min-height: 3.25rem !important; margin: 0 !important; }
       .wl-hero-title { position: relative !important; isolation: auto !important; font-size: clamp(3rem, 10.6vw, 4.15rem) !important; line-height: 1.08 !important; letter-spacing: -0.035em !important; max-width: none !important; width: 100% !important; margin: 0 0 2.4rem !important; padding-top: 1.7rem !important; }
       .wl-hero-title::before, .wl-hero-title::after { content: none !important; display: none !important; }
       .wl-hero-line { display: block !important; white-space: nowrap !important; }
@@ -283,19 +246,13 @@
       .wl-big-number { font-size: clamp(3.3rem, 15vw, 4.7rem) !important; line-height: 1 !important; letter-spacing: -0.045em !important; margin-top: 0.25rem !important; }
       .wl-unit { font-size: 0.78rem !important; letter-spacing: 0.24em !important; }
       .wl-subtle { font-size: 0.98rem !important; line-height: 1.55 !important; margin-top: 1rem !important; }
-      .wl-metrics {
-        margin-top: 5.4rem !important;
-        grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-        gap: 3rem 1.65rem !important;
-      }
+      .wl-metrics { margin-top: 5.4rem !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 3rem 1.65rem !important; }
       .wl-metric-value { font-size: clamp(2.7rem, 12vw, 3.8rem) !important; }
-
       .wl-menu { overflow-y: auto !important; }
       .wl-menu-list { top: auto !important; transform: none !important; margin-top: 0 !important; left: 1.35rem !important; right: 1.35rem !important; width: auto !important; max-width: none !important; padding-top: calc(env(safe-area-inset-top, 0px) + 178px) !important; padding-bottom: 2.5rem !important; }
       .wl-menu-item { margin: 0 !important; padding: 0.33rem 0 !important; grid-template-columns: 40px minmax(0, 1fr) !important; gap: 0.95rem !important; align-items: baseline !important; }
       .wl-menu-name { font-size: clamp(2.18rem, 8.1vw, 3.05rem) !important; line-height: 1.08 !important; letter-spacing: -0.055em !important; }
       .wl-menu-num { font-size: 0.8rem !important; padding-top: 0.5rem !important; }
-
       .wl-section { overflow: visible !important; }
       .wl-section .wl-section-head { display: block !important; margin-bottom: 1.25rem !important; }
       .wl-section .wl-section-head .wl-title { font-size: clamp(2.05rem, 9vw, 3rem) !important; line-height: 1.03 !important; letter-spacing: -0.055em !important; max-width: 12ch !important; }
@@ -375,7 +332,7 @@ function loadWeightLensAddon(src, id){
 }
 
 (function loadFunctionalAddons(){
-  const version = 'features-9';
+  const version = 'features-10';
   window.addEventListener('load', () => {
     loadWeightLensAddon(`src/functional-goals.js?v=${version}`, 'wl-functional-goals');
     loadWeightLensAddon(`src/functional-measurements.js?v=${version}`, 'wl-functional-measurements');
@@ -385,6 +342,7 @@ function loadWeightLensAddon(src, id){
     loadWeightLensAddon(`src/functional-insights.js?v=${version}`, 'wl-functional-insights');
     loadWeightLensAddon(`src/functional-log-polish.js?v=${version}`, 'wl-functional-log-polish');
     loadWeightLensAddon(`src/right-panel-fix.js?v=${version}`, 'wl-right-panel-fix');
+    loadWeightLensAddon(`src/top-hero-spacing-fix.js?v=${version}`, 'wl-top-hero-spacing-fix');
   });
   setTimeout(() => {
     loadWeightLensAddon(`src/functional-goals.js?v=${version}`, 'wl-functional-goals');
@@ -395,6 +353,7 @@ function loadWeightLensAddon(src, id){
     loadWeightLensAddon(`src/functional-insights.js?v=${version}`, 'wl-functional-insights');
     loadWeightLensAddon(`src/functional-log-polish.js?v=${version}`, 'wl-functional-log-polish');
     loadWeightLensAddon(`src/right-panel-fix.js?v=${version}`, 'wl-right-panel-fix');
+    loadWeightLensAddon(`src/top-hero-spacing-fix.js?v=${version}`, 'wl-top-hero-spacing-fix');
   }, 500);
 })();
 
