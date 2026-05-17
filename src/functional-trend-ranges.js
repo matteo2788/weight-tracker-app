@@ -11,7 +11,7 @@
   const unitOf = state => state?.settings?.unit || 'lbs';
   const shortDate = d => { try { return new Date(d + 'T00:00:00').toLocaleDateString(undefined,{month:'short',day:'numeric'}); } catch(err){ return d || '—'; } };
   const longDate = d => { try { return new Date(d + 'T00:00:00').toLocaleDateString(undefined,{weekday:'short',month:'short',day:'numeric',year:'numeric'}); } catch(err){ return d || '—'; } };
-  const entriesOf = state => [...(state?.entries || [])].sort((a,b)=>String(a.date).localeCompare(String(b.date)));
+  const entriesOf = state => [...(state?.entries || [])].filter(x=>x && x.date && Number.isFinite(Number(x.weight))).sort((a,b)=>String(a.date).localeCompare(String(b.date)));
 
   function rolling(entries){
     return entries.map((row,index)=>{
@@ -69,18 +69,47 @@
   }
 
   function Chart({ data, unit }){
-    if(!R.ResponsiveContainer || data.length < 2) return e('div',{className:'h-72 border-t border-[var(--ed-line)]'});
-    return e('div',{className:'h-[340px] w-full'},
+    const style = { width:'100%', height:'340px', minHeight:'340px', marginTop:'1.6rem', overflow:'visible' };
+    if(!R.ResponsiveContainer || data.length < 2) return e('div',{className:'wl-chart-block wl-chart-empty',style},
+      e('div',{className:'wl-kicker'},'Need more data'),
+      e('p',null,'Log at least two weights to draw your trend graph.')
+    );
+    return e('div',{className:'wl-chart-block',style},
       e(R.ResponsiveContainer,{width:'100%',height:'100%'},
-        e(R.LineChart,{data,margin:{top:20,right:18,left:16,bottom:10}},
+        e(R.LineChart,{data,margin:{top:20,right:18,left:18,bottom:10}},
           e(R.CartesianGrid,{vertical:false,stroke:'rgba(17,17,15,.06)'}),
-          e(R.XAxis,{dataKey:'date',tickFormatter:shortDate,axisLine:false,tickLine:false,tick:{fontSize:11,fill:'#77736B'},interval:'preserveStartEnd'}),
-          e(R.YAxis,{domain:['dataMin - 1','dataMax + 1'],axisLine:false,tickLine:false,tick:{fontSize:11,fill:'#77736B'},tickMargin:10,width:54}),
-          e(R.Tooltip,{content:({active,payload}) => active && payload?.length ? e('div',{className:'rounded-xl border bg-[#F6F4EF] px-3 py-2 text-xs'},`${one(payload[0].payload.weight)} ${unit}`) : null}),
-          e(R.Line,{type:'monotone',dataKey:'weight',stroke:'rgba(95,115,138,.35)',strokeWidth:1.5,dot:{r:2,fill:'#8FA0B7',strokeWidth:0}}),
-          e(R.Line,{type:'monotone',dataKey:'avg7',stroke:'#65A30D',strokeWidth:2.5,dot:false})
+          e(R.XAxis,{dataKey:'date',tickFormatter:shortDate,axisLine:false,tickLine:false,tick:{fontSize:11,fill:'#77736B'},interval:'preserveStartEnd',minTickGap:22}),
+          e(R.YAxis,{domain:['dataMin - 1','dataMax + 1'],axisLine:false,tickLine:false,tick:{fontSize:11,fill:'#77736B'},tickMargin:8,width:52,tickFormatter:v=>Number(v).toFixed(1)}),
+          e(R.Tooltip,{content:({active,payload}) => active && payload?.length ? e('div',{className:'rounded-xl border bg-[#F6F4EF] px-3 py-2 text-xs'},
+            e('div',null,e('b',null,`${one(payload[0].payload.weight)}`),` ${unit}`),
+            e('div',{style:{color:'#65A30D'}},`Trend ${one(payload[0].payload.avg7)} ${unit}`)
+          ) : null}),
+          e(R.Line,{type:'monotone',dataKey:'weight',stroke:'rgba(95,115,138,.35)',strokeWidth:1.5,dot:{r:2.2,fill:'#8FA0B7',strokeWidth:0}}),
+          e(R.Line,{type:'monotone',dataKey:'avg7',stroke:'#65A30D',strokeWidth:2.8,dot:false})
         )
       )
+    );
+  }
+
+  function ChartExplainer(){
+    return e('div',{className:'wl-chart-key', 'data-wl-chart-key':'true'},
+      e('div',{className:'wl-chart-key-items'},
+        e('div',{className:'wl-chart-key-item'},
+          e('span',{className:'wl-chart-dot','aria-hidden':'true'}),
+          e('div',null,
+            e('div',{className:'wl-chart-key-title'},'Daily weigh-ins'),
+            e('div',{className:'wl-chart-key-copy'},'Each dot is one morning. Dots jump around because of water, food, sleep, and stress.')
+          )
+        ),
+        e('div',{className:'wl-chart-key-item'},
+          e('span',{className:'wl-chart-line','aria-hidden':'true'}),
+          e('div',null,
+            e('div',{className:'wl-chart-key-title'},'Green trend line'),
+            e('div',{className:'wl-chart-key-copy'},'This smooths the last 7 days so you can see the real direction.')
+          )
+        )
+      ),
+      e('div',{className:'wl-chart-key-coach'},'Use the green line to judge progress. One dot is just one noisy morning.')
     );
   }
 
@@ -133,7 +162,8 @@
       e('section',{className:'wl-section'},
         e('div',{className:'wl-section-head'},e('div',null,e('div',{className:'wl-kicker'},'The trend'),e('h2',{className:'wl-title'},`You're tracking at ${one(data[data.length-1]?.avg7 ?? s.avg7)} ${s.unit}.`)),e(Tabs,{value:range,onChange:setRange})),
         e(Chart,{data,unit:s.unit}),
-        e('div',{className:'flex justify-between text-xs text-[#77736B] mt-3'},e('span',null,'• Daily'),e('span',null,'— 7-day rolling avg'),e('span',null,`${range}: ${rs.days} entries · ${signed(rs.change)} ${s.unit} change`))
+        e(ChartExplainer,null),
+        e('div',{className:'text-xs text-[#77736B] mt-3'},`${range}: ${rs.days} entries · ${signed(rs.change)} ${s.unit} change`)
       ),
       e('section',{className:'wl-section wl-grid-2'},e('div',null,e('div',{className:'wl-kicker mb-3'},'This week'),e('p',{className:'wl-note'},`Your average is ${s.vsLast >= 0 ? 'up' : 'down'} ${Math.abs(s.vsLast || 0).toFixed(1)} ${s.unit} this week. Keep logging and reassess next week.`)),e(QuickLogLite,null))
     );
@@ -145,18 +175,19 @@
     const s = allStats(state);
     const data = filterRange(s.rolled, range);
     const rs = rangeStats(data);
-    return e('div',{className:'wl-page fadein'},
+    return e('div',{className:'wl-page fadein wl-trends-page-fixed'},
       e('div',{className:'wl-section-head'},
         e('div',null,e('div',{className:'wl-kicker'},'Analysis'),e('h1',{className:'wl-title'},'Long-term trends'),e('p',{className:'mt-4 text-[#686761]'},'Daily weight is noisy. Averages reveal the real direction.')),
         e(Tabs,{value:range,onChange:setRange})
       ),
       e(Chart,{data,unit:s.unit}),
-      e('div',{className:'wl-rule mt-16'},e('div',{className:'wl-kicker mb-3'},'What this range means'),e('p',{className:'text-lg'},`Over this range, your 7-day average moved ${signed(rs.change)} ${s.unit}. Individual days bounce around, but the rolling line shows the direction.`)),
+      e(ChartExplainer,null),
+      e('div',{className:'wl-rule mt-16'},e('div',{className:'wl-kicker mb-3'},'What this range means'),e('p',{className:'text-lg'},`Over this range, your 7-day average moved ${signed(rs.change)} ${s.unit}. Individual days bounce around, but the green line shows the real direction.`)),
       e('div',{className:'wl-metrics'},
-        e('div',{className:'wl-metric'},e('div',{className:'wl-metric-label'},'Range change'),e('div',{className:`wl-metric-value ${rs.change < 0 ? 'good' : 'warn'}`},signed(rs.change))),
-        e('div',{className:'wl-metric'},e('div',{className:'wl-metric-label'},'Highest in range'),e('div',{className:'wl-metric-value'},one(rs.high))),
-        e('div',{className:'wl-metric'},e('div',{className:'wl-metric-label'},'Lowest in range'),e('div',{className:'wl-metric-value'},one(rs.low))),
-        e('div',{className:'wl-metric'},e('div',{className:'wl-metric-label'},'Entries shown'),e('div',{className:'wl-metric-value'},rs.days))
+        e('div',{className:'wl-metric'},e('div',{className:'wl-metric-label'},'Range change'),e('div',{className:`wl-metric-value ${rs.change < 0 ? 'good' : 'warn'}`},signed(rs.change)),e('div',{className:'wl-metric-sub'},s.unit)),
+        e('div',{className:'wl-metric'},e('div',{className:'wl-metric-label'},'Highest in range'),e('div',{className:'wl-metric-value'},one(rs.high)),e('div',{className:'wl-metric-sub'},s.unit)),
+        e('div',{className:'wl-metric'},e('div',{className:'wl-metric-label'},'Lowest in range'),e('div',{className:'wl-metric-value'},one(rs.low)),e('div',{className:'wl-metric-sub'},s.unit)),
+        e('div',{className:'wl-metric'},e('div',{className:'wl-metric-label'},'Entries shown'),e('div',{className:'wl-metric-value'},rs.days),e('div',{className:'wl-metric-sub'},'entries'))
       )
     );
   }
