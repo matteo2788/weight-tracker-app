@@ -7,68 +7,75 @@
           <span class="wl-chart-dot" aria-hidden="true"></span>
           <div>
             <div class="wl-chart-key-title">Daily weigh-ins</div>
-            <div class="wl-chart-key-copy">The small dots can jump around from water, food, sleep, and stress.</div>
+            <div class="wl-chart-key-copy">Each dot is one morning. Dots jump around because of water, food, sleep, and stress.</div>
           </div>
         </div>
         <div class="wl-chart-key-item">
           <span class="wl-chart-line" aria-hidden="true"></span>
           <div>
-            <div class="wl-chart-key-title">7-day trend line</div>
-            <div class="wl-chart-key-copy">The green line smooths the noise and shows your real direction.</div>
+            <div class="wl-chart-key-title">Green trend line</div>
+            <div class="wl-chart-key-copy">This smooths the last 7 days so you can see the real direction.</div>
           </div>
         </div>
       </div>
-      <div class="wl-chart-key-coach">Judge progress by the green line, not one single dot.</div>
+      <div class="wl-chart-key-coach">Use the green line to judge progress. One dot is just one noisy morning.</div>
     </div>
   `;
 
-  function isDashboardTrendSection(section){
-    const text = (section.textContent || '').replace(/\s+/g, ' ').toLowerCase();
-    return text.includes('the trend') && text.includes("you're tracking");
+  function cleanText(el){
+    return (el?.textContent || '').replace(/\s+/g, ' ').trim().toLowerCase();
   }
 
-  function isTrendsPage(page){
-    const text = (page.textContent || '').replace(/\s+/g, ' ').toLowerCase();
-    return text.includes('long-term trends') && text.includes('daily weight is noisy');
+  function isTrendArea(el){
+    const t = cleanText(el);
+    return (t.includes('the trend') && t.includes("you're tracking")) ||
+           (t.includes('long-term trends') && t.includes('daily weight is noisy'));
   }
 
-  function replaceDashboardLegend(){
-    const sections = Array.from(document.querySelectorAll('.wl-section'));
-    sections.forEach(section => {
-      if(!isDashboardTrendSection(section)) return;
-      if(section.querySelector('[data-wl-chart-key="true"]')) return;
+  function findTrendAreas(){
+    const candidates = Array.from(document.querySelectorAll('.wl-section, .wl-page'));
+    return candidates.filter(isTrendArea);
+  }
 
-      const oldLegend = Array.from(section.querySelectorAll('div')).find(el => {
-        const t = (el.textContent || '').replace(/\s+/g, ' ').toLowerCase();
-        return t.includes('daily') && t.includes('7-day') && t.includes('actually happening');
-      });
-
-      if(oldLegend){
-        oldLegend.outerHTML = EXPLAINER_HTML;
-      } else {
-        const chart = section.querySelector('.recharts-responsive-container') || section.querySelector('.recharts-wrapper');
-        if(chart) chart.insertAdjacentHTML('afterend', EXPLAINER_HTML);
-      }
+  function oldLegendNode(area){
+    const nodes = Array.from(area.querySelectorAll('div, p, span'));
+    return nodes.find(el => {
+      if(el.closest('[data-wl-chart-key="true"]')) return false;
+      const t = cleanText(el);
+      return (
+        t.includes('daily') &&
+        t.includes('7-day') &&
+        (t.includes('actually happening') || t.includes('rolling avg') || t.includes('rolling average'))
+      );
     });
   }
 
-  function addTrendsPageLegend(){
-    const pages = Array.from(document.querySelectorAll('.wl-page'));
-    pages.forEach(page => {
-      if(!isTrendsPage(page)) return;
-      if(page.querySelector('[data-wl-chart-key="true"]')) return;
+  function chartNode(area){
+    return area.querySelector('.recharts-responsive-container') || area.querySelector('.recharts-wrapper');
+  }
 
-      const chart = page.querySelector('.recharts-responsive-container') || page.querySelector('.recharts-wrapper');
-      if(chart){
-        const holder = chart.closest('.h-\[340px\], .h-72') || chart.parentElement;
-        if(holder) holder.insertAdjacentHTML('afterend', EXPLAINER_HTML);
-      }
-    });
+  function applyTo(area){
+    if(area.querySelector('[data-wl-chart-key="true"]')) return;
+
+    const oldLegend = oldLegendNode(area);
+    if(oldLegend){
+      oldLegend.outerHTML = EXPLAINER_HTML;
+      return;
+    }
+
+    const chart = chartNode(area);
+    if(chart){
+      const holder = chart.parentElement || chart;
+      holder.insertAdjacentHTML('afterend', EXPLAINER_HTML);
+    }
   }
 
   function apply(){
-    replaceDashboardLegend();
-    addTrendsPageLegend();
+    try {
+      findTrendAreas().forEach(applyTo);
+    } catch (err) {
+      console.warn('WeightLens chart explainer failed:', err);
+    }
   }
 
   let scheduled = false;
@@ -87,8 +94,10 @@
     apply();
   }
   window.addEventListener('load', apply, { once:true });
-  setTimeout(apply, 300);
+  setTimeout(apply, 100);
+  setTimeout(apply, 400);
   setTimeout(apply, 1200);
+  setTimeout(apply, 2500);
 
-  new MutationObserver(schedule).observe(document.body || document.documentElement, { childList:true, subtree:true });
+  new MutationObserver(schedule).observe(document.documentElement, { childList:true, subtree:true });
 })();
