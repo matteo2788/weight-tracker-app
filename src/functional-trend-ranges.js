@@ -24,6 +24,8 @@
     const entries = entriesOf(state);
     const rolled = rolling(entries);
     const latest = entries[entries.length - 1] || null;
+    const todayKey = today();
+    const todayEntry = entries.find(x => x.date === todayKey) || null;
     const avg7 = rolled.length ? rolled[rolled.length - 1].avg7 : null;
     const prev = rolled.length > 7 ? rolled[rolled.length - 8].avg7 : null;
     const weeklyRate = avg7 != null && prev != null ? avg7 - prev : null;
@@ -32,7 +34,7 @@
     const lastAvg = lastWeek.length ? lastWeek.reduce((a,b)=>a+b,0)/lastWeek.length : null;
     const thisAvg = thisWeek.length ? thisWeek.reduce((a,b)=>a+b,0)/thisWeek.length : avg7;
     const vsLast = thisAvg != null && lastAvg != null ? thisAvg - lastAvg : null;
-    return { entries, rolled, latest, avg7, weeklyRate, vsLast, unit:unitOf(state) };
+    return { entries, rolled, latest, todayEntry, todayKey, avg7, weeklyRate, vsLast, unit:unitOf(state) };
   }
 
   function filterRange(rolled, range){
@@ -85,7 +87,7 @@
   function QuickLogLite(){
     const { state, updateState } = useApp();
     const s = allStats(state);
-    const [draft,setDraft] = useState({ date:s.latest?.date || today(), weight:s.latest?.weight || '', tagsText:'', notes:'' });
+    const [draft,setDraft] = useState({ date:s.todayKey, weight:s.todayEntry?.weight || '', tagsText:'', notes:'' });
     function save(){
       const weight = Number(draft.weight);
       if(!draft.date){ alert('Choose a date.'); return; }
@@ -95,12 +97,12 @@
       updateState({ entries:[...without,entry].sort((a,b)=>String(a.date).localeCompare(String(b.date))) });
     }
     return e('div',{className:'wl-rule'},
-      e('div',{className:'flex justify-between mb-5'},e('div',null,e('div',{className:'wl-kicker'},'Quick log'),e('p',{className:'text-sm text-[#686761] mt-2'},'Daily weight fluctuates. The trend matters more than one day.')),e('div',{className:'wl-kicker'},'Editing')),
+      e('div',{className:'flex justify-between mb-5'},e('div',null,e('div',{className:'wl-kicker'},'Quick log'),e('p',{className:'text-sm text-[#686761] mt-2'},'Daily weight fluctuates. The trend matters more than one day.')),e('div',{className:'wl-kicker'},s.todayEntry ? 'Editing today' : 'New today')),
       e('div',{className:'grid grid-cols-2 gap-4'},
         e('div',null,e('div',{className:'wl-kicker mb-2'},'Weight'),e('input',{className:'wl-form-line w-full',inputMode:'decimal',value:draft.weight,onChange:x=>setDraft({...draft,weight:x.target.value})})),
         e('div',null,e('div',{className:'wl-kicker mb-2'},'Date'),e('input',{className:'wl-form-line w-full',type:'date',value:draft.date,onChange:x=>setDraft({...draft,date:x.target.value})}))
       ),
-      e('button',{className:'wl-btn w-full mt-5',onClick:save},'Save entry')
+      e('button',{className:'wl-btn w-full mt-5',onClick:save},s.todayEntry ? 'Update today' : 'Save entry')
     );
   }
 
@@ -110,17 +112,18 @@
     const s = allStats(state);
     const data = filterRange(s.rolled, range);
     const rs = rangeStats(data);
-    const lastDate = s.latest?.date || today();
+    const displayWeight = s.todayEntry?.weight;
+    const hasTodayWeight = Number.isFinite(Number(displayWeight));
     return e('div',{className:'wl-page fadein'},
       e('div',{className:'grid grid-cols-3 items-start gap-4'},
         e('div',{className:'wl-kicker'},'Good morning, Matteo'),
-        e('div',{className:'wl-hero-meta'},longDate(lastDate)),
+        e('div',{className:'wl-hero-meta'},longDate(s.todayKey)),
         e('div',{className:'text-right'},e('button',{className:'wl-btn light',onClick:()=>setRoute('backfill')},'Backfill'),' ',e('button',{className:'wl-btn ml-2',onClick:()=>setRoute('log')},'+ Log entry'))
       ),
       e('h1',{className:'wl-hero-title'},story(s)),
-      e('div',{className:'wl-hero-meta'},`Today · ${shortDate(lastDate)}`),
-      e('div',{className:'wl-big-number mt-3'},one(s.latest?.weight),e('span',{className:'wl-unit'},s.unit)),
-      e('div',{className:'wl-subtle mt-4'},`7-day average · ${one(s.avg7)} ${s.unit} · `,e('span',{className:s.weeklyRate < 0 ? 'text-[var(--ed-good)]' : 'text-[var(--ed-warn)]'},`${signed(s.weeklyRate)} trend`)),
+      e('div',{className:'wl-hero-meta'},`Today · ${shortDate(s.todayKey)}`),
+      e('div',{className:'wl-big-number mt-3'},hasTodayWeight ? one(displayWeight) : '—',e('span',{className:'wl-unit'},hasTodayWeight ? s.unit : 'not logged')),
+      e('div',{className:'wl-subtle mt-4'},hasTodayWeight ? `Today's weight · 7-day average ${one(s.avg7)} ${s.unit} · ` : `No weight logged today yet · latest 7-day average ${one(s.avg7)} ${s.unit} · `,e('span',{className:s.weeklyRate < 0 ? 'text-[var(--ed-good)]' : 'text-[var(--ed-warn)]'},`${signed(s.weeklyRate)} trend`)),
       e('div',{className:'wl-metrics'},
         e('div',{className:'wl-metric'},e('div',{className:'wl-metric-label'},'Weekly rate'),e('div',{className:`wl-metric-value ${s.weeklyRate < 0 ? 'good' : 'warn'}`},signed(s.weeklyRate)),e('div',{className:'wl-metric-sub'},`${s.unit}/wk`)),
         e('div',{className:'wl-metric'},e('div',{className:'wl-metric-label'},'Vs last week'),e('div',{className:'wl-metric-value warn'},signed(s.vsLast)),e('div',{className:'wl-metric-sub'},s.unit)),
