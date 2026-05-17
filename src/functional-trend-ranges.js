@@ -68,19 +68,15 @@
     return e('div',{className:'wl-tabs'}, Ranges.map(([label]) => e('button',{key:label,className:value===label?'active':'',onClick:()=>onChange(label)},label)));
   }
 
-  function HeroSummary({ hasTodayWeight, displayWeight, avg7, weeklyRate, unit }){
+  function HeroSummary({ hasTodayWeight, displayWeight, avg7, unit }){
     return e('div',{className:'wl-hero-summary'},
       e('div',{className:'wl-hero-summary-item'},
-        e('div',{className:'wl-hero-summary-label'},hasTodayWeight ? 'Today' : 'Today'),
+        e('div',{className:'wl-hero-summary-label'},'Today'),
         e('div',{className:'wl-hero-summary-value'},hasTodayWeight ? `${one(displayWeight)} ${unit}` : 'Not logged')
       ),
       e('div',{className:'wl-hero-summary-item'},
         e('div',{className:'wl-hero-summary-label'},'7-day average'),
         e('div',{className:'wl-hero-summary-value'},`${one(avg7)} ${unit}`)
-      ),
-      e('div',{className:'wl-hero-summary-item'},
-        e('div',{className:'wl-hero-summary-label'},'Trend pace'),
-        e('div',{className:`wl-hero-summary-value ${weeklyRate < 0 ? 'good' : weeklyRate > 0 ? 'warn' : ''}`},`${signed(weeklyRate)} ${unit}/wk`)
       )
     );
   }
@@ -169,7 +165,7 @@
       e('h1',{className:'wl-hero-title'},story(s)),
       e('div',{className:'wl-hero-meta'},`Today · ${shortDate(s.todayKey)}`),
       e('div',{className:'wl-big-number mt-3'},hasTodayWeight ? one(displayWeight) : '—',e('span',{className:'wl-unit'},hasTodayWeight ? s.unit : 'not logged')),
-      e(HeroSummary,{hasTodayWeight,displayWeight,avg7:s.avg7,weeklyRate:s.weeklyRate,unit:s.unit}),
+      e(HeroSummary,{hasTodayWeight,displayWeight,avg7:s.avg7,unit:s.unit}),
       e('div',{className:'wl-metrics'},
         e('div',{className:'wl-metric'},e('div',{className:'wl-metric-label'},'Weekly rate'),e('div',{className:`wl-metric-value ${s.weeklyRate < 0 ? 'good' : 'warn'}`},signed(s.weeklyRate)),e('div',{className:'wl-metric-sub'},`${s.unit}/wk`)),
         e('div',{className:'wl-metric'},e('div',{className:'wl-metric-label'},'Vs last week'),e('div',{className:'wl-metric-value warn'},signed(s.vsLast)),e('div',{className:'wl-metric-sub'},s.unit)),
