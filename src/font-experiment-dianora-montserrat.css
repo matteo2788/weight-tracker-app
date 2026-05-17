@@ -1,26 +1,8 @@
-@font-face {
-  font-family: 'Dianora';
-  src: url('/fonts/Dianora-Regular.woff2') format('woff2'),
-       url('/fonts/Dianora.otf') format('opentype'),
-       url('/Dianora.otf') format('opentype'),
-       url('/fonts/Dianora.ttf') format('truetype'),
-       url('/Dianora.ttf') format('truetype');
-  font-weight: 400 900;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Dianora';
-  src: url('/fonts/Dianora-Italic.woff2') format('woff2');
-  font-weight: 400 900;
-  font-style: italic;
-  font-display: swap;
-}
+/* font-experiment-dianora-montserrat.css — typography layer now using Lora + Open Sans */
 
 :root {
-  --wl-font-body: 'Montserrat', 'Geist', 'Inter', ui-sans-serif, system-ui, sans-serif;
-  --wl-font-display: 'Dianora', 'Montserrat', 'Geist', ui-sans-serif, system-ui, sans-serif;
+  --wl-font-body: 'Open Sans', 'Geist', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --wl-font-display: 'Lora', Georgia, 'Times New Roman', serif;
   --wl-font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
@@ -34,47 +16,51 @@ textarea {
 }
 
 body {
-  font-weight: 500 !important;
-  letter-spacing: -0.012em !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.006em !important;
 }
 
-.wl-logo,
-.wl-now b,
+/* Display moments: Lora gives the app a calmer editorial feel */
 .wl-hero-title,
-.wl-big-number,
 .wl-title,
 .wl-note,
-.wl-metric-value,
 .wl-menu-name,
-.wl-row-title,
-.wl-log-card-title,
+.wl-log-card-title {
+  font-family: var(--wl-font-display) !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.045em !important;
+}
+
+/* Keep key numbers sans-serif so the dashboard still feels modern and usable */
+.wl-big-number,
+.wl-metric-value,
 .wl-log-context-main,
 .wl-right .big {
-  font-family: var(--wl-font-display) !important;
+  font-family: var(--wl-font-body) !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.055em !important;
+}
+
+/* Brand/UI stays clean and minimal */
+.wl-logo,
+.wl-now b,
+.wl-row-title {
+  font-family: var(--wl-font-body) !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.035em !important;
 }
 
 .wl-hero-title {
-  font-style: normal !important;
-  font-weight: 800 !important;
-  letter-spacing: -0.038em !important;
+  line-height: 0.98 !important;
 }
 
 .wl-title,
 .wl-note,
 .wl-menu-name {
-  font-style: normal !important;
-  font-weight: 800 !important;
-  letter-spacing: -0.04em !important;
+  line-height: 1.02 !important;
 }
 
-.wl-big-number,
-.wl-metric-value,
-.wl-log-context-main {
-  font-style: normal !important;
-  font-weight: 850 !important;
-  letter-spacing: -0.048em !important;
-}
-
+/* Small labels and controls: Open Sans for clarity */
 .wl-kicker,
 .wl-hero-meta,
 .wl-metric-label,
@@ -85,10 +71,11 @@ body {
 .wl-pill,
 .wl-log-pill {
   font-family: var(--wl-font-body) !important;
-  font-weight: 800 !important;
+  font-weight: 700 !important;
   letter-spacing: 0.26em !important;
 }
 
+/* Reading text: Open Sans, lighter and calmer */
 .wl-subtle,
 .wl-page p,
 .wl-metric-sub,
@@ -98,8 +85,8 @@ body {
 .wl-right p,
 .wl-chart-key-coach {
   font-family: var(--wl-font-body) !important;
-  font-weight: 500 !important;
-  letter-spacing: -0.018em !important;
+  font-weight: 400 !important;
+  letter-spacing: -0.01em !important;
 }
 
 .wl-btn {
@@ -116,18 +103,19 @@ body {
 
 @media (max-width: 900px) {
   .wl-hero-title {
-    letter-spacing: -0.032em !important;
+    letter-spacing: -0.038em !important;
+    line-height: 1.02 !important;
   }
 
   .wl-title,
   .wl-note,
   .wl-menu-name {
-    letter-spacing: -0.036em !important;
+    letter-spacing: -0.038em !important;
   }
 
   .wl-subtle,
   .wl-page p,
   .wl-chart-key-copy {
-    line-height: 1.55 !important;
+    line-height: 1.58 !important;
   }
 }
