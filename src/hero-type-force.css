@@ -6,6 +6,7 @@ body h1.wl-hero-title,
 #root .wl-hero-title {
   font-family: 'Fraunces', Georgia, ui-serif, serif !important;
   font-style: italic !important;
+  font-synthesis-style: auto !important;
   font-weight: 650 !important;
   font-variation-settings: 'SOFT' 88, 'opsz' 96 !important;
   font-size: clamp(4.8rem, 6.7vw, 8.6rem) !important;
@@ -19,6 +20,10 @@ body h1.wl-hero-title,
   white-space: normal !important;
   overflow-wrap: normal !important;
   word-break: normal !important;
+  transform: skewX(-5deg) !important;
+  transform-origin: left center !important;
+  padding-right: .18em !important;
+  box-sizing: border-box !important;
 }
 
 body .wl-page .wl-big-number,
@@ -28,6 +33,7 @@ body .wl-page .wl-big-number *,
   font-family: 'Geist Mono', ui-monospace, monospace !important;
   font-style: normal !important;
   font-variation-settings: normal !important;
+  transform: none !important;
 }
 
 body .wl-page .wl-big-number,
@@ -63,6 +69,8 @@ body .wl-page .wl-big-number .wl-unit,
     white-space: normal !important;
     text-wrap: balance !important;
     overflow: visible !important;
+    transform: skewX(-5deg) !important;
+    padding-right: .24em !important;
   }
 
   body .wl-page .wl-big-number,
@@ -82,6 +90,8 @@ body .wl-page .wl-big-number .wl-unit,
     margin-top: .25rem !important;
     width: min(100%, calc(100vw - 3.2rem)) !important;
     max-width: 9ch !important;
+    transform: skewX(-5deg) !important;
+    padding-right: .25em !important;
   }
 
   body .wl-page .wl-big-number,
@@ -98,6 +108,7 @@ body .wl-page .wl-big-number .wl-unit,
     letter-spacing: -0.028em !important;
     line-height: .98 !important;
     max-width: 8.8ch !important;
+    transform: skewX(-4deg) !important;
   }
 
   body .wl-page .wl-big-number,
