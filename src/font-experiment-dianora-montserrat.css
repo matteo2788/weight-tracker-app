@@ -25,6 +25,43 @@ body {
   letter-spacing: -0.01em !important;
 }
 
+/* Force the dashboard hero to center as one visual unit */
+.wl-page > .grid.grid-cols-3:first-child,
+.wl-page > h1.wl-hero-title,
+.wl-page > .wl-hero-meta,
+.wl-page > .wl-big-number,
+.wl-page > .wl-hero-summary {
+  width: min(100%, 980px) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.wl-page > .grid.grid-cols-3:first-child {
+  display: grid !important;
+  grid-template-columns: 1fr auto 1fr !important;
+  align-items: start !important;
+  column-gap: 2rem !important;
+}
+
+.wl-page > .grid.grid-cols-3:first-child > :first-child {
+  text-align: left !important;
+}
+
+.wl-page > .grid.grid-cols-3:first-child > :nth-child(2) {
+  text-align: center !important;
+}
+
+.wl-page > .grid.grid-cols-3:first-child > :last-child {
+  text-align: right !important;
+}
+
+.wl-page > h1.wl-hero-title,
+.wl-page > .wl-hero-meta,
+.wl-page > .wl-big-number {
+  display: block !important;
+  text-align: center !important;
+}
+
 /* Fraunces italic editorial text */
 .wl-logo,
 .wl-now b,
@@ -86,13 +123,15 @@ body {
 
 /* Clear hero stat strip */
 .wl-hero-summary {
-  display: inline-grid !important;
-  grid-template-columns: repeat(3, auto) !important;
+  display: grid !important;
+  grid-template-columns: repeat(2, max-content) !important;
   align-items: end !important;
   justify-content: center !important;
-  gap: 1.05rem !important;
+  gap: 1.4rem !important;
+  width: max-content !important;
+  max-width: min(100%, 420px) !important;
   margin: 1.15rem auto 0 !important;
-  padding: .85rem 1rem !important;
+  padding: .8rem 1rem !important;
   border-top: 1px solid rgba(17,17,15,.10) !important;
   border-bottom: 1px solid rgba(17,17,15,.08) !important;
   color: rgba(17,17,15,.72) !important;
@@ -101,7 +140,7 @@ body {
 .wl-hero-summary-item {
   display: grid !important;
   gap: .28rem !important;
-  min-width: 7.2rem !important;
+  min-width: 7rem !important;
   text-align: left !important;
 }
 
@@ -200,6 +239,29 @@ button {
 }
 
 @media (max-width: 900px) {
+  .wl-page > .grid.grid-cols-3:first-child,
+  .wl-page > h1.wl-hero-title,
+  .wl-page > .wl-hero-meta,
+  .wl-page > .wl-big-number,
+  .wl-page > .wl-hero-summary {
+    width: 100% !important;
+  }
+
+  .wl-page > .grid.grid-cols-3:first-child {
+    grid-template-columns: 1fr 1fr !important;
+    row-gap: 1.3rem !important;
+  }
+
+  .wl-page > .grid.grid-cols-3:first-child > :first-child,
+  .wl-page > .grid.grid-cols-3:first-child > :nth-child(2) {
+    text-align: left !important;
+  }
+
+  .wl-page > .grid.grid-cols-3:first-child > :last-child {
+    grid-column: 1 / -1 !important;
+    text-align: left !important;
+  }
+
   .wl-hero-title {
     font-size: clamp(3.4rem, 12vw, 5rem) !important;
     line-height: 1 !important;
@@ -214,8 +276,9 @@ button {
 
   .wl-hero-summary {
     display: grid !important;
-    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-    width: 100% !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    width: min(100%, 360px) !important;
+    max-width: 360px !important;
     gap: .75rem !important;
     padding: .85rem 0 !important;
     margin-top: 1.05rem !important;
