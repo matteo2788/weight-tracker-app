@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,50..100;1,9..144,300..700,50..100&family=Geist+Mono:wght@300;400;500;600&display=swap');
+
+/* Loaded last on purpose. This forces the mobile hero style after every other file. */
+body .wl-page h1.wl-hero-title,
+body h1.wl-hero-title,
+#root .wl-hero-title {
+  font-family: 'Fraunces', Georgia, ui-serif, serif !important;
+  font-style: italic !important;
+  font-weight: 700 !important;
+  font-variation-settings: 'SOFT' 90, 'opsz' 120 !important;
+  font-size: clamp(7rem, 10vw, 13.5rem) !important;
+  line-height: .84 !important;
+  letter-spacing: -0.07em !important;
+  margin-top: clamp(.5rem, 1.4vw, 1.6rem) !important;
+  margin-bottom: 1.15rem !important;
+}
+
+body .wl-page .wl-big-number,
+body .wl-page .wl-big-number *,
+#root .wl-big-number,
+#root .wl-big-number * {
+  font-family: 'Geist Mono', ui-monospace, monospace !important;
+  font-style: normal !important;
+  font-variation-settings: normal !important;
+}
+
+body .wl-page .wl-big-number,
+#root .wl-big-number {
+  font-size: clamp(3.2rem, 4.7vw, 5.8rem) !important;
+  line-height: .9 !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.06em !important;
+  margin-top: .3rem !important;
+}
+
+body .wl-page .wl-big-number .wl-unit,
+#root .wl-big-number .wl-unit {
+  font-size: .14em !important;
+  letter-spacing: .22em !important;
+  font-weight: 500 !important;
+  font-style: normal !important;
+}
+
+@media (max-width: 900px) {
+  body .wl-page h1.wl-hero-title,
+  body h1.wl-hero-title,
+  #root .wl-hero-title {
+    font-size: clamp(5.9rem, 22vw, 8.8rem) !important;
+    line-height: .84 !important;
+    margin-top: .35rem !important;
+    margin-bottom: 1rem !important;
+    max-width: 10.25ch !important;
+  }
+
+  body .wl-page .wl-big-number,
+  #root .wl-big-number {
+    font-size: clamp(2.85rem, 11vw, 4.15rem) !important;
+    margin-top: .15rem !important;
+  }
+}
+
+@media (max-width: 430px) {
+  body .wl-page h1.wl-hero-title,
+  body h1.wl-hero-title,
+  #root .wl-hero-title {
+    font-size: clamp(5.25rem, 21vw, 7.35rem) !important;
+    line-height: .84 !important;
+    margin-top: .2rem !important;
+    max-width: 10.15ch !important;
+  }
+
+  body .wl-page .wl-big-number,
+  #root .wl-big-number {
+    font-size: clamp(2.75rem, 10.8vw, 3.85rem) !important;
+  }
+}
