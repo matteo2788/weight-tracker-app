@@ -1,0 +1,111 @@
+/* font-experiment-dianora-montserrat.css — typography trial layer */
+:root {
+  --wl-font-body: 'Montserrat', 'Geist', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --wl-font-display: 'Dianora', 'Montserrat', 'Geist', ui-sans-serif, system-ui, sans-serif;
+  --wl-font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+html,
+body,
+button,
+input,
+select,
+textarea {
+  font-family: var(--wl-font-body) !important;
+}
+
+body {
+  font-weight: 500 !important;
+  letter-spacing: -0.012em !important;
+}
+
+.wl-logo,
+.wl-now b,
+.wl-hero-title,
+.wl-big-number,
+.wl-title,
+.wl-note,
+.wl-metric-value,
+.wl-menu-name,
+.wl-row-title,
+.wl-log-card-title,
+.wl-log-context-main,
+.wl-chart-key-coach,
+.wl-right .big {
+  font-family: var(--wl-font-display) !important;
+}
+
+.wl-hero-title {
+  font-weight: 900 !important;
+  letter-spacing: -0.045em !important;
+}
+
+.wl-title,
+.wl-note,
+.wl-menu-name {
+  font-weight: 900 !important;
+  letter-spacing: -0.046em !important;
+}
+
+.wl-big-number,
+.wl-metric-value,
+.wl-log-context-main {
+  font-weight: 900 !important;
+  letter-spacing: -0.052em !important;
+}
+
+.wl-kicker,
+.wl-hero-meta,
+.wl-metric-label,
+.wl-tabs button,
+.wl-link,
+.wl-chart-key-title,
+.wl-log-status,
+.wl-pill,
+.wl-log-pill {
+  font-family: var(--wl-font-body) !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.26em !important;
+}
+
+.wl-subtle,
+.wl-page p,
+.wl-metric-sub,
+.wl-row-sub,
+.wl-chart-key-copy,
+.wl-log-context-sub,
+.wl-right p {
+  font-family: var(--wl-font-body) !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.018em !important;
+}
+
+.wl-btn {
+  font-family: var(--wl-font-body) !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.02em !important;
+}
+
+.recharts-cartesian-axis-tick text,
+.wl-row-index,
+.wl-menu-num {
+  font-family: var(--wl-font-mono) !important;
+}
+
+@media (max-width: 900px) {
+  .wl-hero-title {
+    letter-spacing: -0.04em !important;
+  }
+
+  .wl-title,
+  .wl-note,
+  .wl-menu-name {
+    letter-spacing: -0.042em !important;
+  }
+
+  .wl-subtle,
+  .wl-page p,
+  .wl-chart-key-copy {
+    line-height: 1.55 !important;
+  }
+}
