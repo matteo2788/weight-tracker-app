@@ -1,0 +1,65 @@
+/* trends-page-fix.css — keep Trends graph visible and readable */
+.wl-trends-page-fixed .wl-section-head {
+  margin-bottom: 2.1rem !important;
+}
+
+.wl-trends-chart-lock {
+  width: 100% !important;
+  height: 360px !important;
+  min-height: 360px !important;
+  margin-top: 1.7rem !important;
+  overflow: visible !important;
+}
+
+.wl-trends-chart-empty {
+  height: 260px !important;
+  border-top: 1px solid rgba(17,17,15,.10) !important;
+  border-bottom: 1px solid rgba(17,17,15,.08) !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  color: rgba(17,17,15,.58) !important;
+}
+
+.wl-trends-chart-empty p {
+  margin-top: .65rem !important;
+}
+
+.wl-trends-page-fixed .wl-chart-key {
+  margin-top: 1.35rem !important;
+}
+
+.wl-trends-range-copy {
+  margin-top: 3.5rem !important;
+}
+
+@media (max-width: 900px) {
+  .wl-trends-page-fixed .wl-section-head {
+    margin-bottom: 1.6rem !important;
+  }
+
+  .wl-trends-page-fixed .wl-tabs {
+    margin-top: 1.6rem !important;
+  }
+
+  .wl-trends-chart-lock {
+    height: 300px !important;
+    min-height: 300px !important;
+    margin-top: 1.25rem !important;
+  }
+
+  .wl-trends-page-fixed .wl-chart-key {
+    margin-top: 1.5rem !important;
+  }
+
+  .wl-trends-range-copy {
+    margin-top: 3rem !important;
+  }
+}
+
+@media (max-width: 430px) {
+  .wl-trends-chart-lock {
+    height: 285px !important;
+    min-height: 285px !important;
+  }
+}
