@@ -22,7 +22,7 @@
   .min-h-screen.flex.bg-bg.text-fg main {
     width: 100% !important;
     max-width: 100% !important;
-    padding: 34px 0 78px !important;
+    padding: 0 0 78px !important;
     overflow: hidden !important;
   }
 
@@ -68,14 +68,16 @@
     width: 100% !important;
     max-width: 100% !important;
     margin: 0 !important;
+    padding-top: 0 !important;
   }
 
   .wl-page > .grid.grid-cols-3 {
     display: grid !important;
     grid-template-columns: 1fr 1fr !important;
-    gap: 22px 16px !important;
+    gap: 18px 16px !important;
     align-items: start !important;
-    margin-top: 28px !important;
+    margin-top: 0 !important;
+    padding-top: 14px !important;
   }
 
   .wl-page > .grid.grid-cols-3 > :first-child,
@@ -110,7 +112,7 @@
   .wl-hero-title {
     position: relative !important;
     isolation: auto !important;
-    margin: 88px 0 38px !important;
+    margin: 54px 0 38px !important;
     max-width: 11.4ch !important;
     text-align: left !important;
     font-size: 52px !important;
@@ -334,9 +336,10 @@
 
 @media (max-width: 430px) {
   .min-h-screen.flex.bg-bg.text-fg > .flex-1.min-w-0.flex.flex-col > .flex-1.min-w-0.flex { padding: 0 20px !important; }
-  .wl-hero-title { font-size: 48px !important; max-width: 11.2ch !important; line-height: 1.02 !important; margin-top: 88px !important; letter-spacing: -0.04em !important; }
+  .wl-hero-title { font-size: 48px !important; max-width: 11.2ch !important; line-height: 1.02 !important; margin-top: 54px !important; letter-spacing: -0.04em !important; }
   .wl-hero-title::before, .wl-hero-title::after { content: none !important; display: none !important; }
   .wl-big-number { font-size: 44px !important; }
+  .wl-page > .grid.grid-cols-3 { margin-top: 0 !important; padding-top: 10px !important; gap: 16px 14px !important; }
   .wl-page > .grid.grid-cols-3 button { height: 50px !important; min-height: 50px !important; font-size: 15px !important; }
   .wl-metric-value { font-size: 36px !important; }
   .wl-metric-sub { font-size: 13px !important; }
@@ -347,10 +350,33 @@
 }
 
 @media (max-width: 380px) {
-  .wl-hero-title { font-size: 42px !important; }
+  .min-h-screen.flex.bg-bg.text-fg main { padding-top: 0 !important; }
+  .wl-page > .grid.grid-cols-3 { padding-top: 6px !important; }
+  .wl-hero-title { font-size: 42px !important; margin-top: 44px !important; }
   .wl-big-number { font-size: 40px !important; }
   .wl-logo { font-size: 18px !important; }
   .wl-link { font-size: 10px !important; letter-spacing: 0.19em !important; }
   .wl-menu-lines i { width: 27px !important; }
   .wl-menu-name { font-size: 28px !important; }
+}
+
+/* Final mobile dashboard gap override — keep the first row close to the nav */
+@media (max-width: 900px) {
+  .min-h-screen.flex.bg-bg.text-fg main {
+    padding-top: 0 !important;
+  }
+
+  .wl-page {
+    padding-top: 0 !important;
+  }
+
+  .wl-page > .grid.grid-cols-3:first-child,
+  .wl-page > .grid.grid-cols-3 {
+    margin-top: 0 !important;
+    padding-top: 10px !important;
+  }
+
+  .wl-hero-title {
+    margin-top: 52px !important;
+  }
 }
