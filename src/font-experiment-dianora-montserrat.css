@@ -1,13 +1,11 @@
-/* Typography system — Fraunces + Geist Mono only
-   Fraunces: wordmark + route/page/editorial labels.
-   Geist Mono: TREND, NOW VIEWING, + LOG ENTRY, kickers, UI, data, numbers.
-   No chunky Satoshi/Inter-style bolds.
+/* font-experiment-dianora-montserrat.css — clean modern font system
+   Montserrat = body/UI + display.
+   Dianora removed from active stack because it caused italic/cursive misalignment on mobile.
 */
 
 :root {
-  --wl-font-display: 'Fraunces', Georgia, serif;
-  --wl-font-ui: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-  --wl-font-body: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --wl-font-body: 'Montserrat', 'Geist', 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --wl-font-display: 'Montserrat', 'Geist', 'Inter', ui-sans-serif, system-ui, sans-serif;
   --wl-font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
@@ -17,174 +15,73 @@ button,
 input,
 select,
 textarea {
-  font-family: var(--wl-font-ui) !important;
+  font-family: var(--wl-font-body) !important;
+  font-style: normal !important;
 }
 
 body {
-  font-weight: 400 !important;
-  letter-spacing: -0.01em !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.012em !important;
 }
 
-/* Force the dashboard hero to center as one visual unit */
-.wl-page > .grid.grid-cols-3:first-child,
-.wl-page > h1.wl-hero-title,
-.wl-page > .wl-hero-meta,
-.wl-page > .wl-big-number,
-.wl-page > .wl-hero-summary {
-  width: min(100%, 980px) !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
-}
-
-.wl-page > .grid.grid-cols-3:first-child {
-  display: grid !important;
-  grid-template-columns: 1fr auto 1fr !important;
-  align-items: start !important;
-  column-gap: 2rem !important;
-}
-
-.wl-page > .grid.grid-cols-3:first-child > :first-child {
-  text-align: left !important;
-}
-
-.wl-page > .grid.grid-cols-3:first-child > :nth-child(2) {
-  text-align: center !important;
-}
-
-.wl-page > .grid.grid-cols-3:first-child > :last-child {
-  text-align: right !important;
-}
-
-.wl-page > h1.wl-hero-title,
-.wl-page > .wl-hero-meta,
-.wl-page > .wl-big-number {
-  display: block !important;
-  text-align: center !important;
-}
-
-/* Fraunces italic editorial text */
+/* Clean display stack */
 .wl-logo,
 .wl-now b,
+.wl-hero-title,
+.wl-big-number,
 .wl-title,
-.wl-log-card-title {
+.wl-note,
+.wl-metric-value,
+.wl-menu-name,
+.wl-row-title,
+.wl-log-card-title,
+.wl-log-context-main,
+.wl-chart-key-coach,
+.wl-right .big {
   font-family: var(--wl-font-display) !important;
-  font-style: italic !important;
-  font-weight: 450 !important;
-  font-variation-settings: 'SOFT' 85, 'opsz' 72 !important;
-  letter-spacing: -0.045em !important;
-  line-height: 1.02 !important;
+  font-style: normal !important;
 }
 
 .wl-logo {
-  font-size: clamp(1.2rem, 1.45vw, 1.75rem) !important;
-  font-weight: 420 !important;
-  letter-spacing: -0.055em !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.06em !important;
   text-transform: none !important;
 }
 
-.wl-now b {
-  font-size: 1.05rem !important;
-  font-weight: 420 !important;
-  letter-spacing: -0.035em !important;
+.wl-logo span {
+  font-family: var(--wl-font-body) !important;
+  font-weight: 800 !important;
+  letter-spacing: .30em !important;
+  text-transform: uppercase !important;
 }
 
-/* Hero headline can stay editorial but NOT block-bold */
 .wl-hero-title {
-  font-family: var(--wl-font-display) !important;
-  font-style: italic !important;
-  font-weight: 450 !important;
-  font-variation-settings: 'SOFT' 90, 'opsz' 110 !important;
-  letter-spacing: -0.065em !important;
-  line-height: .98 !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.055em !important;
+  line-height: .96 !important;
+  text-align: center !important;
+  font-style: normal !important;
 }
 
-/* All numbers/data: Geist Mono, lighter weights */
+.wl-title,
+.wl-note,
+.wl-menu-name {
+  font-weight: 900 !important;
+  letter-spacing: -0.052em !important;
+  line-height: .98 !important;
+  font-style: normal !important;
+}
+
 .wl-big-number,
 .wl-metric-value,
-.wl-log-context-main,
-.wl-right .big {
-  font-family: var(--wl-font-ui) !important;
-  font-style: normal !important;
-  font-weight: 500 !important;
-  letter-spacing: -0.07em !important;
-  line-height: .96 !important;
-}
-
-.wl-big-number {
-  font-weight: 500 !important;
-  letter-spacing: -0.085em !important;
-}
-
-.wl-metric-value,
 .wl-log-context-main {
-  font-weight: 500 !important;
-  letter-spacing: -0.075em !important;
-}
-
-/* Clear hero stat strip */
-.wl-hero-summary {
-  display: grid !important;
-  grid-template-columns: repeat(2, max-content) !important;
-  align-items: end !important;
-  justify-content: center !important;
-  gap: 1.4rem !important;
-  width: max-content !important;
-  max-width: min(100%, 420px) !important;
-  margin: 1.15rem auto 0 !important;
-  padding: .8rem 1rem !important;
-  border-top: 1px solid rgba(17,17,15,.10) !important;
-  border-bottom: 1px solid rgba(17,17,15,.08) !important;
-  color: rgba(17,17,15,.72) !important;
-}
-
-.wl-hero-summary-item {
-  display: grid !important;
-  gap: .28rem !important;
-  min-width: 7rem !important;
-  text-align: left !important;
-}
-
-.wl-hero-summary-label {
-  font-family: var(--wl-font-ui) !important;
-  font-size: .56rem !important;
-  line-height: 1 !important;
-  font-weight: 400 !important;
-  letter-spacing: .32em !important;
-  text-transform: uppercase !important;
-  color: rgba(17,17,15,.42) !important;
-  white-space: nowrap !important;
-}
-
-.wl-hero-summary-value {
-  font-family: var(--wl-font-ui) !important;
-  font-size: .95rem !important;
-  line-height: 1.1 !important;
-  font-weight: 400 !important;
-  letter-spacing: -.04em !important;
-  color: rgba(17,17,15,.78) !important;
-  white-space: nowrap !important;
-}
-
-.wl-hero-summary-value.good { color: #159947 !important; }
-.wl-hero-summary-value.warn { color: #E99A00 !important; }
-
-/* Menu / notes / rows should not be chunky */
-.wl-note,
-.wl-menu-name,
-.wl-row-title {
-  font-family: var(--wl-font-ui) !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.06em !important;
+  line-height: .94 !important;
   font-style: normal !important;
-  font-weight: 500 !important;
-  letter-spacing: -0.045em !important;
-  line-height: 1.1 !important;
 }
 
-.wl-row-title {
-  font-weight: 500 !important;
-  letter-spacing: -0.025em !important;
-}
-
-/* Small kickers: exact Geist Mono spaced uppercase feel */
+/* Small labels should be quiet, not typewriter-heavy */
 .wl-kicker,
 .wl-hero-meta,
 .wl-metric-label,
@@ -194,16 +91,15 @@ body {
 .wl-log-status,
 .wl-pill,
 .wl-log-pill,
-.wl-now span,
-.wl-logo + span {
-  font-family: var(--wl-font-ui) !important;
+.wl-now span {
+  font-family: var(--wl-font-body) !important;
   font-style: normal !important;
-  font-weight: 400 !important;
-  letter-spacing: .34em !important;
+  font-weight: 800 !important;
+  letter-spacing: .26em !important;
   text-transform: uppercase !important;
 }
 
-/* Body/UI copy: Geist Mono regular */
+/* Body copy */
 .wl-subtle,
 .wl-page p,
 .wl-metric-sub,
@@ -211,97 +107,136 @@ body {
 .wl-chart-key-copy,
 .wl-log-context-sub,
 .wl-right p,
-.wl-chart-key-coach,
 .wl-btn,
 button,
 input,
 textarea,
 select {
-  font-family: var(--wl-font-ui) !important;
+  font-family: var(--wl-font-body) !important;
   font-style: normal !important;
-  font-weight: 400 !important;
-  letter-spacing: -0.015em !important;
-  line-height: 1.55 !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.018em !important;
+  line-height: 1.48 !important;
 }
 
 .wl-btn,
 button {
-  font-weight: 500 !important;
-  letter-spacing: .08em !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.02em !important;
 }
 
 .recharts-cartesian-axis-tick text,
 .wl-row-index,
 .wl-menu-num {
-  font-family: var(--wl-font-ui) !important;
+  font-family: var(--wl-font-mono) !important;
   font-weight: 400 !important;
-  letter-spacing: .02em !important;
 }
 
+/* Fix hero summary if it exists */
+.wl-hero-summary {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 1.4rem !important;
+  width: min(100%, 460px) !important;
+  margin: 1.15rem auto 0 !important;
+  padding: .9rem 0 !important;
+  border-top: 1px solid rgba(17,17,15,.10) !important;
+  border-bottom: 1px solid rgba(17,17,15,.08) !important;
+}
+
+.wl-hero-summary-label {
+  font-size: .58rem !important;
+  letter-spacing: .24em !important;
+  text-transform: uppercase !important;
+  font-weight: 800 !important;
+  color: rgba(17,17,15,.42) !important;
+}
+
+.wl-hero-summary-value {
+  font-size: .95rem !important;
+  font-weight: 600 !important;
+  color: rgba(17,17,15,.72) !important;
+}
+
+/* Mobile alignment corrections */
 @media (max-width: 900px) {
   .wl-page > .grid.grid-cols-3:first-child,
   .wl-page > h1.wl-hero-title,
   .wl-page > .wl-hero-meta,
   .wl-page > .wl-big-number,
+  .wl-page > .wl-subtle,
   .wl-page > .wl-hero-summary {
     width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
   }
 
   .wl-page > .grid.grid-cols-3:first-child {
+    display: grid !important;
     grid-template-columns: 1fr 1fr !important;
-    row-gap: 1.3rem !important;
+    column-gap: 1rem !important;
+    row-gap: .8rem !important;
+    align-items: start !important;
   }
 
-  .wl-page > .grid.grid-cols-3:first-child > :first-child,
-  .wl-page > .grid.grid-cols-3:first-child > :nth-child(2) {
+  .wl-page > .grid.grid-cols-3:first-child > :first-child {
     text-align: left !important;
+  }
+
+  .wl-page > .grid.grid-cols-3:first-child > :nth-child(2) {
+    text-align: right !important;
   }
 
   .wl-page > .grid.grid-cols-3:first-child > :last-child {
     grid-column: 1 / -1 !important;
-    text-align: left !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    width: 100% !important;
   }
 
   .wl-hero-title {
-    font-size: clamp(3.4rem, 12vw, 5rem) !important;
-    line-height: 1 !important;
-    letter-spacing: -0.06em !important;
+    text-align: left !important;
+    margin-top: 2.6rem !important;
+    margin-bottom: 1.35rem !important;
+    font-size: clamp(3.2rem, 12.2vw, 4.35rem) !important;
+    line-height: .98 !important;
+    letter-spacing: -0.052em !important;
+    max-width: 11.5ch !important;
   }
 
-  .wl-big-number {
-    font-size: clamp(5rem, 22vw, 7.2rem) !important;
-    font-weight: 500 !important;
-    letter-spacing: -0.08em !important;
-  }
-
-  .wl-hero-summary {
-    display: grid !important;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    width: min(100%, 360px) !important;
-    max-width: 360px !important;
-    gap: .75rem !important;
-    padding: .85rem 0 !important;
-    margin-top: 1.05rem !important;
-  }
-
-  .wl-hero-summary-item {
-    min-width: 0 !important;
+  .wl-hero-meta,
+  .wl-big-number,
+  .wl-subtle {
     text-align: left !important;
   }
 
+  .wl-big-number {
+    font-size: clamp(4.3rem, 17vw, 6.4rem) !important;
+    line-height: .92 !important;
+    letter-spacing: -0.06em !important;
+  }
+
+  .wl-subtle {
+    font-size: 1rem !important;
+    line-height: 1.45 !important;
+    max-width: 31ch !important;
+  }
+
+  .wl-hero-summary {
+    width: 100% !important;
+    max-width: none !important;
+    gap: 1rem !important;
+    margin-top: 1rem !important;
+  }
+
   .wl-hero-summary-label {
-    font-size: .5rem !important;
+    font-size: .55rem !important;
     letter-spacing: .22em !important;
   }
 
   .wl-hero-summary-value {
-    font-size: .78rem !important;
-    letter-spacing: -.055em !important;
-  }
-
-  .wl-title,
-  .wl-log-card-title {
-    letter-spacing: -0.042em !important;
+    font-size: .9rem !important;
   }
 
   .wl-kicker,
@@ -313,21 +248,21 @@ button {
   .wl-log-status,
   .wl-pill,
   .wl-log-pill {
-    letter-spacing: .30em !important;
+    letter-spacing: .24em !important;
   }
 }
 
 @media (max-width: 430px) {
-  .wl-hero-summary {
-    gap: .55rem !important;
+  .wl-hero-title {
+    font-size: clamp(3rem, 11.8vw, 3.85rem) !important;
+    max-width: 11ch !important;
   }
 
-  .wl-hero-summary-label {
-    font-size: .46rem !important;
-    letter-spacing: .18em !important;
+  .wl-big-number {
+    font-size: clamp(4rem, 16vw, 5.6rem) !important;
   }
 
-  .wl-hero-summary-value {
-    font-size: .7rem !important;
+  .wl-subtle {
+    font-size: .95rem !important;
   }
 }
