@@ -7,6 +7,47 @@
   style.textContent = `
     .wl-hero-line { display: block !important; white-space: nowrap !important; }
 
+    /* Desktop top navigation alignment */
+    .wl-topnav {
+      position: sticky !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      width: 100% !important;
+      max-width: none !important;
+      margin: 0 !important;
+      padding-left: clamp(1.25rem, 2vw, 2rem) !important;
+      padding-right: clamp(1.25rem, 2vw, 2rem) !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      grid-template-columns: none !important;
+    }
+    .wl-topnav > button:first-child {
+      position: static !important;
+      transform: none !important;
+      margin: 0 !important;
+      justify-self: start !important;
+      flex: 0 0 auto !important;
+    }
+    .wl-topnav .wl-logo {
+      margin: 0 !important;
+      text-align: left !important;
+      justify-content: flex-start !important;
+    }
+    .wl-now {
+      display: none !important;
+    }
+    .wl-top-actions {
+      margin-left: auto !important;
+      justify-self: end !important;
+      flex: 0 0 auto !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: flex-end !important;
+      gap: 1rem !important;
+    }
+
     @media (min-width: 1280px) {
       .wl-page > .grid.grid-cols-3:first-child { margin-bottom: clamp(5.8rem, 6.8vw, 8rem) !important; }
       .wl-hero-title { position: relative !important; isolation: isolate !important; font-size: clamp(5.6rem, 6.7vw, 9.25rem) !important; line-height: 0.94 !important; letter-spacing: -0.038em !important; max-width: 13.5ch !important; margin: 0 auto 2.65rem !important; padding-top: clamp(1.25rem, 2vw, 2.5rem) !important; text-align: center !important; }
@@ -19,6 +60,7 @@
     }
 
     @media (max-width: 900px) {
+      .wl-topnav { padding-left: 1rem !important; padding-right: 1rem !important; }
       .wl-page > .grid.grid-cols-3:first-child { margin-bottom: 5.25rem !important; }
       .wl-hero-title { position: relative !important; isolation: auto !important; font-size: clamp(3rem, 10.6vw, 4.15rem) !important; line-height: 1.08 !important; letter-spacing: -0.035em !important; max-width: none !important; width: 100% !important; margin: 0 0 2.4rem !important; padding-top: 1.7rem !important; }
       .wl-hero-title::before, .wl-hero-title::after { content: none !important; display: none !important; }
@@ -111,7 +153,7 @@ function loadWeightLensAddon(src, id){
 }
 
 (function loadFunctionalAddons(){
-  const version = 'features-6';
+  const version = 'features-7';
   window.addEventListener('load', () => {
     loadWeightLensAddon(`src/functional-goals.js?v=${version}`, 'wl-functional-goals');
     loadWeightLensAddon(`src/functional-measurements.js?v=${version}`, 'wl-functional-measurements');
