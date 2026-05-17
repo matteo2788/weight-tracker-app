@@ -84,6 +84,51 @@ body {
   letter-spacing: -0.075em !important;
 }
 
+/* Clear hero stat strip */
+.wl-hero-summary {
+  display: inline-grid !important;
+  grid-template-columns: repeat(3, auto) !important;
+  align-items: end !important;
+  justify-content: center !important;
+  gap: 1.05rem !important;
+  margin: 1.15rem auto 0 !important;
+  padding: .85rem 1rem !important;
+  border-top: 1px solid rgba(17,17,15,.10) !important;
+  border-bottom: 1px solid rgba(17,17,15,.08) !important;
+  color: rgba(17,17,15,.72) !important;
+}
+
+.wl-hero-summary-item {
+  display: grid !important;
+  gap: .28rem !important;
+  min-width: 7.2rem !important;
+  text-align: left !important;
+}
+
+.wl-hero-summary-label {
+  font-family: var(--wl-font-ui) !important;
+  font-size: .56rem !important;
+  line-height: 1 !important;
+  font-weight: 400 !important;
+  letter-spacing: .32em !important;
+  text-transform: uppercase !important;
+  color: rgba(17,17,15,.42) !important;
+  white-space: nowrap !important;
+}
+
+.wl-hero-summary-value {
+  font-family: var(--wl-font-ui) !important;
+  font-size: .95rem !important;
+  line-height: 1.1 !important;
+  font-weight: 400 !important;
+  letter-spacing: -.04em !important;
+  color: rgba(17,17,15,.78) !important;
+  white-space: nowrap !important;
+}
+
+.wl-hero-summary-value.good { color: #159947 !important; }
+.wl-hero-summary-value.warn { color: #E99A00 !important; }
+
 /* Menu / notes / rows should not be chunky */
 .wl-note,
 .wl-menu-name,
@@ -167,6 +212,30 @@ button {
     letter-spacing: -0.08em !important;
   }
 
+  .wl-hero-summary {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    width: 100% !important;
+    gap: .75rem !important;
+    padding: .85rem 0 !important;
+    margin-top: 1.05rem !important;
+  }
+
+  .wl-hero-summary-item {
+    min-width: 0 !important;
+    text-align: left !important;
+  }
+
+  .wl-hero-summary-label {
+    font-size: .5rem !important;
+    letter-spacing: .22em !important;
+  }
+
+  .wl-hero-summary-value {
+    font-size: .78rem !important;
+    letter-spacing: -.055em !important;
+  }
+
   .wl-title,
   .wl-log-card-title {
     letter-spacing: -0.042em !important;
@@ -182,5 +251,20 @@ button {
   .wl-pill,
   .wl-log-pill {
     letter-spacing: .30em !important;
+  }
+}
+
+@media (max-width: 430px) {
+  .wl-hero-summary {
+    gap: .55rem !important;
+  }
+
+  .wl-hero-summary-label {
+    font-size: .46rem !important;
+    letter-spacing: .18em !important;
+  }
+
+  .wl-hero-summary-value {
+    font-size: .7rem !important;
   }
 }
