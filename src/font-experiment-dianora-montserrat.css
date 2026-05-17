@@ -1,4 +1,4 @@
-/* font-experiment-dianora-montserrat.css — Lora + Open Sans with clearer contrast */
+/* font-experiment-dianora-montserrat.css — Lora Italic + Open Sans with strong contrast */
 
 :root {
   --wl-font-body: 'Open Sans', ui-sans-serif, system-ui, sans-serif;
@@ -20,28 +20,36 @@ body {
   letter-spacing: -0.004em !important;
 }
 
-/* SERIF ONLY WHERE IT SHOULD FEEL EDITORIAL */
+/* BIG EDITORIAL MOMENTS: Lora Italic only here so it actually feels different */
 .wl-hero-title,
 .wl-title,
 .wl-log-card-title {
   font-family: var(--wl-font-display) !important;
+  font-style: italic !important;
   font-weight: 700 !important;
-  letter-spacing: -0.055em !important;
-  line-height: .96 !important;
+  letter-spacing: -0.07em !important;
+  line-height: .94 !important;
 }
 
 .wl-hero-title {
-  font-size: clamp(4.4rem, 8vw, 8.2rem) !important;
+  font-size: clamp(4.7rem, 8.5vw, 8.8rem) !important;
+  font-style: italic !important;
   font-weight: 700 !important;
-  letter-spacing: -0.065em !important;
+  letter-spacing: -0.082em !important;
 }
 
 .wl-title {
+  font-style: italic !important;
   font-weight: 700 !important;
-  letter-spacing: -0.052em !important;
+  letter-spacing: -0.068em !important;
 }
 
-/* SANS-SERIF FOR APP / DATA / NAV — this keeps the app modern */
+.wl-log-card-title {
+  font-style: italic !important;
+  letter-spacing: -0.065em !important;
+}
+
+/* FUNCTIONAL APP / DATA / NAV: Open Sans stays sharp and modern */
 .wl-big-number,
 .wl-metric-value,
 .wl-log-context-main,
@@ -52,6 +60,7 @@ body {
 .wl-logo,
 .wl-now b {
   font-family: var(--wl-font-body) !important;
+  font-style: normal !important;
   font-weight: 800 !important;
   letter-spacing: -0.055em !important;
   line-height: .95 !important;
@@ -82,7 +91,7 @@ body {
   letter-spacing: -0.035em !important;
 }
 
-/* SMALL LABELS: more mechanical, more UI, clearly not the heading font */
+/* SMALL LABELS: mechanical UI contrast */
 .wl-kicker,
 .wl-hero-meta,
 .wl-metric-label,
@@ -93,12 +102,13 @@ body {
 .wl-pill,
 .wl-log-pill {
   font-family: var(--wl-font-body) !important;
+  font-style: normal !important;
   font-weight: 700 !important;
   letter-spacing: .30em !important;
   text-transform: uppercase !important;
 }
 
-/* BODY COPY: lighter, readable Open Sans */
+/* BODY COPY: readable Open Sans */
 .wl-subtle,
 .wl-page p,
 .wl-metric-sub,
@@ -108,6 +118,7 @@ body {
 .wl-right p,
 .wl-chart-key-coach {
   font-family: var(--wl-font-body) !important;
+  font-style: normal !important;
   font-weight: 400 !important;
   letter-spacing: -0.008em !important;
   line-height: 1.58 !important;
@@ -119,6 +130,7 @@ body {
 
 .wl-btn {
   font-family: var(--wl-font-body) !important;
+  font-style: normal !important;
   font-weight: 800 !important;
   letter-spacing: -0.018em !important;
 }
@@ -127,6 +139,7 @@ input,
 textarea,
 select {
   font-family: var(--wl-font-body) !important;
+  font-style: normal !important;
   font-weight: 500 !important;
 }
 
@@ -138,15 +151,15 @@ select {
 
 @media (max-width: 900px) {
   .wl-hero-title {
-    font-size: clamp(3.65rem, 13vw, 5.35rem) !important;
-    line-height: .98 !important;
-    letter-spacing: -0.058em !important;
+    font-size: clamp(3.85rem, 13.5vw, 5.6rem) !important;
+    line-height: .96 !important;
+    letter-spacing: -0.074em !important;
   }
 
   .wl-title,
   .wl-log-card-title {
-    letter-spacing: -0.048em !important;
-    line-height: 1 !important;
+    letter-spacing: -0.062em !important;
+    line-height: .98 !important;
   }
 
   .wl-note,
