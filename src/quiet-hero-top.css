@@ -1,9 +1,9 @@
-/* quiet-hero-top.css — make dashboard top cluster feel like quiet utility */
+/* quiet-hero-top.css — quiet utility row above the hero, without overlap */
 
-/* Desktop/tablet: make meta row whisper and keep only Log Entry visually strong */
+/* Desktop/tablet: subtle meta, compact actions */
 .wl-page > .grid.grid-cols-3:first-child {
   padding-top: 0.35rem !important;
-  margin-bottom: clamp(2.7rem, 4vw, 4.7rem) !important;
+  margin-bottom: clamp(2.4rem, 3.5vw, 4.2rem) !important;
   align-items: center !important;
 }
 
@@ -14,7 +14,7 @@
   letter-spacing: .34em !important;
   line-height: 1.25 !important;
   font-weight: 800 !important;
-  transform: translateY(-.1rem) !important;
+  transform: none !important;
 }
 
 .wl-page > .grid.grid-cols-3:first-child > :nth-child(3) {
@@ -33,7 +33,6 @@
   border-radius: 999px !important;
 }
 
-/* Backfill becomes quiet utility */
 .wl-page > .grid.grid-cols-3:first-child > :nth-child(3) button:first-child {
   width: auto !important;
   background: transparent !important;
@@ -48,7 +47,6 @@
   font-weight: 750 !important;
 }
 
-/* Log entry stays primary, but compact */
 .wl-page > .grid.grid-cols-3:first-child > :nth-child(3) button:last-child {
   width: auto !important;
   background: #11110F !important;
@@ -58,17 +56,17 @@
 }
 
 .wl-hero-title {
-  margin-top: clamp(3.25rem, 4.8vw, 5.3rem) !important;
+  margin-top: clamp(3rem, 4.2vw, 4.8rem) !important;
 }
 
 @media (max-width: 900px) {
-  /* Top cluster becomes a quiet two-line utility strip instead of a chunky control block */
+  /* Clean mobile cluster: meta row, action row, then hero. No overlap. */
   .wl-page > .grid.grid-cols-3:first-child,
   .wl-page > .grid.grid-cols-3 {
     display: grid !important;
-    grid-template-columns: 1fr auto !important;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important;
     column-gap: 1rem !important;
-    row-gap: .35rem !important;
+    row-gap: .65rem !important;
     padding-top: .15rem !important;
     margin-top: 0 !important;
     margin-bottom: 0 !important;
@@ -83,43 +81,43 @@
     display: block !important;
     text-align: left !important;
     color: rgba(17,17,15,.42) !important;
-    font-size: 8.8px !important;
+    font-size: 9px !important;
     letter-spacing: .32em !important;
     line-height: 1.35 !important;
     font-weight: 850 !important;
     transform: none !important;
-    max-width: 18ch !important;
+    max-width: none !important;
+    white-space: normal !important;
   }
 
   .wl-page > .grid.grid-cols-3:first-child > :nth-child(2),
   .wl-page > .grid.grid-cols-3 > :nth-child(2) {
-    grid-column: 1 / 2 !important;
-    grid-row: 2 !important;
+    grid-column: 2 / 3 !important;
+    grid-row: 1 !important;
     min-height: 0 !important;
     display: block !important;
-    text-align: left !important;
-    justify-content: flex-start !important;
-    color: rgba(17,17,15,.32) !important;
-    font-size: 8.5px !important;
-    letter-spacing: .31em !important;
-    line-height: 1.2 !important;
-    font-weight: 800 !important;
-    transform: translateY(-.05rem) !important;
-    max-width: 22ch !important;
+    text-align: right !important;
+    color: rgba(17,17,15,.34) !important;
+    font-size: 9px !important;
+    letter-spacing: .32em !important;
+    line-height: 1.35 !important;
+    font-weight: 850 !important;
+    transform: none !important;
+    max-width: none !important;
+    white-space: normal !important;
   }
 
   .wl-page > .grid.grid-cols-3:first-child > :nth-child(3),
   .wl-page > .grid.grid-cols-3 > :nth-child(3) {
-    grid-column: 2 / 3 !important;
-    grid-row: 1 / span 2 !important;
-    align-self: start !important;
-    justify-self: end !important;
-    display: flex !important;
+    grid-column: 1 / -1 !important;
+    grid-row: 2 !important;
+    display: grid !important;
+    grid-template-columns: 1fr auto !important;
     align-items: center !important;
-    justify-content: flex-end !important;
-    gap: .6rem !important;
-    width: auto !important;
-    margin-top: -.18rem !important;
+    justify-content: stretch !important;
+    gap: .85rem !important;
+    width: 100% !important;
+    margin: 0 !important;
     transform: none !important;
   }
 
@@ -128,16 +126,15 @@
     width: auto !important;
     height: 32px !important;
     min-height: 32px !important;
-    padding: 0 .75rem !important;
     border-radius: 999px !important;
     font-size: 12px !important;
     line-height: 1 !important;
     white-space: nowrap !important;
   }
 
-  /* On mobile, Backfill is secondary text so it does not steal attention */
   .wl-page > .grid.grid-cols-3:first-child > :nth-child(3) button:first-child,
   .wl-page > .grid.grid-cols-3 > :nth-child(3) button:first-child {
+    justify-self: start !important;
     background: transparent !important;
     border: 0 !important;
     color: rgba(17,17,15,.46) !important;
@@ -154,18 +151,19 @@
 
   .wl-page > .grid.grid-cols-3:first-child > :nth-child(3) button:last-child,
   .wl-page > .grid.grid-cols-3 > :nth-child(3) button:last-child {
-    min-width: 5.9rem !important;
+    justify-self: end !important;
+    min-width: 6rem !important;
+    padding: 0 .85rem !important;
     background: #11110F !important;
     color: #F6F4EF !important;
     font-weight: 900 !important;
   }
 
-  /* Pull hero up and make it the first loud object */
   .wl-hero-title {
-    margin-top: 2.55rem !important;
+    margin-top: 2.75rem !important;
     margin-bottom: 1.55rem !important;
-    font-size: clamp(3.45rem, 13.3vw, 4.15rem) !important;
-    line-height: .98 !important;
+    font-size: clamp(3.35rem, 13vw, 4.05rem) !important;
+    line-height: .99 !important;
     letter-spacing: -.048em !important;
     font-weight: 950 !important;
     max-width: 11.7ch !important;
@@ -199,17 +197,18 @@
   .wl-page > .grid.grid-cols-3:first-child,
   .wl-page > .grid.grid-cols-3 {
     column-gap: .7rem !important;
+    row-gap: .6rem !important;
   }
 
   .wl-page > .grid.grid-cols-3:first-child > :nth-child(3),
   .wl-page > .grid.grid-cols-3 > :nth-child(3) {
-    gap: .5rem !important;
+    gap: .7rem !important;
   }
 
   .wl-page > .grid.grid-cols-3:first-child > :nth-child(3) button:last-child,
   .wl-page > .grid.grid-cols-3 > :nth-child(3) button:last-child {
-    min-width: 5.55rem !important;
-    padding-inline: .65rem !important;
+    min-width: 5.75rem !important;
+    padding-inline: .7rem !important;
   }
 
   .wl-page > .grid.grid-cols-3:first-child > :nth-child(3) button:first-child,
@@ -218,7 +217,7 @@
   }
 
   .wl-hero-title {
-    margin-top: 2.3rem !important;
-    font-size: clamp(3.1rem, 12.7vw, 3.8rem) !important;
+    margin-top: 2.45rem !important;
+    font-size: clamp(3.05rem, 12.4vw, 3.75rem) !important;
   }
 }
