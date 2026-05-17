@@ -1,11 +1,14 @@
-/* font-experiment-dianora-montserrat.css — Lora Italic + Open Sans only
-   Goal: match the Claude design reference: elegant italic serif moments + quiet modern sans UI.
+/* Typography system — Fraunces + Geist Mono only
+   Fraunces: wordmark + route/page/editorial labels.
+   Geist Mono: TREND, NOW VIEWING, + LOG ENTRY, kickers, UI, data, numbers.
+   No chunky Satoshi/Inter-style bolds.
 */
 
 :root {
-  --wl-font-body: 'Open Sans', ui-sans-serif, system-ui, sans-serif;
-  --wl-font-display: 'Lora', Georgia, 'Times New Roman', serif;
-  --wl-font-mono: 'Open Sans', ui-sans-serif, system-ui, sans-serif;
+  --wl-font-display: 'Fraunces', Georgia, serif;
+  --wl-font-ui: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --wl-font-body: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  --wl-font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 }
 
 html,
@@ -14,92 +17,90 @@ button,
 input,
 select,
 textarea {
-  font-family: var(--wl-font-body) !important;
+  font-family: var(--wl-font-ui) !important;
 }
 
 body {
-  font-family: var(--wl-font-body) !important;
   font-weight: 400 !important;
-  letter-spacing: 0 !important;
+  letter-spacing: -0.01em !important;
 }
 
-/* BRAND + EDITORIAL WORDS: Lora Italic, calm, not chunky */
+/* Fraunces italic editorial text */
 .wl-logo,
 .wl-now b,
-.wl-hero-title,
 .wl-title,
 .wl-log-card-title {
   font-family: var(--wl-font-display) !important;
   font-style: italic !important;
-  font-weight: 500 !important;
-  letter-spacing: -0.052em !important;
-  line-height: .98 !important;
+  font-weight: 450 !important;
+  font-variation-settings: 'SOFT' 85, 'opsz' 72 !important;
+  letter-spacing: -0.045em !important;
+  line-height: 1.02 !important;
 }
 
 .wl-logo {
-  font-size: clamp(1.15rem, 1.3vw, 1.65rem) !important;
-  font-weight: 500 !important;
-  letter-spacing: -0.06em !important;
+  font-size: clamp(1.2rem, 1.45vw, 1.75rem) !important;
+  font-weight: 420 !important;
+  letter-spacing: -0.055em !important;
   text-transform: none !important;
 }
 
 .wl-now b {
-  font-weight: 500 !important;
-  letter-spacing: -0.04em !important;
+  font-size: 1.05rem !important;
+  font-weight: 420 !important;
+  letter-spacing: -0.035em !important;
 }
 
+/* Hero headline can stay editorial but NOT block-bold */
 .wl-hero-title {
+  font-family: var(--wl-font-display) !important;
+  font-style: italic !important;
+  font-weight: 450 !important;
+  font-variation-settings: 'SOFT' 90, 'opsz' 110 !important;
+  letter-spacing: -0.065em !important;
+  line-height: .98 !important;
+}
+
+/* All numbers/data: Geist Mono, lighter weights */
+.wl-big-number,
+.wl-metric-value,
+.wl-log-context-main,
+.wl-right .big {
+  font-family: var(--wl-font-ui) !important;
+  font-style: normal !important;
   font-weight: 500 !important;
   letter-spacing: -0.07em !important;
   line-height: .96 !important;
 }
 
-.wl-title,
-.wl-log-card-title {
-  font-weight: 500 !important;
-  letter-spacing: -0.055em !important;
-  line-height: 1 !important;
-}
-
-/* DATA + APP UI: Open Sans only, strong but not Satoshi/Inter chunky */
-.wl-big-number,
-.wl-metric-value,
-.wl-log-context-main,
-.wl-right .big,
-.wl-note,
-.wl-menu-name,
-.wl-row-title {
-  font-family: var(--wl-font-body) !important;
-  font-style: normal !important;
-  font-weight: 700 !important;
-  letter-spacing: -0.035em !important;
-  line-height: .98 !important;
-}
-
 .wl-big-number {
-  font-weight: 700 !important;
-  letter-spacing: -0.052em !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.085em !important;
 }
 
 .wl-metric-value,
 .wl-log-context-main {
-  font-weight: 700 !important;
-  letter-spacing: -0.045em !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.075em !important;
 }
 
+/* Menu / notes / rows should not be chunky */
 .wl-note,
-.wl-menu-name {
-  font-weight: 700 !important;
-  letter-spacing: -0.035em !important;
-  line-height: 1.08 !important;
+.wl-menu-name,
+.wl-row-title {
+  font-family: var(--wl-font-ui) !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.045em !important;
+  line-height: 1.1 !important;
 }
 
 .wl-row-title {
-  font-weight: 700 !important;
-  letter-spacing: -0.02em !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.025em !important;
 }
 
-/* SMALL LABELS: Open Sans uppercase, thin and spaced like the reference */
+/* Small kickers: exact Geist Mono spaced uppercase feel */
 .wl-kicker,
 .wl-hero-meta,
 .wl-metric-label,
@@ -111,14 +112,14 @@ body {
 .wl-log-pill,
 .wl-now span,
 .wl-logo + span {
-  font-family: var(--wl-font-body) !important;
+  font-family: var(--wl-font-ui) !important;
   font-style: normal !important;
-  font-weight: 600 !important;
+  font-weight: 400 !important;
   letter-spacing: .34em !important;
   text-transform: uppercase !important;
 }
 
-/* BODY COPY: Open Sans regular, calm and readable */
+/* Body/UI copy: Geist Mono regular */
 .wl-subtle,
 .wl-page p,
 .wl-metric-sub,
@@ -126,57 +127,49 @@ body {
 .wl-chart-key-copy,
 .wl-log-context-sub,
 .wl-right p,
-.wl-chart-key-coach {
-  font-family: var(--wl-font-body) !important;
+.wl-chart-key-coach,
+.wl-btn,
+button,
+input,
+textarea,
+select {
+  font-family: var(--wl-font-ui) !important;
   font-style: normal !important;
   font-weight: 400 !important;
-  letter-spacing: 0 !important;
-  line-height: 1.6 !important;
-}
-
-.wl-chart-key-coach {
-  font-weight: 600 !important;
+  letter-spacing: -0.015em !important;
+  line-height: 1.55 !important;
 }
 
 .wl-btn,
 button {
-  font-family: var(--wl-font-body) !important;
-  font-style: normal !important;
-  font-weight: 700 !important;
-  letter-spacing: .02em !important;
-}
-
-input,
-textarea,
-select {
-  font-family: var(--wl-font-body) !important;
-  font-style: normal !important;
-  font-weight: 400 !important;
+  font-weight: 500 !important;
+  letter-spacing: .08em !important;
 }
 
 .recharts-cartesian-axis-tick text,
 .wl-row-index,
 .wl-menu-num {
-  font-family: var(--wl-font-body) !important;
+  font-family: var(--wl-font-ui) !important;
   font-weight: 400 !important;
   letter-spacing: .02em !important;
 }
 
 @media (max-width: 900px) {
   .wl-hero-title {
-    font-size: clamp(3.6rem, 13vw, 5.3rem) !important;
-    line-height: .98 !important;
-    letter-spacing: -0.065em !important;
+    font-size: clamp(3.4rem, 12vw, 5rem) !important;
+    line-height: 1 !important;
+    letter-spacing: -0.06em !important;
+  }
+
+  .wl-big-number {
+    font-size: clamp(5rem, 22vw, 7.2rem) !important;
+    font-weight: 500 !important;
+    letter-spacing: -0.08em !important;
   }
 
   .wl-title,
   .wl-log-card-title {
-    letter-spacing: -0.052em !important;
-    line-height: 1 !important;
-  }
-
-  .wl-logo {
-    font-size: 1.18rem !important;
+    letter-spacing: -0.042em !important;
   }
 
   .wl-kicker,
