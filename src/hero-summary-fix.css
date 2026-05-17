@@ -42,6 +42,40 @@
   white-space: nowrap !important;
 }
 
+/* Hero headline: bigger and italic */
+.wl-hero-title {
+  font-family: var(--wl-font-display, 'Fraunces', Georgia, serif) !important;
+  font-style: italic !important;
+  font-variation-settings: 'SOFT' 85, 'opsz' 96 !important;
+  font-weight: 650 !important;
+  font-size: clamp(6.2rem, 9.2vw, 11.6rem) !important;
+  line-height: .88 !important;
+  letter-spacing: -0.062em !important;
+}
+
+/* Hero weight: smaller and not italic */
+.wl-big-number,
+.wl-big-number *,
+.wl-big-number .wl-unit {
+  font-family: var(--wl-font-ui, 'Geist Mono', monospace) !important;
+  font-style: normal !important;
+  font-variation-settings: normal !important;
+}
+
+.wl-big-number {
+  font-size: clamp(3.8rem, 5.4vw, 6.7rem) !important;
+  line-height: .9 !important;
+  letter-spacing: -0.06em !important;
+  font-weight: 500 !important;
+}
+
+.wl-big-number .wl-unit {
+  font-size: .14em !important;
+  letter-spacing: .22em !important;
+  font-weight: 500 !important;
+  vertical-align: baseline !important;
+}
+
 /* Weekly summary should feel editorial, not cursive/calligraphy */
 .wl-note {
   font-family: var(--wl-font-display, 'Fraunces', Georgia, serif) !important;
@@ -57,6 +91,18 @@
 }
 
 @media (max-width: 900px) {
+  .wl-hero-title {
+    font-size: clamp(4.8rem, 18vw, 7.4rem) !important;
+    line-height: .9 !important;
+    letter-spacing: -0.058em !important;
+    max-width: 10.8ch !important;
+  }
+
+  .wl-big-number {
+    font-size: clamp(3.55rem, 13.5vw, 5.2rem) !important;
+    line-height: .9 !important;
+  }
+
   .wl-hero-summary {
     width: 100% !important;
     margin: 1.1rem 0 0 !important;
@@ -85,6 +131,15 @@
 }
 
 @media (max-width: 430px) {
+  .wl-hero-title {
+    font-size: clamp(4.25rem, 16.8vw, 6.2rem) !important;
+    max-width: 10.5ch !important;
+  }
+
+  .wl-big-number {
+    font-size: clamp(3.2rem, 12.5vw, 4.45rem) !important;
+  }
+
   .wl-hero-summary {
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     gap: .75rem !important;
