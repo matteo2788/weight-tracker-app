@@ -1,0 +1,78 @@
+/* fraunces-geist-typography.css — targeted font layer only
+   Fraunces: WeightLens wordmark + route label / now-viewing title.
+   Geist Mono: TREND, NOW VIEWING, + LOG ENTRY, kickers, small UI labels.
+   Everything else keeps the current app layout and existing design styles.
+*/
+
+:root {
+  --wl-font-serif: 'Fraunces', Georgia, ui-serif, serif;
+  --wl-font-mono: 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+/* Fraunces editorial wordmark / route label */
+.wl-logo,
+.wl-now b {
+  font-family: var(--wl-font-serif) !important;
+  font-style: italic !important;
+  font-weight: 450 !important;
+  font-variation-settings: 'SOFT' 85, 'opsz' 72 !important;
+  letter-spacing: -0.045em !important;
+}
+
+.wl-logo {
+  text-transform: none !important;
+}
+
+/* Geist Mono small navigation + label system */
+.wl-logo span,
+.wl-now,
+.wl-link,
+.wl-kicker,
+.wl-hero-meta,
+.wl-metric-label,
+.wl-tabs button,
+.wl-chart-key-title,
+.wl-log-status,
+.wl-pill,
+.wl-log-pill,
+.wl-row-index,
+.wl-menu-num,
+.recharts-cartesian-axis-tick text {
+  font-family: var(--wl-font-mono) !important;
+  font-style: normal !important;
+  font-weight: 400 !important;
+  text-transform: uppercase !important;
+  letter-spacing: .30em !important;
+}
+
+.wl-link,
+.wl-btn,
+button {
+  font-family: var(--wl-font-mono) !important;
+}
+
+.wl-btn {
+  font-weight: 500 !important;
+  letter-spacing: .04em !important;
+}
+
+@media (max-width: 900px) {
+  .wl-logo,
+  .wl-now b {
+    letter-spacing: -0.04em !important;
+  }
+
+  .wl-logo span,
+  .wl-now,
+  .wl-link,
+  .wl-kicker,
+  .wl-hero-meta,
+  .wl-metric-label,
+  .wl-tabs button,
+  .wl-chart-key-title,
+  .wl-log-status,
+  .wl-pill,
+  .wl-log-pill {
+    letter-spacing: .25em !important;
+  }
+}
