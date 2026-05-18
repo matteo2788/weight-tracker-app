@@ -41,9 +41,10 @@
 
   function saveEntry(state, updateState, draft){
     const date = String(draft.date || '').trim();
-    const weight = Number(draft.weight);
+    const weightRaw = String(draft.weight ?? '').trim();
+    const weight = Number(weightRaw);
     if(!date){ alert('Choose a date.'); return false; }
-    if(!Number.isFinite(weight)){ alert('Enter a valid weight.'); return false; }
+    if(!weightRaw || !Number.isFinite(weight)){ alert('Enter a valid weight.'); return false; }
 
     const entry = {
       id: date,
@@ -85,9 +86,15 @@
 
     const existingForDate = allAsc.find(x => x.date === draft.date);
     const previous = latestBefore(allAsc, draft.date) || allDesc[0] || null;
-    const weightNum = Number(draft.weight);
+    const hasWeightInput = String(draft.weight ?? '').trim() !== '';
+    const weightNum = hasWeightInput ? Number(draft.weight) : NaN;
     const prevWeight = previous ? Number(previous.weight) : null;
-    const diff = Number.isFinite(weightNum) && Number.isFinite(prevWeight) ? weightNum - prevWeight : null;
+    const diff = hasWeightInput && Number.isFinite(weightNum) && Number.isFinite(prevWeight) ? weightNum - prevWeight : null;
+    const hasDiff = Number.isFinite(diff);
+    const diffText = hasDiff ? `${diff > 0 ? '+' : ''}${one(diff)} ${unit}` : 'Enter weight';
+    const diffHint = hasDiff
+      ? 'One-day comparison only. Use the trend line for real progress.'
+      : 'Type today’s weight to compare it with your previous weigh-in.';
     const isToday = draft.date === todayKey;
     const willReplace = Boolean(existingForDate && existingForDate.date !== draft.originalDate);
     const editingExisting = Boolean(draft.originalDate);
@@ -192,9 +199,9 @@
             e('div',{className:'wl-log-context-sub'}, previous ? shortDate(previous.date) : 'No previous data yet')
           ),
           e('div',null,
-            e('div',{className:'wl-kicker'},'Difference from previous'),
-            e('div',{className:`wl-log-context-main ${diff < 0 ? 'good' : diff > 0 ? 'warn' : ''}`}, Number.isFinite(diff) ? `${diff > 0 ? '+' : ''}${one(diff)} ${unit}` : '—'),
-            e('div',{className:'wl-log-context-sub'},'Just a day-to-day comparison. The trend line matters more.')
+            e('div',{className:'wl-kicker'},'Compared with previous'),
+            e('div',{className:`wl-log-context-main ${hasDiff ? '' : 'muted'} ${hasDiff && diff < 0 ? 'good' : hasDiff && diff > 0 ? 'warn' : ''}`}, diffText),
+            e('div',{className:'wl-log-context-sub'},diffHint)
           )
         ),
 
