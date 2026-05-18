@@ -8,7 +8,7 @@
   align-items: flex-end !important;
   justify-content: space-between !important;
   gap: 2rem !important;
-  margin-bottom: 2.5rem !important;
+  margin-bottom: 2.25rem !important;
 }
 
 .wl-log-hero-actions {
@@ -24,14 +24,14 @@
   border-top: 1px solid rgba(101,163,13,.28) !important;
   border-bottom: 1px solid rgba(101,163,13,.18) !important;
   color: #47750B !important;
-  font-weight: 850 !important;
+  font-weight: 700 !important;
   letter-spacing: -.01em !important;
 }
 
 .wl-log-card {
   border-top: 1px solid rgba(17,17,15,.13) !important;
   border-bottom: 1px solid rgba(17,17,15,.08) !important;
-  padding: 1.6rem 0 1.8rem !important;
+  padding: 1.55rem 0 1.75rem !important;
   margin-bottom: 3.5rem !important;
 }
 
@@ -40,61 +40,99 @@
   align-items: flex-start !important;
   justify-content: space-between !important;
   gap: 1.25rem !important;
-  margin-bottom: 2rem !important;
+  margin-bottom: 1.65rem !important;
 }
 
 .wl-log-card-title {
   font-size: clamp(1.85rem, 2.4vw, 3rem) !important;
   line-height: .98 !important;
   letter-spacing: -.055em !important;
-  font-weight: 950 !important;
-  margin-top: .65rem !important;
+  font-weight: 700 !important;
+  margin-top: .55rem !important;
   color: #11110F !important;
+}
+
+.wl-log-helper {
+  margin-top: .85rem !important;
+  max-width: 38rem !important;
+  color: rgba(17,17,15,.55) !important;
+  font-size: .95rem !important;
+  line-height: 1.5 !important;
 }
 
 .wl-log-status {
   font-size: .68rem !important;
   line-height: 1.2 !important;
-  letter-spacing: .24em !important;
+  letter-spacing: .22em !important;
   text-transform: uppercase !important;
-  color: rgba(17,17,15,.48) !important;
-  font-weight: 850 !important;
+  color: rgba(17,17,15,.42) !important;
+  font-weight: 700 !important;
   padding-top: .25rem !important;
   text-align: right !important;
 }
 
-.wl-log-form-grid {
+.wl-log-main-fields,
+.wl-log-optional-fields {
   display: grid !important;
-  grid-template-columns: 1fr 1fr !important;
-  gap: 2rem 2.2rem !important;
+  grid-template-columns: 1.05fr .95fr !important;
+  gap: 1.65rem 2.2rem !important;
+}
+
+.wl-log-optional-fields {
+  margin-top: 1.65rem !important;
+  padding-top: 1.45rem !important;
+  border-top: 1px solid rgba(17,17,15,.07) !important;
+}
+
+.wl-log-field {
+  min-width: 0 !important;
+  display: block !important;
+}
+
+.wl-log-field-hint {
+  margin-top: .55rem !important;
+  color: rgba(17,17,15,.38) !important;
+  font-size: .78rem !important;
+  line-height: 1.35 !important;
+}
+
+.wl-form-line {
+  color: rgba(17,17,15,.88) !important;
+}
+
+.wl-form-line::placeholder,
+.wl-log-page input::placeholder,
+.wl-log-page textarea::placeholder {
+  color: rgba(17,17,15,.18) !important;
+  opacity: 1 !important;
 }
 
 .wl-log-weight-input {
-  font-size: 1.55rem !important;
-  font-weight: 850 !important;
-  letter-spacing: -.04em !important;
+  font-size: 1.9rem !important;
+  font-weight: 700 !important;
+  letter-spacing: -.045em !important;
 }
 
 .wl-log-context {
   display: grid !important;
   grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
   gap: 1.5rem !important;
-  margin-top: 2.25rem !important;
-  padding-top: 1.4rem !important;
+  margin-top: 2.05rem !important;
+  padding-top: 1.35rem !important;
   border-top: 1px solid rgba(17,17,15,.09) !important;
 }
 
 .wl-log-context-main {
   margin-top: .75rem !important;
-  font-size: clamp(1.55rem, 2.1vw, 2.65rem) !important;
+  font-size: clamp(1.45rem, 1.9vw, 2.35rem) !important;
   line-height: .98 !important;
   letter-spacing: -.055em !important;
-  font-weight: 950 !important;
+  font-weight: 700 !important;
   color: #11110F !important;
 }
 
 .wl-log-context-main.small {
-  font-size: clamp(1.3rem, 1.65vw, 2rem) !important;
+  font-size: clamp(1.25rem, 1.45vw, 1.85rem) !important;
 }
 
 .wl-log-context-main.good { color: var(--ed-good, #16A34A) !important; }
@@ -111,7 +149,7 @@
   display: flex !important;
   align-items: center !important;
   gap: .9rem !important;
-  margin-top: 2rem !important;
+  margin-top: 1.85rem !important;
   flex-wrap: wrap !important;
 }
 
@@ -150,7 +188,7 @@
 @media (max-width: 900px) {
   .wl-log-hero {
     display: block !important;
-    margin-bottom: 2rem !important;
+    margin-bottom: 1.75rem !important;
   }
 
   .wl-log-hero-actions {
@@ -167,13 +205,13 @@
   }
 
   .wl-log-card {
-    padding: 1.35rem 0 1.55rem !important;
+    padding: 1.25rem 0 1.45rem !important;
     margin-bottom: 3rem !important;
   }
 
   .wl-log-card-head {
     display: block !important;
-    margin-bottom: 1.55rem !important;
+    margin-bottom: 1.45rem !important;
   }
 
   .wl-log-card-title {
@@ -181,30 +219,40 @@
     line-height: 1.03 !important;
   }
 
-  .wl-log-status {
-    margin-top: 1rem !important;
-    text-align: left !important;
-    font-size: .63rem !important;
-    letter-spacing: .22em !important;
+  .wl-log-helper {
+    font-size: .9rem !important;
   }
 
-  .wl-log-form-grid {
+  .wl-log-status {
+    margin-top: .95rem !important;
+    text-align: left !important;
+    font-size: .63rem !important;
+    letter-spacing: .2em !important;
+  }
+
+  .wl-log-main-fields,
+  .wl-log-optional-fields {
     grid-template-columns: 1fr !important;
-    gap: 1.55rem !important;
+    gap: 1.35rem !important;
+  }
+
+  .wl-log-optional-fields {
+    margin-top: 1.35rem !important;
+    padding-top: 1.25rem !important;
   }
 
   .wl-log-weight-input {
-    font-size: 1.35rem !important;
+    font-size: 1.55rem !important;
   }
 
   .wl-log-context {
     grid-template-columns: 1fr !important;
-    gap: 1.35rem !important;
-    margin-top: 1.8rem !important;
+    gap: 1.25rem !important;
+    margin-top: 1.65rem !important;
   }
 
   .wl-log-context-main {
-    font-size: 2rem !important;
+    font-size: 1.9rem !important;
   }
 
   .wl-log-actions {
