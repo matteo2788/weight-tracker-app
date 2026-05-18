@@ -237,8 +237,83 @@
   }
 
   function install(){ window.LogWeightPage = LogWeightPage; }
+
+  function installWeekProgressTextPatch(){
+    const STORAGE_KEY = 'weightlens.v2';
+    const pad = n => String(n).padStart(2,'0');
+    const isoDate = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+    const parseISO = s => { const [y,m,d] = String(s || '').split('-').map(Number); return new Date(y || 1970, (m || 1) - 1, d || 1); };
+    const daysBetweenLocal = (a,b) => Math.round((parseISO(b) - parseISO(a)) / 86400000);
+    const weekKeyLocal = (iso, startDay) => { const d = parseISO(iso); const diff = (d.getDay() - startDay + 7) % 7; d.setDate(d.getDate() - diff); return isoDate(d); };
+    const shortLocal = iso => { try { return parseISO(iso).toLocaleDateString(undefined,{month:'short',day:'numeric'}); } catch(e){ return iso || ''; } };
+    const readState = () => { try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}') || {}; } catch(e){ return {}; } };
+    const current = () => {
+      const state = readState();
+      const entries = Array.isArray(state.entries) ? state.entries : [];
+      const startDay = Number(state.settings && state.settings.weekStartDay != null ? state.settings.weekStartDay : 1);
+      const now = isoDate(new Date());
+      const start = weekKeyLocal(now, startDay);
+      const elapsed = Math.min(7, Math.max(1, daysBetweenLocal(start, now) + 1));
+      const count = entries.filter(x => x && String(x.date) >= start && String(x.date) <= now).length;
+      const left = Math.max(0, 7 - elapsed);
+      return { start, elapsed, count, left };
+    };
+
+    function patch(){
+      try {
+        const c = current();
+        const metrics = Array.from(document.querySelectorAll('.wl-metric'));
+        for (const metric of metrics) {
+          const label = metric.querySelector('.wl-metric-label');
+          const value = metric.querySelector('.wl-metric-value');
+          const sub = metric.querySelector('.wl-metric-sub');
+          const lt = (label?.textContent || '').trim().toLowerCase();
+          const st = (sub?.textContent || '').trim().toLowerCase();
+          if (lt === 'confidence' || lt === 'this week' || st.includes('days logged')) {
+            if (label) label.textContent = 'This week';
+            if (value) value.textContent = `${c.count}/7`;
+            if (sub) sub.textContent = `day ${c.elapsed} of 7${c.left ? ` · ${c.left} days left` : ' · ends today'}`;
+            break;
+          }
+        }
+
+        if ((document.body.innerText || '').toLowerCase().includes('weekly reports')) {
+          const currentStart = shortLocal(c.start).toLowerCase();
+          const rows = Array.from(document.querySelectorAll('.wl-page .grid'));
+          for (const row of rows) {
+            const text = (row.innerText || '').toLowerCase();
+            if (!text.includes('week of') || !text.includes('logged')) continue;
+            if (!text.includes(currentStart) && !text.includes('in progress') && !text.includes('so far')) continue;
+            const divs = Array.from(row.querySelectorAll('div'));
+            for (const div of divs) {
+              if (/^\d+\/\d+$/.test((div.textContent || '').trim())) {
+                div.textContent = `${c.count}/7`;
+                break;
+              }
+            }
+            const p = Array.from(row.querySelectorAll('p')).find(x => (x.textContent || '').toLowerCase().includes('this week'));
+            if (p) p.textContent = `This week is still building. You have logged ${c.count}/7 days so far. Keep logging before making changes from an unfinished week.`;
+            break;
+          }
+        }
+      } catch(err) {
+        console.warn('week progress text patch skipped', err);
+      }
+    }
+
+    patch();
+    setTimeout(patch,250);
+    setTimeout(patch,900);
+    setInterval(patch,1500);
+    if (window.MutationObserver) {
+      const root = document.getElementById('root') || document.body;
+      new MutationObserver(patch).observe(root,{childList:true,subtree:true,characterData:true});
+    }
+  }
+
   install();
-  window.addEventListener('load', install);
+  installWeekProgressTextPatch();
+  window.addEventListener('load', () => { install(); installWeekProgressTextPatch(); });
   setTimeout(install,100);
   setTimeout(install,500);
 })();
