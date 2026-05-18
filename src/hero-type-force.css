@@ -1,82 +1,207 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT@0,9..144,300..700,50..100;1,9..144,300..700,50..100&family=Geist+Mono:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@700&family=Open+Sans:ital,wght@1,400;1,500;1,600;1,700;1,800&display=swap');
 
-/* Loaded last on purpose. Keeps hero readable, italic, and inside the viewport. */
-body .wl-page h1.wl-hero-title,
-body h1.wl-hero-title,
-#root .wl-hero-title {
-  font-family: 'Fraunces', Georgia, ui-serif, serif !important;
-  font-style: italic !important;
-  font-synthesis-style: auto !important;
-  font-weight: 650 !important;
-  font-variation-settings: 'SOFT' 88, 'opsz' 96 !important;
-  font-size: clamp(4.8rem, 6.7vw, 8.6rem) !important;
-  line-height: .92 !important;
-  letter-spacing: -0.052em !important;
-  margin-top: clamp(.7rem, 1.4vw, 1.7rem) !important;
-  margin-bottom: 1.05rem !important;
-  max-width: 100% !important;
-  width: 100% !important;
-  overflow: visible !important;
-  white-space: normal !important;
-  overflow-wrap: normal !important;
-  word-break: normal !important;
-  transform: skewX(-5deg) !important;
-  transform-origin: left center !important;
-  padding-right: .18em !important;
-  box-sizing: border-box !important;
+/* FINAL TYPOGRAPHY SYSTEM — ONLY LORA BOLD + OPEN SANS ITALIC
+   Lora Bold: display, headings, wordmark, big values.
+   Open Sans Italic: body, UI, labels, buttons, chart text, forms.
+*/
+:root {
+  --wl-font-display: 'Lora', Georgia, ui-serif, serif;
+  --wl-font-ui: 'Open Sans', Arial, ui-sans-serif, system-ui, sans-serif;
 }
 
-body .wl-page .wl-big-number,
-body .wl-page .wl-big-number *,
-#root .wl-big-number,
-#root .wl-big-number * {
-  font-family: 'Geist Mono', ui-monospace, monospace !important;
-  font-style: normal !important;
+html,
+body,
+#root,
+body *,
+button,
+input,
+select,
+textarea,
+svg text {
+  font-family: var(--wl-font-ui) !important;
+  font-style: italic !important;
+  font-weight: 500 !important;
   font-variation-settings: normal !important;
   transform: none !important;
 }
 
+/* Display / editorial type */
+body .wl-logo,
+body .wl-now b,
+body .wl-page h1.wl-hero-title,
+body h1.wl-hero-title,
+#root .wl-hero-title,
+body .wl-title,
+body .wl-note,
+body .wl-big-number,
+body .wl-big-number *,
+body .wl-metric-value,
+body .wl-menu-name,
+body .wl-row-title,
+body .wl-log-card-title,
+body .wl-log-context-main,
+body .wl-right .big {
+  font-family: var(--wl-font-display) !important;
+  font-style: normal !important;
+  font-weight: 700 !important;
+  font-variation-settings: normal !important;
+  transform: none !important;
+}
+
+/* UI / body type */
+body .wl-logo span,
+body .wl-now,
+body .wl-link,
+body .wl-kicker,
+body .wl-hero-meta,
+body .wl-metric-label,
+body .wl-tabs button,
+body .wl-chart-key-title,
+body .wl-chart-key-copy,
+body .wl-chart-key-coach,
+body .wl-log-status,
+body .wl-pill,
+body .wl-log-pill,
+body .wl-row-index,
+body .wl-menu-num,
+body .wl-btn,
+body button,
+body input,
+body textarea,
+body select,
+body p,
+body .wl-subtle,
+body .wl-metric-sub,
+body .wl-row-sub,
+body .wl-log-context-sub,
+body .recharts-cartesian-axis-tick text {
+  font-family: var(--wl-font-ui) !important;
+  font-style: italic !important;
+  font-weight: 500 !important;
+  font-variation-settings: normal !important;
+  transform: none !important;
+}
+
+/* Logo */
+body .wl-logo {
+  letter-spacing: -0.055em !important;
+  text-transform: none !important;
+}
+
+body .wl-logo span {
+  font-size: .62em !important;
+  letter-spacing: .28em !important;
+  text-transform: uppercase !important;
+  font-weight: 700 !important;
+}
+
+/* Small labels */
+body .wl-now,
+body .wl-link,
+body .wl-kicker,
+body .wl-hero-meta,
+body .wl-metric-label,
+body .wl-tabs button,
+body .wl-chart-key-title,
+body .wl-log-status,
+body .wl-pill,
+body .wl-log-pill {
+  letter-spacing: .25em !important;
+  text-transform: uppercase !important;
+  font-weight: 700 !important;
+}
+
+/* Hero */
+body .wl-page h1.wl-hero-title,
+body h1.wl-hero-title,
+#root .wl-hero-title {
+  font-size: clamp(4.6rem, 6.7vw, 8.4rem) !important;
+  line-height: .92 !important;
+  letter-spacing: -0.065em !important;
+  margin-top: clamp(.75rem, 1.5vw, 1.8rem) !important;
+  margin-bottom: 1.05rem !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow: visible !important;
+  white-space: normal !important;
+  overflow-wrap: normal !important;
+  word-break: normal !important;
+  text-wrap: balance !important;
+}
+
+/* Hero weight */
 body .wl-page .wl-big-number,
 #root .wl-big-number {
-  font-size: clamp(2.8rem, 3.8vw, 4.8rem) !important;
+  font-size: clamp(3rem, 4.3vw, 5.4rem) !important;
   line-height: .92 !important;
-  font-weight: 500 !important;
   letter-spacing: -0.055em !important;
   margin-top: .25rem !important;
 }
 
 body .wl-page .wl-big-number .wl-unit,
 #root .wl-big-number .wl-unit {
-  font-size: .14em !important;
-  letter-spacing: .22em !important;
-  font-weight: 500 !important;
-  font-style: normal !important;
+  font-family: var(--wl-font-ui) !important;
+  font-style: italic !important;
+  font-size: .16em !important;
+  letter-spacing: .18em !important;
+  font-weight: 700 !important;
+  vertical-align: baseline !important;
+}
+
+/* Buttons/forms */
+body .wl-btn,
+body button {
+  font-weight: 700 !important;
+  letter-spacing: -.01em !important;
+}
+
+body input,
+body textarea,
+body select {
+  letter-spacing: -.01em !important;
+}
+
+/* Notes / paragraphs */
+body p,
+body .wl-subtle,
+body .wl-metric-sub,
+body .wl-row-sub,
+body .wl-chart-key-copy,
+body .wl-log-context-sub {
+  line-height: 1.55 !important;
+  letter-spacing: -.015em !important;
 }
 
 @media (max-width: 900px) {
   body .wl-page h1.wl-hero-title,
   body h1.wl-hero-title,
   #root .wl-hero-title {
-    font-family: 'Fraunces', Georgia, ui-serif, serif !important;
-    font-style: italic !important;
-    font-size: clamp(3.35rem, 10.8vw, 4.75rem) !important;
+    font-size: clamp(3.25rem, 10.6vw, 4.65rem) !important;
     line-height: .95 !important;
-    letter-spacing: -0.038em !important;
-    margin-top: .35rem !important;
+    letter-spacing: -0.052em !important;
+    margin-top: .45rem !important;
     margin-bottom: .95rem !important;
-    width: min(100%, calc(100vw - 4.5rem)) !important;
-    max-width: 9.4ch !important;
-    white-space: normal !important;
-    text-wrap: balance !important;
-    overflow: visible !important;
-    transform: skewX(-5deg) !important;
-    padding-right: .24em !important;
+    width: min(100%, calc(100vw - 4rem)) !important;
+    max-width: 9.7ch !important;
   }
 
   body .wl-page .wl-big-number,
   #root .wl-big-number {
-    font-size: clamp(2.45rem, 8.6vw, 3.25rem) !important;
+    font-size: clamp(2.5rem, 8.8vw, 3.4rem) !important;
     margin-top: .1rem !important;
+  }
+
+  body .wl-now,
+  body .wl-link,
+  body .wl-kicker,
+  body .wl-hero-meta,
+  body .wl-metric-label,
+  body .wl-tabs button,
+  body .wl-chart-key-title,
+  body .wl-log-status,
+  body .wl-pill,
+  body .wl-log-pill {
+    letter-spacing: .21em !important;
   }
 }
 
@@ -84,19 +209,16 @@ body .wl-page .wl-big-number .wl-unit,
   body .wl-page h1.wl-hero-title,
   body h1.wl-hero-title,
   #root .wl-hero-title {
-    font-size: clamp(2.85rem, 10.8vw, 3.8rem) !important;
-    line-height: .96 !important;
-    letter-spacing: -0.032em !important;
-    margin-top: .25rem !important;
-    width: min(100%, calc(100vw - 3.2rem)) !important;
-    max-width: 9ch !important;
-    transform: skewX(-5deg) !important;
-    padding-right: .25em !important;
+    font-size: clamp(2.85rem, 10.2vw, 3.75rem) !important;
+    line-height: .97 !important;
+    letter-spacing: -0.045em !important;
+    width: min(100%, calc(100vw - 3rem)) !important;
+    max-width: 9.4ch !important;
   }
 
   body .wl-page .wl-big-number,
   #root .wl-big-number {
-    font-size: clamp(2.25rem, 8.4vw, 2.95rem) !important;
+    font-size: clamp(2.25rem, 8.2vw, 3rem) !important;
   }
 }
 
@@ -104,15 +226,13 @@ body .wl-page .wl-big-number .wl-unit,
   body .wl-page h1.wl-hero-title,
   body h1.wl-hero-title,
   #root .wl-hero-title {
-    font-size: clamp(2.55rem, 10vw, 3.35rem) !important;
-    letter-spacing: -0.028em !important;
-    line-height: .98 !important;
-    max-width: 8.8ch !important;
-    transform: skewX(-4deg) !important;
+    font-size: clamp(2.55rem, 9.7vw, 3.25rem) !important;
+    letter-spacing: -0.038em !important;
+    max-width: 9.2ch !important;
   }
 
   body .wl-page .wl-big-number,
   #root .wl-big-number {
-    font-size: clamp(2.1rem, 8vw, 2.75rem) !important;
+    font-size: clamp(2.05rem, 7.8vw, 2.7rem) !important;
   }
 }
