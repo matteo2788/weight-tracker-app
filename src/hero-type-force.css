@@ -119,7 +119,7 @@ body h1.wl-hero-title,
   line-height: .92 !important;
   letter-spacing: -0.065em !important;
   margin-top: clamp(.75rem, 1.5vw, 1.8rem) !important;
-  margin-bottom: 1.05rem !important;
+  margin-bottom: clamp(2.05rem, 2.8vw, 3rem) !important;
   width: 100% !important;
   max-width: 100% !important;
   overflow: visible !important;
@@ -127,6 +127,18 @@ body h1.wl-hero-title,
   overflow-wrap: normal !important;
   word-break: normal !important;
   text-wrap: balance !important;
+}
+
+/* Put the TODAY / date line safely below the big headline */
+body .wl-page .wl-hero-meta,
+#root .wl-hero-meta {
+  display: block !important;
+  position: relative !important;
+  z-index: 2 !important;
+  margin-top: 0 !important;
+  margin-bottom: .95rem !important;
+  line-height: 1.2 !important;
+  color: rgba(17,17,15,.42) !important;
 }
 
 /* Hero weight */
@@ -180,9 +192,15 @@ body .wl-log-context-sub {
     line-height: .95 !important;
     letter-spacing: -0.052em !important;
     margin-top: .45rem !important;
-    margin-bottom: .95rem !important;
+    margin-bottom: 1.65rem !important;
     width: min(100%, calc(100vw - 4rem)) !important;
     max-width: 9.7ch !important;
+  }
+
+  body .wl-page .wl-hero-meta,
+  #root .wl-hero-meta {
+    margin-bottom: .8rem !important;
+    line-height: 1.25 !important;
   }
 
   body .wl-page .wl-big-number,
@@ -212,6 +230,7 @@ body .wl-log-context-sub {
     font-size: clamp(2.85rem, 10.2vw, 3.75rem) !important;
     line-height: .97 !important;
     letter-spacing: -0.045em !important;
+    margin-bottom: 1.45rem !important;
     width: min(100%, calc(100vw - 3rem)) !important;
     max-width: 9.4ch !important;
   }
