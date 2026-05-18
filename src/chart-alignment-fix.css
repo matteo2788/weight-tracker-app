@@ -1,0 +1,41 @@
+/* chart-alignment-fix.css — aligns range tabs with the visible chart plot area */
+:root {
+  --wl-chart-axis-offset: 4.35rem;
+}
+
+/* Homepage chart + Trends page chart */
+.wl-page > .wl-section-head .wl-tabs,
+.wl-section > .wl-section-head .wl-tabs,
+.wl-trends-page-fixed .wl-tabs {
+  box-sizing: border-box !important;
+}
+
+@media (min-width: 901px) {
+  .wl-page > .wl-section-head .wl-tabs,
+  .wl-section > .wl-section-head .wl-tabs,
+  .wl-trends-page-fixed .wl-tabs {
+    margin-left: var(--wl-chart-axis-offset) !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .wl-page > .wl-section-head .wl-tabs,
+  .wl-section > .wl-section-head .wl-tabs,
+  .wl-trends-page-fixed .wl-tabs {
+    margin-left: var(--wl-chart-axis-offset) !important;
+    width: calc(100% - var(--wl-chart-axis-offset)) !important;
+    max-width: calc(100% - var(--wl-chart-axis-offset)) !important;
+  }
+}
+
+@media (max-width: 430px) {
+  :root {
+    --wl-chart-axis-offset: 4.15rem;
+  }
+}
+
+@media (max-width: 370px) {
+  :root {
+    --wl-chart-axis-offset: 3.8rem;
+  }
+}
