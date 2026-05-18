@@ -188,13 +188,13 @@ body .wl-log-context-sub {
   body .wl-page h1.wl-hero-title,
   body h1.wl-hero-title,
   #root .wl-hero-title {
-    font-size: clamp(3.25rem, 10.6vw, 4.65rem) !important;
-    line-height: .95 !important;
-    letter-spacing: -0.052em !important;
-    margin-top: .45rem !important;
+    font-size: clamp(3.85rem, 12.3vw, 5.45rem) !important;
+    line-height: .93 !important;
+    letter-spacing: -0.058em !important;
+    margin-top: -0.15rem !important;
     margin-bottom: 1.65rem !important;
-    width: min(100%, calc(100vw - 4rem)) !important;
-    max-width: 9.7ch !important;
+    width: min(100%, calc(100vw - 3.2rem)) !important;
+    max-width: 10.15ch !important;
   }
 
   body .wl-page .wl-hero-meta,
@@ -227,12 +227,13 @@ body .wl-log-context-sub {
   body .wl-page h1.wl-hero-title,
   body h1.wl-hero-title,
   #root .wl-hero-title {
-    font-size: clamp(2.85rem, 10.2vw, 3.75rem) !important;
-    line-height: .97 !important;
-    letter-spacing: -0.045em !important;
+    font-size: clamp(3.45rem, 12.2vw, 4.55rem) !important;
+    line-height: .94 !important;
+    letter-spacing: -0.052em !important;
+    margin-top: -0.3rem !important;
     margin-bottom: 1.45rem !important;
-    width: min(100%, calc(100vw - 3rem)) !important;
-    max-width: 9.4ch !important;
+    width: min(100%, calc(100vw - 2.5rem)) !important;
+    max-width: 10ch !important;
   }
 
   body .wl-page .wl-big-number,
@@ -245,9 +246,9 @@ body .wl-log-context-sub {
   body .wl-page h1.wl-hero-title,
   body h1.wl-hero-title,
   #root .wl-hero-title {
-    font-size: clamp(2.55rem, 9.7vw, 3.25rem) !important;
-    letter-spacing: -0.038em !important;
-    max-width: 9.2ch !important;
+    font-size: clamp(3rem, 11.5vw, 3.75rem) !important;
+    letter-spacing: -0.045em !important;
+    max-width: 9.6ch !important;
   }
 
   body .wl-page .wl-big-number,
