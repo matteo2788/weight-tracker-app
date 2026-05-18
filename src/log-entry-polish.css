@@ -115,8 +115,8 @@
 
 .wl-log-context {
   display: grid !important;
-  grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-  gap: 1.5rem !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: 1.7rem !important;
   margin-top: 2.05rem !important;
   padding-top: 1.35rem !important;
   border-top: 1px solid rgba(17,17,15,.09) !important;
@@ -165,11 +165,40 @@
   display: flex !important;
   align-items: center !important;
   justify-content: flex-end !important;
-  gap: .9rem !important;
+  gap: .75rem !important;
 }
 
-.wl-log-row-actions button {
-  color: rgba(17,17,15,.52) !important;
+.wl-log-row-actions button,
+.wl-log-edit-action,
+.wl-log-delete-action {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-height: 2rem !important;
+  padding: .25rem .65rem !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(17,17,15,.12) !important;
+  background: rgba(17,17,15,.035) !important;
+  color: rgba(17,17,15,.66) !important;
+  font-size: .78rem !important;
+  font-weight: 700 !important;
+}
+
+.wl-log-delete-action {
+  color: #B91C1C !important;
+  border-color: rgba(185,28,28,.22) !important;
+  background: rgba(185,28,28,.06) !important;
+}
+
+.wl-log-row-actions button:hover,
+.wl-log-edit-action:hover {
+  color: rgba(17,17,15,.90) !important;
+  background: rgba(17,17,15,.07) !important;
+}
+
+.wl-log-delete-action:hover {
+  color: #991B1B !important;
+  background: rgba(185,28,28,.10) !important;
 }
 
 .wl-log-pill {
