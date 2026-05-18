@@ -187,19 +187,14 @@
 
         e('div',{className:'wl-log-context'},
           e('div',null,
-            e('div',{className:'wl-kicker'},'Previous entry'),
+            e('div',{className:'wl-kicker'},'Previous weigh-in'),
             e('div',{className:'wl-log-context-main'}, previous ? `${one(previous.weight)} ${unit}` : '—'),
             e('div',{className:'wl-log-context-sub'}, previous ? shortDate(previous.date) : 'No previous data yet')
           ),
           e('div',null,
-            e('div',{className:'wl-kicker'},'Change if saved'),
+            e('div',{className:'wl-kicker'},'Difference from previous'),
             e('div',{className:`wl-log-context-main ${diff < 0 ? 'good' : diff > 0 ? 'warn' : ''}`}, Number.isFinite(diff) ? `${diff > 0 ? '+' : ''}${one(diff)} ${unit}` : '—'),
-            e('div',{className:'wl-log-context-sub'},'This is just context, not a trend judgment')
-          ),
-          e('div',null,
-            e('div',{className:'wl-kicker'},'Save behavior'),
-            e('div',{className:'wl-log-context-main small'}, willReplace || editingExisting ? 'Replace' : 'Add'),
-            e('div',{className:'wl-log-context-sub'}, willReplace || editingExisting ? 'One entry per date' : 'Creates one clean entry')
+            e('div',{className:'wl-log-context-sub'},'Just a day-to-day comparison. The trend line matters more.')
           )
         ),
 
@@ -224,7 +219,10 @@
             e('div',null,e('div',{className:'wl-row-title'},shortDate(row.date)),e('div',{className:'wl-row-sub'},row.date)),
             e('div',null,e('b',null,one(row.weight)),e('span',{className:'text-xs'},` ${unit}`)),
             e('div',null,(row.tags||[]).length ? row.tags.map(t=>e(Pill,{key:t},t)) : e('span',{className:'wl-row-sub'},'No tags'), row.notes && e('div',{className:'wl-row-sub mt-2'},row.notes)),
-            e('div',{className:'wl-log-row-actions'},e('button',{onClick:()=>edit(row)},'Edit'),e('button',{onClick:()=>del(row.date)},'⌫'))
+            e('div',{className:'wl-log-row-actions'},
+              e('button',{className:'wl-log-edit-action',onClick:()=>edit(row)},'Edit'),
+              e('button',{className:'wl-log-delete-action',onClick:()=>del(row.date)},'Delete')
+            )
           )) : e('div',{className:'py-14 text-center text-[#686761]'},'No entries found.')
         )
       )
