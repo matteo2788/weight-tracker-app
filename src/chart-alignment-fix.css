@@ -1,9 +1,10 @@
-/* chart-alignment-fix.css — aligns range tabs with the visible chart plot area */
+/* chart-alignment-fix.css — aligns chart controls, graph, and legend */
 :root {
   --wl-chart-axis-offset: 4.35rem;
+  --wl-chart-left-shift: 3.25rem;
 }
 
-/* Homepage chart + Trends page chart */
+/* Range tabs should sit over the visible plot, not over the Y-axis labels. */
 .wl-page > .wl-section-head .wl-tabs,
 .wl-section > .wl-section-head .wl-tabs,
 .wl-trends-page-fixed .wl-tabs {
@@ -18,7 +19,34 @@
   }
 }
 
+/* Pull the actual chart block left so the graph visually lines up with the legend below. */
+.wl-section > .h-\[340px\].w-full,
+.wl-page > .h-\[340px\].w-full,
+.wl-trends-chart-lock,
+.wl-chart-block {
+  margin-left: calc(var(--wl-chart-left-shift) * -1) !important;
+  width: calc(100% + var(--wl-chart-left-shift)) !important;
+  max-width: calc(100% + var(--wl-chart-left-shift)) !important;
+}
+
+.wl-section > .h-\[340px\].w-full .recharts-responsive-container,
+.wl-page > .h-\[340px\].w-full .recharts-responsive-container,
+.wl-trends-chart-lock .recharts-responsive-container,
+.wl-chart-block .recharts-responsive-container,
+.wl-section > .h-\[340px\].w-full .recharts-wrapper,
+.wl-page > .h-\[340px\].w-full .recharts-wrapper,
+.wl-trends-chart-lock .recharts-wrapper,
+.wl-chart-block .recharts-wrapper {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
 @media (max-width: 900px) {
+  :root {
+    --wl-chart-axis-offset: 4.05rem;
+    --wl-chart-left-shift: 2.7rem;
+  }
+
   .wl-page > .wl-section-head .wl-tabs,
   .wl-section > .wl-section-head .wl-tabs,
   .wl-trends-page-fixed .wl-tabs {
@@ -30,12 +58,14 @@
 
 @media (max-width: 430px) {
   :root {
-    --wl-chart-axis-offset: 4.15rem;
+    --wl-chart-axis-offset: 3.8rem;
+    --wl-chart-left-shift: 2.25rem;
   }
 }
 
 @media (max-width: 370px) {
   :root {
-    --wl-chart-axis-offset: 3.8rem;
+    --wl-chart-axis-offset: 3.55rem;
+    --wl-chart-left-shift: 2rem;
   }
 }
