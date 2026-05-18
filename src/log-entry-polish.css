@@ -135,6 +135,13 @@
   font-size: clamp(1.25rem, 1.45vw, 1.85rem) !important;
 }
 
+.wl-log-context-main.muted {
+  font-size: clamp(1rem, 1.25vw, 1.35rem) !important;
+  letter-spacing: -.02em !important;
+  color: rgba(17,17,15,.32) !important;
+  font-weight: 700 !important;
+}
+
 .wl-log-context-main.good { color: var(--ed-good, #16A34A) !important; }
 .wl-log-context-main.warn { color: var(--ed-warn, #F59E0B) !important; }
 
@@ -282,6 +289,10 @@
 
   .wl-log-context-main {
     font-size: 1.9rem !important;
+  }
+
+  .wl-log-context-main.muted {
+    font-size: 1.05rem !important;
   }
 
   .wl-log-actions {
