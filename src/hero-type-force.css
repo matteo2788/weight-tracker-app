@@ -185,15 +185,15 @@ body .wl-log-context-sub {
 }
 
 @media (max-width: 900px) {
-  /* This is the real gap fix: collapse the space between the top action row and the hero title. */
+  /* Collapse the big gap, but leave enough room so the title does not overlap Backfill / Log entry. */
   body .wl-page > .grid.grid-cols-3:first-child {
-    margin-bottom: -4.25rem !important;
+    margin-bottom: -2.75rem !important;
     padding-bottom: 0 !important;
   }
 
   body .wl-page > .grid.grid-cols-3:first-child + h1.wl-hero-title,
   body .wl-page > .grid.grid-cols-3:first-child + .wl-hero-title {
-    margin-top: 0 !important;
+    margin-top: .45rem !important;
   }
 
   body .wl-page h1.wl-hero-title,
@@ -202,7 +202,7 @@ body .wl-log-context-sub {
     font-size: clamp(3.95rem, 12.7vw, 5.6rem) !important;
     line-height: .93 !important;
     letter-spacing: -0.058em !important;
-    margin-top: 0 !important;
+    margin-top: .45rem !important;
     margin-bottom: 1.65rem !important;
     width: min(100%, calc(100vw - 3.2rem)) !important;
     max-width: 10.15ch !important;
@@ -236,7 +236,7 @@ body .wl-log-context-sub {
 
 @media (max-width: 430px) {
   body .wl-page > .grid.grid-cols-3:first-child {
-    margin-bottom: -5.25rem !important;
+    margin-bottom: -3.35rem !important;
   }
 
   body .wl-page h1.wl-hero-title,
@@ -245,21 +245,16 @@ body .wl-log-context-sub {
     font-size: clamp(3.65rem, 12.9vw, 4.75rem) !important;
     line-height: .94 !important;
     letter-spacing: -0.052em !important;
-    margin-top: 0 !important;
+    margin-top: .6rem !important;
     margin-bottom: 1.45rem !important;
     width: min(100%, calc(100vw - 2.5rem)) !important;
     max-width: 10ch !important;
-  }
-
-  body .wl-page .wl-big-number,
-  #root .wl-big-number {
-    font-size: clamp(2.25rem, 8.2vw, 3rem) !important;
   }
 }
 
 @media (max-width: 370px) {
   body .wl-page > .grid.grid-cols-3:first-child {
-    margin-bottom: -4.65rem !important;
+    margin-bottom: -2.75rem !important;
   }
 
   body .wl-page h1.wl-hero-title,
