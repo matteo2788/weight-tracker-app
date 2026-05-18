@@ -275,8 +275,20 @@
   function WeeklyReportsPage(){
     const { state } = useApp();
     const s = stats(state);
-    const chunks=[]; for(let i=s.entries.length;i>0;i-=7) chunks.push(s.entries.slice(Math.max(0,i-7),i));
-    return <div className="wl-page fadein"><div className="wl-kicker">Reports</div><h1 className="wl-title mt-4">Weekly reports</h1><p className="mt-4 text-[#686761]">A calm, coach-style readout of each week. Patterns reveal themselves over time.</p><div className="mt-14 space-y-16">{chunks.slice(0,5).map((wk,i)=>{const avg=wk.reduce((a,b)=>a+ +b.weight,0)/wk.length;return <div className="grid grid-cols-[220px_150px_160px_1fr] gap-10 border-t border-[var(--ed-line)] pt-6" key={i}><div><div className="wl-kicker">Week of</div><div className="font-bold mt-2">{shortDate(wk[0].date)} — {shortDate(wk[wk.length-1].date)}</div><div className="text-3xl font-black mt-4">{one(avg)} <span className="text-sm">{s.unit}</span></div></div><div><div className="wl-kicker">Logged</div><div className="text-3xl font-black mt-4">{wk.length}/7</div></div><div><div className="wl-kicker">Range</div><div className="text-3xl font-black mt-4">{one(Math.min(...wk.map(e=>+e.weight)))}—<br/>{one(Math.max(...wk.map(e=>+e.weight)))}</div></div><div><div className="wl-kicker">Summary</div><p className="mt-4">Your average this week was {one(avg)} {s.unit}. Keep logging before making changes from one noisy week.</p></div></div>})}</div></div>;
+    const wsd = Number(state?.settings?.weekStartDay ?? 1);
+    const todayKey = today();
+    const currentWeekStart = typeof weekKey === 'function' ? weekKey(todayKey, wsd) : todayKey;
+    const weekName = wsd === 0 ? 'Sunday' : 'Monday';
+    const weeks = typeof weeklyAverages === 'function' ? weeklyAverages(s.entries, wsd).slice().reverse() : [];
+
+    function meta(w){
+      const isCurrent = w.weekStart === currentWeekStart;
+      const elapsed = isCurrent && typeof daysBetween === 'function' ? Math.min(7, Math.max(1, daysBetween(w.weekStart, todayKey) + 1)) : 7;
+      const left = isCurrent ? Math.max(0, 7 - elapsed) : 0;
+      return { isCurrent, elapsed, left, loggedLabel: isCurrent ? `${w.count}/${elapsed}` : `${w.count}/7`, unitLabel: isCurrent ? 'so far' : '' };
+    }
+
+    return <div className="wl-page fadein"><div className="wl-kicker">Reports</div><h1 className="wl-title mt-4">Weekly reports</h1><p className="mt-4 text-[#686761]">Weeks start on {weekName}. Current weeks are marked in progress so you don’t treat an unfinished week like a final verdict.</p><div className="mt-14 space-y-16">{weeks.slice(0,5).map((w,i)=>{const m=meta(w);return <div className="grid grid-cols-[220px_150px_160px_1fr] gap-10 border-t border-[var(--ed-line)] pt-6" key={w.weekStart}><div><div className="wl-kicker">Week of</div><div className="font-bold mt-2">{shortDate(w.weekStart)} — {shortDate(w.weekEnd)}</div>{m.isCurrent && <div className="wl-row-sub mt-2">In progress · day {m.elapsed} of 7{m.left ? ` · ${m.left} day${m.left===1?'':'s'} left` : ' · ends today'}</div>}<div className="text-3xl font-black mt-4">{one(w.avg)} <span className="text-sm">{s.unit}</span></div></div><div><div className="wl-kicker">{m.isCurrent ? 'Logged so far' : 'Logged'}</div><div className="text-3xl font-black mt-4">{m.loggedLabel}</div>{m.unitLabel && <div className="wl-row-sub mt-2">{m.unitLabel}</div>}</div><div><div className="wl-kicker">Range</div><div className="text-3xl font-black mt-4">{one(w.low)}—<br/>{one(w.high)}</div></div><div><div className="wl-kicker">Summary</div><p className="mt-4">{m.isCurrent ? `This week is still building. So far your average is ${one(w.avg)} ${s.unit} from ${w.count}/${m.elapsed} possible logged days. Keep logging before making changes.` : `Your average this week was ${one(w.avg)} ${s.unit}. Keep logging before making changes from one noisy week.`}</p></div></div>})}</div></div>;
   }
 
   function GoalsPage(){
