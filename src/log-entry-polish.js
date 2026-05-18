@@ -28,6 +28,17 @@
     };
   }
 
+  function emptyDraftForToday(state){
+    return {
+      originalDate: '',
+      date: today(),
+      weight: '',
+      tagsText: '',
+      notes: '',
+      unit: unitOf(state)
+    };
+  }
+
   function saveEntry(state, updateState, draft){
     const date = String(draft.date || '').trim();
     const weight = Number(draft.weight);
@@ -68,7 +79,7 @@
     if(window.__wlEditEntryDate) window.__wlEditEntryDate = '';
     const pendingEntry = pendingDate ? allAsc.find(x => x.date === pendingDate) : null;
 
-    const [draft,setDraft] = useState(blankDraft(state, pendingEntry || todayEntry || null));
+    const [draft,setDraft] = useState(pendingEntry ? blankDraft(state, pendingEntry) : emptyDraftForToday(state));
     const [q,setQ] = useState('');
     const [saved,setSaved] = useState('');
 
@@ -78,8 +89,14 @@
     const prevWeight = previous ? Number(previous.weight) : null;
     const diff = Number.isFinite(weightNum) && Number.isFinite(prevWeight) ? weightNum - prevWeight : null;
     const isToday = draft.date === todayKey;
-    const willUpdate = Boolean(existingForDate && existingForDate.date !== draft.originalDate);
+    const willReplace = Boolean(existingForDate && existingForDate.date !== draft.originalDate);
     const editingExisting = Boolean(draft.originalDate);
+    const modeLabel = editingExisting ? 'Editing saved entry' : willReplace ? 'Will replace this date' : 'New entry';
+    const helperLine = editingExisting
+      ? 'You are editing a saved weigh-in. Save changes will update this entry.'
+      : willReplace
+        ? 'This date already has a weigh-in. Saving will replace it, not duplicate it.'
+        : 'Add today’s weight. Tags and notes are optional.';
 
     const rows = allDesc.filter(row => {
       const needle = `${row.date} ${shortDate(row.date)} ${longDate(row.date)} ${(row.tags||[]).join(' ')} ${row.notes||''} ${row.weight}`.toLowerCase();
@@ -88,13 +105,13 @@
 
     function startToday(){
       const row = allAsc.find(x => x.date === todayKey) || null;
-      setDraft(blankDraft(state, row));
+      setDraft(row ? blankDraft(state, row) : emptyDraftForToday(state));
       setSaved('');
       window.scrollTo({top:0, behavior:'smooth'});
     }
 
     function startBlank(){
-      setDraft(blankDraft(state, null));
+      setDraft(emptyDraftForToday(state));
       setSaved('');
       window.scrollTo({top:0, behavior:'smooth'});
     }
@@ -116,19 +133,19 @@
 
     function del(date){
       removeEntry(state, updateState, date);
-      if(draft.date === date || draft.originalDate === date) setDraft(blankDraft(state, null));
+      if(draft.date === date || draft.originalDate === date) setDraft(emptyDraftForToday(state));
     }
 
     return e('div',{className:'wl-page fadein wl-log-page'},
       e('div',{className:'wl-log-hero'},
         e('div',null,
           e('div',{className:'wl-kicker'},'Daily log'),
-          e('h1',{className:'wl-title mt-4'}, isToday ? 'Log today’s weight' : 'Log weight'),
-          e('p',{className:'mt-4 text-[#686761] max-w-xl'},'Add one calm data point. The app updates the trend automatically and replaces duplicate dates instead of creating messy copies.')
+          e('h1',{className:'wl-title mt-4'},'Log today’s weight'),
+          e('p',{className:'mt-4 text-[#686761] max-w-xl'},'Enter one calm data point. Weight goes in the main field. Tags and notes are optional context, not required.')
         ),
         e('div',{className:'wl-log-hero-actions'},
-          e('button',{className:'wl-btn light',onClick:startBlank},'New date'),
-          e('button',{className:'wl-btn',onClick:startToday}, todayEntry ? 'Edit today' : '+ Today')
+          e('button',{className:'wl-btn light',onClick:startBlank},'Clear form'),
+          e('button',{className:'wl-btn',onClick:startToday}, todayEntry ? 'Edit today' : 'Use today')
         )
       ),
 
@@ -137,28 +154,34 @@
       e('section',{className:'wl-log-card'},
         e('div',{className:'wl-log-card-head'},
           e('div',null,
-            e('div',{className:'wl-kicker'}, editingExisting ? 'Editing entry' : isToday ? 'Today’s entry' : 'New entry'),
-            e('h2',{className:'wl-log-card-title'}, draft.date ? longDate(draft.date) : 'Choose a date')
+            e('div',{className:'wl-kicker'}, modeLabel),
+            e('h2',{className:'wl-log-card-title'}, isToday ? 'Today' : longDate(draft.date)),
+            e('p',{className:'wl-log-helper'},helperLine)
           ),
-          e('div',{className:'wl-log-status'}, willUpdate ? 'Will replace existing date' : editingExisting ? 'Saved date' : 'New data point')
+          e('div',{className:'wl-log-status'}, editingExisting ? 'Loaded saved values' : willReplace ? 'Save replaces date' : 'Ready to add')
         ),
 
-        e('div',{className:'wl-log-form-grid'},
-          e('label',null,
-            e('div',{className:'wl-kicker mb-2'},'Date'),
-            e('input',{className:'wl-form-line w-full',type:'date',value:draft.date,onChange:x=>{setSaved('');setDraft({...draft,date:x.target.value,originalDate:draft.originalDate});}})
-          ),
-          e('label',null,
+        e('div',{className:'wl-log-main-fields'},
+          e('label',{className:'wl-log-field wl-log-weight-field'},
             e('div',{className:'wl-kicker mb-2'},`Weight (${unit})`),
-            e('input',{className:'wl-form-line w-full wl-log-weight-input',inputMode:'decimal',placeholder:'154.2',value:draft.weight,onChange:x=>{setSaved('');setDraft({...draft,weight:x.target.value});}})
+            e('input',{className:'wl-form-line w-full wl-log-weight-input',inputMode:'decimal',placeholder:'Enter weight',value:draft.weight,onChange:x=>{setSaved('');setDraft({...draft,weight:x.target.value});}}),
+            e('div',{className:'wl-log-field-hint'}, previous ? `Previous: ${one(previous.weight)} ${unit} on ${shortDate(previous.date)}` : 'No previous weigh-in yet')
           ),
-          e('label',null,
-            e('div',{className:'wl-kicker mb-2'},'Tags'),
-            e('input',{className:'wl-form-line w-full',placeholder:'high sodium, ate late',value:draft.tagsText,onChange:x=>{setSaved('');setDraft({...draft,tagsText:x.target.value});}})
+          e('label',{className:'wl-log-field'},
+            e('div',{className:'wl-kicker mb-2'},'Date'),
+            e('input',{className:'wl-form-line w-full',type:'date',value:draft.date,onChange:x=>{setSaved('');setDraft({...draft,date:x.target.value,originalDate:draft.originalDate});}}),
+            e('div',{className:'wl-log-field-hint'}, willReplace ? 'Already logged — saving will replace it' : 'Choose the day this weight belongs to')
+          )
+        ),
+
+        e('div',{className:'wl-log-optional-fields'},
+          e('label',{className:'wl-log-field'},
+            e('div',{className:'wl-kicker mb-2'},'Tags optional'),
+            e('input',{className:'wl-form-line w-full',placeholder:'Example: high sodium, late meal',value:draft.tagsText,onChange:x=>{setSaved('');setDraft({...draft,tagsText:x.target.value});}})
           ),
-          e('label',null,
-            e('div',{className:'wl-kicker mb-2'},'Notes'),
-            e('input',{className:'wl-form-line w-full',placeholder:'Optional note',value:draft.notes,onChange:x=>{setSaved('');setDraft({...draft,notes:x.target.value});}})
+          e('label',{className:'wl-log-field'},
+            e('div',{className:'wl-kicker mb-2'},'Notes optional'),
+            e('input',{className:'wl-form-line w-full',placeholder:'Add a short note if useful',value:draft.notes,onChange:x=>{setSaved('');setDraft({...draft,notes:x.target.value});}})
           )
         ),
 
@@ -169,21 +192,21 @@
             e('div',{className:'wl-log-context-sub'}, previous ? shortDate(previous.date) : 'No previous data yet')
           ),
           e('div',null,
-            e('div',{className:'wl-kicker'},'Change vs previous'),
+            e('div',{className:'wl-kicker'},'Change if saved'),
             e('div',{className:`wl-log-context-main ${diff < 0 ? 'good' : diff > 0 ? 'warn' : ''}`}, Number.isFinite(diff) ? `${diff > 0 ? '+' : ''}${one(diff)} ${unit}` : '—'),
-            e('div',{className:'wl-log-context-sub'},'One change does not define the trend')
+            e('div',{className:'wl-log-context-sub'},'This is just context, not a trend judgment')
           ),
           e('div',null,
             e('div',{className:'wl-kicker'},'Save behavior'),
-            e('div',{className:'wl-log-context-main small'}, willUpdate ? 'Replace' : 'Add'),
-            e('div',{className:'wl-log-context-sub'}, willUpdate ? 'This date already exists' : 'No duplicate for this date')
+            e('div',{className:'wl-log-context-main small'}, willReplace || editingExisting ? 'Replace' : 'Add'),
+            e('div',{className:'wl-log-context-sub'}, willReplace || editingExisting ? 'One entry per date' : 'Creates one clean entry')
           )
         ),
 
         e('div',{className:'wl-log-actions'},
-          e('button',{className:'wl-btn',onClick:save}, editingExisting || willUpdate ? 'Save changes' : 'Save entry'),
+          e('button',{className:'wl-btn',onClick:save}, editingExisting || willReplace ? 'Save changes' : 'Save entry'),
           editingExisting && e('button',{className:'wl-btn light wl-log-danger',onClick:()=>del(draft.originalDate)},'Delete'),
-          e('button',{className:'wl-link',onClick:()=>setDraft(blankDraft(state, null))},'Clear')
+          e('button',{className:'wl-link',onClick:()=>setDraft(emptyDraftForToday(state))},'Clear')
         )
       ),
 
